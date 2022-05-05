@@ -1,0 +1,32 @@
+#backtitle {
+    display: flex;
+
+}
+
+h1{
+    text-align: center;
+}
+
+#product {
+    display: flex;
+    flex-flow: wrap column;
+}
+
+
+
+.img_cont {
+    width: 100%;
+    border-radius: 10px;
+}
+
+article {
+    padding-top: 10px;
+}
+img {
+    width: 100%;
+}
+
+h3 {
+    padding-top: 10px;
+}
+
