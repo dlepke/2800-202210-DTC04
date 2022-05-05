@@ -1,0 +1,64 @@
+/* Google Icons */
+/* Important notes: 
+i is globally applied
+
+body is globally applied so that the footers and navbar don't cover content.
+
+
+
+*/
+
+.material-icons.md-18 {
+    font-size: 18px;
+}
+
+.material-icons.md-24 {
+    font-size: 24px;
+}
+
+.material-icons.md-36 {
+    font-size: 36px;
+}
+
+.material-icons.md-48 {
+    font-size: 48px;
+}
+
+i {
+    color: #3d6c36;
+}
+
+body {
+    padding-top: 100px;
+    margin-bottom: 100px;
+    clear: both;
+ }
+
+/* ----------- */
+/* Footer */
+/* ----------- */
+
+/* Footer spacing */
+.flexfooter {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 3px;
+}
+
+/* Bottom icons text centering if bottom text to be implemented */
+.icon {
+    display: flex;
+    padding-top: 3px;
+    justify-content: center;
+    flex-direction: column;
+    text-decoration: none;
+    size: small;
+    color: black;
+    text-align: center;
+}
+
+.navbar>.container {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
