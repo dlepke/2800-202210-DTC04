@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>My BCIT Project</title>
+    <title>Watchlist</title>
 
     <!------------------------>
     <!-- Required meta tags -->
@@ -29,6 +29,9 @@
     <!-- Other libraries and styles of your own -->
     <!-------------------------------------------->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="../styles/skeleton.css">
+    <link rel="stylesheet" href="../styles/watchlist.css">
+
 
 
 </head>
@@ -42,28 +45,28 @@
     <nav id="navbarPlaceholder"></nav>
 
     <!-- the body of your page goes here -->
-    <h1>This is a page</h1>
+    <h1>Watchlist</h1>
     <main>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum ullam minima doloribus. Eaque dolore optio ea
-        voluptates sunt dolores est ipsam, distinctio eum doloremque explicabo nesciunt, impedit praesentium eius
-        tempora.
-
-        <article>
-            <h3>first</h3>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Et sunt, at laborum aut rem eum nostrum asperiores
-            delectus enim perspiciatis soluta ut dolores ratione architecto repellat non eveniet veritatis odit.
-
-        </article>
-        <article>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Et sunt, at laborum aut rem eum nostrum asperiores
-            delectus enim perspiciatis soluta ut dolores ratione architecto repellat non eveniet veritatis odit.
-
-        </article>
-        <article>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Et sunt, at laborum aut rem eum nostrum asperiores
-            delectus enim perspiciatis soluta ut dolores ratione architecto repellat non eveniet veritatis odit.
-
-        </article>
+        <h3>Your selected items</h3>
+        <div id="items">
+            <div class="product shadow">
+                <div class="productimg shadow-sm">
+                    <a href="./productview.html">
+                        <img src="../images/banana.png" width="100%">
+                    </a>
+                </div>
+                <div class="product_textbox">
+                    <h3 class="product_title">
+                        Banana
+                    </h3>
+                    <div class="product_description">
+                        Current Cheapest Location: 
+                    </div>
+                </div>
+            </div>
+            
+            <!-- This is where the items will be generated from database-->
+        </div>
 
 
 
