@@ -31,7 +31,8 @@ app.listen(5050, function(err) {
 
 app.get('/', function (req, res, next) {
     if (req.session.username) {
-        res.send("logged in :)");
+        res.redirect('/profile');
+        // res.send();
     } else {
         res.sendFile(path.join(htmlPath + '/sign_in.html'));
     }
@@ -64,3 +65,9 @@ app.post('/authenticate',
         res.send();
     }
 )
+
+app.get("/logout", (req, res) => {
+    req.session.destroy();
+    res.redirect('/');
+    // res.send();
+})
