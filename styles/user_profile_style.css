@@ -21,7 +21,7 @@ main{
 
 #display_profile{
     position: absolute;
-    top: 30%;
+    top: 20%;
     text-align: center;
 }
 
@@ -47,3 +47,4 @@ button{
     border: none;
     background-color: transparent;
 }
+
