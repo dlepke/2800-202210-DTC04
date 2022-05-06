@@ -48,7 +48,6 @@ app.get('/', function (req, res, next) {
 });
 
 app.get("/profile", function (req, res, next) {
-    // console.log("getting profile");
     if (req.session.username) {
         res.sendFile(path.join(htmlPath + '/user_profile.html'));
     } else {
@@ -76,7 +75,6 @@ function checkUsernamePasswordCombo(username, password, handleResult) {
             console.log(rows, rows.length);
             result = true;
         }
-        // console.log(result);
 
         connection.end();
         handleResult(result);
@@ -89,28 +87,22 @@ app.post('/authenticate',
     }),
     (req, res, next) => {
         console.log(`${req.body.username} + ${req.body.password}`);
-
-        // if (req.body.username == "admin" && req.body.password == "admin") {
-        //     res.locals.username = req.body.username;
-        //     next();
-        // } else {
-            checkUsernamePasswordCombo(req.body.username, req.body.password, (result) => {
-                if (result) {
-                    res.locals.username = req.body.username;
-                    console.log("correct username/pw");
-                    next();
-                } else {
-                    console.log("incorrect username/pw");
-                    res.redirect('/');
-                }
-            });
-        // }
+        checkUsernamePasswordCombo(req.body.username, req.body.password, (result) => {
+            if (result) {
+                res.locals.username = req.body.username;
+                console.log("correct username/pw");
+                next();
+            } else {
+                console.log("incorrect username/pw");
+                res.redirect('/');
+            }
+        });
     },
     (req, res) => {
-        // console.log("logging in");
+
         req.session.loggedIn = true;
         req.session.username = res.locals.username;
-        // console.log("session: " + req.session);
+
         res.redirect('/profile');
         res.send();
     }
@@ -119,7 +111,6 @@ app.post('/authenticate',
 app.get("/logout", (req, res) => {
     req.session.destroy();
     res.redirect('/');
-    // res.send();
 });
 
 app.get("/create_account", (req, res) => {
@@ -181,10 +172,10 @@ app.post("/create_account_in_db",
         }
     },
     (req, res) => {
-        // console.log("logging in");
+
         req.session.loggedIn = true;
         req.session.username = res.locals.username;
-        // console.log("session: " + req.session);
+
         res.redirect('/profile');
         res.send();
     }
@@ -210,11 +201,7 @@ app.post('/authenticate_admin',
         }
     },
     (req, res) => {
-        // console.log("logging in");
-        // req.session.loggedIn = true;
-        // req.session.username = res.locals.username;
         req.session.admin = res.locals.admin;
-        // console.log("session: " + req.session);
         res.redirect('/account_list');
         res.send();
     }
@@ -238,7 +225,6 @@ function fetchAccounts(handleResult) {
             throw err;
         }
         result = rows;
-        // console.log(result);
 
         connection.end();
         handleResult(result)
@@ -246,7 +232,6 @@ function fetchAccounts(handleResult) {
 }
 
 app.get('/account_list_data', (req, res) => {
-    // console.log("displaying admin page")
 
     fetchAccounts((result) => {
         res.send(result);
