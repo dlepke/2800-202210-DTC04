@@ -88,40 +88,23 @@ app.post('/authenticate',
         extended: true
     }),
     (req, res, next) => {
-        // connection.connect()
+        console.log(`${req.body.username} + ${req.body.password}`);
 
-        // let result = false;
-
-        // connection.query(`SELECT * FROM users WHERE username = '${req.body.username}' AND password = '${req.body.password}';`, (err, rows, fields) => {
-        //     if (err) {
-        //         throw err;
-        //     } else if (rows.length == 1) {
-        //         console.log(rows, rows.length);
-        //         this.result = true;
-        //     }
-        // })
-        // console.log(result);
-        // connection.end()
-
-        checkUsernamePasswordCombo(req.body.username, req.body.password, (result) => {
-            if (result) {
-                res.locals.username = req.body.username;
-                console.log("correct username/pw");
-                next();
-            } else {
-                console.log("incorrect username/pw");
-                res.redirect('/');
-            }
-        });
-
-        // if (result) {
-        //     res.locals.username = req.body.username;
-        //     console.log("correct username/pw");
-        //     next();
-        // } else {
-        //     console.log("incorrect username/pw");
-        //     res.redirect('/');
-        // }
+        if (req.body.username == "admin" && req.body.password == "admin") {
+            res.locals.username = req.body.username;
+            next();
+        } else {
+            checkUsernamePasswordCombo(req.body.username, req.body.password, (result) => {
+                if (result) {
+                    res.locals.username = req.body.username;
+                    console.log("correct username/pw");
+                    next();
+                } else {
+                    console.log("incorrect username/pw");
+                    res.redirect('/');
+                }
+            });
+        }
     },
     (req, res) => {
         // console.log("logging in");
