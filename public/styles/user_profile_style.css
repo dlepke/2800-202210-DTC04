@@ -16,19 +16,15 @@ main{
     justify-content: center;
     width: 90%;
     height: 100%;
-    position: relative;
 }
 
 #display_profile{
-    position: absolute;
-    top: 20%;
     text-align: center;
 }
 
 #options{
     width: 100%;
-    position: absolute;
-    top: 60%;
+    margin-top: 50px;
 }
 
 #profile_pic{
