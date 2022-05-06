@@ -90,10 +90,10 @@ app.post('/authenticate',
     (req, res, next) => {
         console.log(`${req.body.username} + ${req.body.password}`);
 
-        if (req.body.username == "admin" && req.body.password == "admin") {
-            res.locals.username = req.body.username;
-            next();
-        } else {
+        // if (req.body.username == "admin" && req.body.password == "admin") {
+        //     res.locals.username = req.body.username;
+        //     next();
+        // } else {
             checkUsernamePasswordCombo(req.body.username, req.body.password, (result) => {
                 if (result) {
                     res.locals.username = req.body.username;
@@ -104,7 +104,7 @@ app.post('/authenticate',
                     res.redirect('/');
                 }
             });
-        }
+        // }
     },
     (req, res) => {
         // console.log("logging in");
@@ -189,3 +189,77 @@ app.post("/create_account_in_db",
         res.send();
     }
 );
+
+app.get('/admin', (req, res) => {
+    res.sendFile(path.join(htmlPath + '/admin_login.html'));
+})
+
+app.post('/authenticate_admin',
+    bodyParser.urlencoded({
+        extended: true
+    }),
+    (req, res, next) => {
+        console.log(`${req.body.username} + ${req.body.password}`);
+
+        if (req.body.username == "admin" && req.body.password == "admin") {
+            res.locals.username = req.body.username;
+            res.locals.admin = true;
+            next();
+        } else {
+            res.redirect('/admin');
+        }
+    },
+    (req, res) => {
+        // console.log("logging in");
+        // req.session.loggedIn = true;
+        // req.session.username = res.locals.username;
+        req.session.admin = res.locals.admin;
+        // console.log("session: " + req.session);
+        res.redirect('/account_list');
+        res.send();
+    }
+);
+
+function fetchAccounts(handleResult) {
+    const connection = mysql.createConnection({
+        port: 3306,
+        host: '127.0.0.1',
+        user: 'foodbuddy',
+        password: 'comp2800',
+        database: 'users'
+      });
+
+    connection.connect()
+
+    let result = false;
+
+    connection.query(`SELECT * FROM users;`, (err, rows, fields) => {
+        if (err) {
+            throw err;
+        }
+        result = rows;
+        // console.log(result);
+
+        connection.end();
+        handleResult(result)
+    })
+}
+
+app.get('/account_list_data', (req, res) => {
+    // console.log("displaying admin page")
+
+    fetchAccounts((result) => {
+        res.send(result);
+    });
+})
+
+app.get('/account_list', (req, res) => {
+    if (req.session.admin) {
+        fetchAccounts((result) => {
+            res.sendFile(path.join(htmlPath + '/account_list.html'));
+        });
+    } else {
+        res.redirect('/admin');
+    }
+})
+
