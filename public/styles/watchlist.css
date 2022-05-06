@@ -1,0 +1,20 @@
+#items {
+    display: grid;
+    /* grid-template: auto / auto auto; */
+    grid-template-columns: 50% 50%;
+    /* grid-template-rows: 50% 50%; */
+    
+
+}
+
+.product {
+    display: flex;
+    justify-content: center;
+    border-radius: 10px;
+    flex-direction: column;
+    padding: 10px;
+    margin: 10px;
+}
+
+
+

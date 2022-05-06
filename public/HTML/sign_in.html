@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../styles/create_account_style.css">
+    <title>Login</title>
+</head>
+
+<body>
+    <div id="wrapper">
+        <main>
+            <a href="/admin">Admin Login</a>
+            <div id="logo">
+                <img src="../images/foodbuddy-logo-icononly.png" id="logo_icon">
+                <p id="logo_text">FoodBuddy</p>
+            </div>
+            <p>Sign in to your account</p>
+            <div id="signup_direct">
+                <p>Don't have the account?</p>
+                <a href="/create_account">Sign up</a>
+            </div>
+            <form id="signin_form" action="http://localhost:5050/authenticate" method="post">
+                <input type="text" placeholder="Email" id="email" name="username">
+                <input type="text" placeholder="Password" id="password" name="password">
+                <button id="signin_submit">Sign in</button>
+            </form>
+        </main>
+    </div>
+</body>
+
+</html>
