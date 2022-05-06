@@ -125,3 +125,67 @@ app.get("/logout", (req, res) => {
 app.get("/create_account", (req, res) => {
     res.sendFile(path.join(htmlPath + '/create_account.html'));
 });
+
+function createNewAccount(username, password, firstName, lastName, handleResult) {
+    const connection = mysql.createConnection({
+        port: 3306,
+        host: '127.0.0.1',
+        user: 'foodbuddy',
+        password: 'comp2800',
+        database: 'users'
+      });
+
+    connection.connect()
+
+    console.log("inserting new user into db");
+    console.log(username, password, firstName, lastName)
+
+    connection.query(
+        `INSERT INTO Users (username, password, firstName, lastName) VALUES ('${username}', '${password}', '${firstName}', '${lastName}');`,
+        (err) => {
+            if (err) {
+                throw err;
+            }
+
+            connection.end();
+    })
+}
+
+app.post("/create_account_in_db",
+    bodyParser.urlencoded({
+        extended: true
+    }),
+    (req, res, next) => {
+        console.log(`username: ${req.body.username}\n
+        password: ${req.body.password}\n
+        confirmed password: ${req.body.confirmPassword}\n
+        first name: ${req.body.firstName}\n
+        last name: ${req.body.lastName}`);
+
+        if (req.body.password != req.body.confirmPassword) {
+            console.log("passwords do not match")
+            res.redirect('create_account');
+        } else {
+
+            checkUsernamePasswordCombo(req.body.username, req.body.password, (result) => {
+                if (result) {
+                    console.log("username/pw already exists");
+                    res.redirect('/create_account');
+                } else {
+                    res.locals.username = req.body.username;
+                    console.log("valid/new username/pw");
+                    createNewAccount(req.body.username, req.body.password, req.body.firstName, req.body.lastName)
+                    next();
+                }
+            });
+        }
+    },
+    (req, res) => {
+        // console.log("logging in");
+        req.session.loggedIn = true;
+        req.session.username = res.locals.username;
+        // console.log("session: " + req.session);
+        res.redirect('/profile');
+        res.send();
+    }
+);

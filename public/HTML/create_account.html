@@ -19,17 +19,17 @@
             <p>Sign up for an account</p>
             <div id="signin_direct">
                 <p>Already have account?</p>
-                <a href="sign_in.html">Sign in</a>
+                <a href="/">Sign in</a>
             </div>
-            <div id="info_form">
-                <input type="text" placeholder="First name" id="first">
-                <input type="text" placeholder="Last name" id="last">
-                <input type="text" placeholder="Email" id="email">
-                <input type="text" placeholder="Password" id="password">
-                <input type="text" placeholder="Confirm password" id="confirm_password">
+            <form id="info_form" action="http://localhost:5050/create_account_in_db" method="post">
+                <input type="text" placeholder="First name" id="first" name="firstName">
+                <input type="text" placeholder="Last name" id="last" name="lastName">
+                <input type="text" placeholder="Email" id="email" name="username">
+                <input type="text" placeholder="Password" id="password" name="password">
+                <input type="text" placeholder="Confirm password" id="confirm_password" name="confirmPassword">
                 <p id="note">You password should be a minimum of 8 characters, at least 1 capital letter and 1 number.</p>
                 <button id="signup_submit">Sign up</button>
-            </div>
+            </form>
 
         </main>
     </div>
