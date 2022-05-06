@@ -1,13 +1,13 @@
 *{
     box-sizing: border-box;
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    font-size: 15px;
-
+    font-size: 13px;
+    color: rgb(48, 48, 48)
 }
 
 #wrapper{
     position: fixed;
-    top: 50%;
+    top: 45%;
     left: 50%;
     transform: translate(-50%, -50%);
     display: flex;
@@ -28,12 +28,14 @@ main{
 
 
 #logo{
-    background-color: rgb(236, 255, 238);
     border-radius: 0.5rem;
     margin: 20px;
     width: 80%;
 }
 
+p{
+    margin: 5px;
+}
 #info_form, #signin_form{
     display: flex;
     align-items: center;
@@ -42,11 +44,12 @@ main{
 }
 
 input{
-    margin: 7px;
+    margin: 5px;
     border-radius: 0.5rem;
     border-width: 0.01px;
     height: 25px;
     width: 100%;
+    padding: 3px;
 }
 
 button{
@@ -56,6 +59,20 @@ button{
     border-width: 0px;
     border-radius: 0.5rem;
     height: 25px;
+}
+
+#logo_icon{
+    width: 30%;
+}
+
+#logo_text{
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    font-size: 2rem;
+    line-height: 110%;
+    margin-top: 5px;
+    color: rgb(61, 108, 54);
 }
 
 
