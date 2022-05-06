@@ -12,7 +12,7 @@ body is globally applied so that the footers and navbar don't cover content.
 }
 .profile {
     display: flex;
-    justify-content: en;
+    justify-content: end;
 }
 
 /* .material-icons.md-18 {
@@ -68,7 +68,7 @@ body {
     flex-wrap: nowrap;
 }
 
-img{
+#logo {
     width: 30%;
 }
 
