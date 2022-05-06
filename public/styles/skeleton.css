@@ -7,30 +7,32 @@ body is globally applied so that the footers and navbar don't cover content.
 
 
 */
-
+*{
+    box-sizing: border-box;
+}
 .profile {
     display: flex;
     justify-content: en;
 }
 
-.material-icons.md-18 {
-    font-size: 18px;
-}
+/* .material-icons.md-18 {
+    font-size: 11px;
+} */
 
-.material-icons.md-24 {
+/* .material-icons.md-24 {
     font-size: 24px;
-}
+} */
 
 .material-icons.md-36 {
-    font-size: 36px;
+    font-size: 30px;
 }
 
 .material-icons.md-48 {
-    font-size: 48px;
+    font-size: 35px;
 }
 
 i {
-    color: #3d6c36;
+    color: rgb(129, 129, 129);
 }
 
 body {
@@ -58,7 +60,6 @@ body {
     flex-direction: column;
     text-decoration: none;
     size: small;
-    color: black;
     text-align: center;
 }
 
@@ -66,4 +67,20 @@ body {
     display: flex;
     flex-wrap: nowrap;
 }
+
+img{
+    width: 30%;
+}
+
+.navbar, .footer{
+    box-shadow: 2px 2px 3px 2px rgb(209, 209, 209);
+    padding: 0px;
+    background-color: white;
+}
+
+.footer{
+    padding: 5px;
+}
+
+
 
