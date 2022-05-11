@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require('express');
 const app = express();
 const path = require('path');
@@ -7,10 +9,13 @@ var mysql = require('mysql2');
 const bodyParser = require('body-parser');
 const { receiveMessageOnPort } = require('worker_threads');
 
-const PORT = process.env.PORT || 5050;
-console.log(PORT);
+const PORT = process.env.PORT;
+const HOST = process.env.HOST;
+const USER = process.env.USER;
+const PASSWORD = process.env.PASSWORD;
 
-var publicPath = path.join(__dirname, 'public');
+
+// var publicPath = path.join(__dirname, 'public');
 var htmlPath = path.join(__dirname, 'public/HTML');
 
 app.use(express.static('public'));
@@ -21,12 +26,6 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 const oneDay = 1000 * 60 * 60 * 24;
-
-let users = {
-    "user1": "password",
-    "user2": "pw",
-    "user3": "pass"
-};
 
 app.use(session({
     secret: 'shush',
@@ -58,14 +57,18 @@ app.get("/profile", function (req, res, next) {
     }
 });
 
-function checkUsernamePasswordCombo(username, password, handleResult) {
-    const connection = mysql.createConnection({
-        port: 3306,
-        host: '127.0.0.1',
-        user: 'foodbuddy',
-        password: 'comp2800',
-        database: 'users'
+function createConnection() {
+    return mysql.createConnection({
+        port: PORT,
+        host: HOST,
+        user: USER,
+        password: PASSWORD,
+        database: 'foodbuddy'
       });
+}
+
+function checkUsernamePasswordCombo(username, password, handleResult) {
+    const connection = createConnection();
 
     connection.connect()
 
@@ -121,13 +124,7 @@ app.get("/create_account", (req, res) => {
 });
 
 function createNewAccount(username, password, firstName, lastName, handleResult) {
-    const connection = mysql.createConnection({
-        port: 3306,
-        host: '127.0.0.1',
-        user: 'foodbuddy',
-        password: 'comp2800',
-        database: 'users'
-      });
+    const connection = createConnection();
 
     connection.connect()
 
@@ -211,13 +208,7 @@ app.post('/authenticate_admin',
 );
 
 function fetchAccounts(handleResult) {
-    const connection = mysql.createConnection({
-        port: 3306,
-        host: '127.0.0.1',
-        user: 'foodbuddy',
-        password: 'comp2800',
-        database: 'users'
-      });
+    const connection = createConnection();
 
     connection.connect()
 
