@@ -7,6 +7,8 @@ var mysql = require('mysql2');
 const bodyParser = require('body-parser');
 const { receiveMessageOnPort } = require('worker_threads');
 
+const PORT = 5050;
+
 var publicPath = path.join(__dirname, 'public');
 var htmlPath = path.join(__dirname, 'public/HTML');
 
@@ -32,7 +34,7 @@ app.use(session({
     cookie: { maxAge: oneDay }
 }));
 
-app.listen(5050, function(err) {
+app.listen(process.env.port || PORT, function(err) {
     if (err) {
         console.log(err);
     }
@@ -63,6 +65,9 @@ function checkUsernamePasswordCombo(username, password, handleResult) {
         password: 'comp2800',
         database: 'users'
       });
+
+      // heroku cleardb url:
+    //   mysql://b631fbc47669b0:77ae5a96@us-cdbr-east-05.cleardb.net/heroku_73de71c80c93de1?reconnect=true
 
     connection.connect()
 
