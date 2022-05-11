@@ -35,7 +35,7 @@ app.use(session({
     cookie: { maxAge: oneDay }
 }));
 
-app.listen(PORT, function(err) {
+app.listen(process.env.port || PORT, function(err) {
     if (err) {
         console.log(err);
     }
