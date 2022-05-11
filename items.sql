@@ -59,7 +59,7 @@ INSERT INTO Items (name, price, img, location, id) VALUES (
     'toilet_paper', '$8', 'toiletpaper.png', 'Walmart', '8'
 );
 
-INSERT INTO Items (name, price, img, location, id) VALUES (
+INSERT INTO Items (name, price, img, location, id) VALUES ( 
     'toilet_paper', '$7.90', 'toiletpaper.png', 'Costco', '9'
 );
 
