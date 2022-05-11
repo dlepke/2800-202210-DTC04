@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>My BCIT Project</title>
+
+    <!------------------------>
+    <!-- Required meta tags -->
+    <!------------------------>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!------------------------------------------>
+    <!-- Bootstrap Library CSS JS CDN go here -->
+    <!------------------------------------------>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+        </script>
+
+    <!-------------------------------------------------------->
+    <!--Libraries related CSS, JS, JQuery go here -->
+    <!-------------------------------------------------------->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+    <!-------------------------------------------->
+    <!-- Other libraries and styles of your own -->
+    <!-------------------------------------------->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+</head>
+
+<body class="container">
+    <!------------------------------>
+    <!-- Your HTML Layout go here -->
+    <!------------------------------>
+
+    <!-- our own navbar goes here -->
+    <nav id="navbarPlaceholder"></nav>
+
+    <!-- the body of your page goes here -->
+    <main>
+        <label for="filter_sort">Filter By:</label>
+        <form id="filter_sort">
+            <div id="filter">
+                <label for="price">Price</label>
+                <div id="price">
+                    <input type="radio" id="one_dollar">
+                    <label for="one_dollar">One dollar or less</label>
+                    <br>
+                    <input type="radio" id="two_dollars">
+                    <label for="two_dollars">Two dollars or less</label>
+                    <br>
+                    <input type="radio" id="three_dollars">
+                    <label for="three_dollars">Three dollars or less</label>
+                    <br>
+                    <input type="radio" id="four_dollars">
+                    <label for="four_dollars">Four dollars or less</label>
+                    <br>
+                    <input type="radio" id="five_dollars">
+                    <label for="five_dollars">Five dollars or less</label>
+                </div>
+
+                <label for="distance">Distance</label>
+                <div id="distance">
+                    <input type="radio" id="one_km">
+                    <label for="one_km">Within one killometer</label>
+                    <br>
+                    <input type="radio" id="two_km">
+                    <label for="two_km">Within two killometers</label>
+                    <br>
+                    <input type="radio" id="three_km">
+                    <label for="three_km">Within three killometers</label>
+                    <br>
+                    <input type="radio" id="five_km">
+                    <label for="five_km">Within five killometers</label>
+                </div>
+
+                <label for="rating">Rating</label>
+                <div id="rating">
+                    <input type="radio" id="five_star">
+                    <label for="five_star">Five stars</label>
+                    <br>
+                    <input type="radio" id="four_star">
+                    <label for="four_star">Four stars or above</label>
+                    <br>
+                    <input type="radio" id="three_star">
+                    <label for="three_star">Three stars or above</label>
+                    <br>
+                    <input type="radio" id="two_star">
+                    <label for="two_star">Two stars or above</label>
+                </div>
+
+
+            </div>
+
+            <div id="sort">
+                <label for="sort_options">Sort By:</label>
+                <select name="sort_options" id="sort_options">
+                    <option value="price">Price</option>
+                    <option value="Distance">Distance</option>
+                    <option value="rating">Rating</option>
+                </select>
+            </div>
+
+            <div id="back_to_search">
+                <input type="button" id="return_to_search" value="New search">
+            </div>
+        </form>
+        <div class="results">
+            <h1>Nothing to see here (yet...)</h1>
+        </div>
+
+    </main>
+
+
+    <!-- our own footer goes here-->
+    <nav id="footerPlaceholder"></nav>
+
+    <!---------------------------------------------->
+    <!-- Your own JavaScript functions go here    -->
+    <!---------------------------------------------->
+
+    <script src="../scripts/skeleton.js"></script>
+    <!-- <script src="./scripts/script.js"></script> -->
+
+</body>
+
+</html>
