@@ -7,6 +7,8 @@ var mysql = require('mysql2');
 const bodyParser = require('body-parser');
 const { receiveMessageOnPort } = require('worker_threads');
 
+const PORT = process.env.PORT || 5050;
+
 var publicPath = path.join(__dirname, 'public');
 var htmlPath = path.join(__dirname, 'public/HTML');
 
@@ -32,7 +34,7 @@ app.use(session({
     cookie: { maxAge: oneDay }
 }));
 
-app.listen(5050, function(err) {
+app.listen(PORT, function(err) {
     if (err) {
         console.log(err);
     }
