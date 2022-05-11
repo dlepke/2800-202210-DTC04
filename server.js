@@ -104,7 +104,7 @@ function resetUserDatabaseTable() {
 
     connection.connect();
 
-    // connection.query('DROP TABLE Users;');
+    connection.query('DROP TABLE Users;');
 
     connection.query('CREATE TABLE IF NOT EXISTS Users ( userid int NOT NULL AUTO_INCREMENT PRIMARY KEY, username varchar(50), password varchar(50), firstName varchar(50), lastName varchar(50));');
 
@@ -121,7 +121,7 @@ function resetUserDatabaseTable() {
 }
 
 // uncomment this function call if you want to ENTIRELY RESET the User table in the Heroku database
-resetUserDatabaseTable();
+// resetUserDatabaseTable();
 
 function checkUsernamePasswordCombo(username, password, handleResult) {
     const connection = createConnection();
