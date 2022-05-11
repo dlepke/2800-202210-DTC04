@@ -61,7 +61,7 @@ function checkUsernamePasswordCombo(username, password, handleResult) {
         host: '127.0.0.1',
         user: 'foodbuddy',
         password: 'comp2800',
-        database: 'users'
+        database: 'foodbuddy'
       });
 
     connection.connect()
@@ -213,7 +213,7 @@ function fetchAccounts(handleResult) {
         host: '127.0.0.1',
         user: 'foodbuddy',
         password: 'comp2800',
-        database: 'users'
+        database: 'foodbuddy'
       });
 
     connection.connect()
