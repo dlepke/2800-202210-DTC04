@@ -15,9 +15,10 @@ then copy paste this sql into it directly:
 DROP TABLE Users;
 
 
-CREATE DATABASE IF NOT EXISTS Users;
+CREATE DATABASE IF NOT EXISTS Foodbuddy;
 
 CREATE TABLE IF NOT EXISTS Users (
+    userid int NOT NULL AUTO_INCREMENT PRIMARY KEY,
     username varchar(50),
     password varchar(50),
     firstName varchar(50),
