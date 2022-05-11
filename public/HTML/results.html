@@ -43,7 +43,12 @@
 
     <!-- the body of your page goes here -->
     <main>
-        <label for="filter_sort">Filter By:</label>
+        <label for="filter_sort">
+            <h2>
+                Filter By:
+            </h2>
+        </label>
+
         <form id="filter_sort">
             <div id="filter">
                 <label for="price">Price</label>
@@ -57,12 +62,14 @@
                     <input type="radio" id="three_dollars">
                     <label for="three_dollars">Three dollars or less</label>
                     <br>
-                    <input type="radio" id="four_dollars">
-                    <label for="four_dollars">Four dollars or less</label>
-                    <br>
                     <input type="radio" id="five_dollars">
                     <label for="five_dollars">Five dollars or less</label>
+                    <br>
+                    <input type="radio" id="ten_dollars">
+                    <label for="ten_dollars">Ten dollars or less</label>
                 </div>
+
+                <br>
 
                 <label for="distance">Distance</label>
                 <div id="distance">
@@ -79,6 +86,8 @@
                     <label for="five_km">Within five killometers</label>
                 </div>
 
+                <br>
+
                 <label for="rating">Rating</label>
                 <div id="rating">
                     <input type="radio" id="five_star">
@@ -94,11 +103,16 @@
                     <label for="two_star">Two stars or above</label>
                 </div>
 
-
             </div>
 
+            <br>
+
             <div id="sort">
-                <label for="sort_options">Sort By:</label>
+                <label for="sort_options">
+                    <h2>
+                        Sort By:
+                    </h2>
+                </label>
                 <select name="sort_options" id="sort_options">
                     <option value="price">Price</option>
                     <option value="Distance">Distance</option>
@@ -106,10 +120,15 @@
                 </select>
             </div>
 
+            <br>
+
             <div id="back_to_search">
                 <input type="button" id="return_to_search" value="New search">
             </div>
         </form>
+
+        <br>
+
         <div class="results">
             <h1>Nothing to see here (yet...)</h1>
         </div>
