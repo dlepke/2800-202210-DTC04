@@ -8,6 +8,7 @@ const bodyParser = require('body-parser');
 const { receiveMessageOnPort } = require('worker_threads');
 
 const PORT = process.env.PORT || 5050;
+console.log(PORT);
 
 var publicPath = path.join(__dirname, 'public');
 var htmlPath = path.join(__dirname, 'public/HTML');
@@ -34,7 +35,7 @@ app.use(session({
     cookie: { maxAge: oneDay }
 }));
 
-app.listen(PORT, function(err) {
+app.listen(process.env.port || PORT, function(err) {
     if (err) {
         console.log(err);
     }
