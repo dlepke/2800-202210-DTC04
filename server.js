@@ -99,20 +99,20 @@ function createConnection() {
     return mysql.createConnection(config);
 }
 
-function initUserDatabaseTable() {
+function resetUserDatabaseTable() {
     const connection = createConnection();
 
     connection.connect();
 
-    // connection.query('CREATE DATABASE IF NOT EXISTS Foodbuddy;');
+    connection.query('DROP TABLE Users;');
 
     connection.query('CREATE TABLE IF NOT EXISTS Users ( userid int NOT NULL AUTO_INCREMENT PRIMARY KEY, username varchar(50), password varchar(50), firstName varchar(50), lastName varchar(50));');
 
-    // connection.query("INSERT INTO Users (username, password, firstName, lastName) VALUES ('user1', 'pass1', 'amy', 'adams');");
-    // connection.query("INSERT INTO Users (username, password, firstName, lastName) VALUES ('user2', 'pass2', 'bob', 'burns');");
-    // connection.query("INSERT INTO Users (username, password, firstName, lastName) VALUES ('user3', 'pass3', 'carrie', 'carlson');");
-    // connection.query("INSERT INTO Users (username, password, firstName, lastName) VALUES ('user4', 'pass4', 'diane', 'davidson');");
-    // connection.query("INSERT INTO Users (username, password, firstName, lastName) VALUES ('user5', 'pass5', 'earl', 'ericson');");
+    connection.query("INSERT INTO Users (username, password, firstName, lastName) VALUES ('user1', 'pass1', 'amy', 'adams');");
+    connection.query("INSERT INTO Users (username, password, firstName, lastName) VALUES ('user2', 'pass2', 'bob', 'burns');");
+    connection.query("INSERT INTO Users (username, password, firstName, lastName) VALUES ('user3', 'pass3', 'carrie', 'carlson');");
+    connection.query("INSERT INTO Users (username, password, firstName, lastName) VALUES ('user4', 'pass4', 'diane', 'davidson');");
+    connection.query("INSERT INTO Users (username, password, firstName, lastName) VALUES ('user5', 'pass5', 'earl', 'ericson');");
 
     connection.query("SELECT * FROM users", (err, rows, fields) => {
         console.log(rows);
@@ -120,8 +120,8 @@ function initUserDatabaseTable() {
     });
 }
 
-
-initUserDatabaseTable();
+// uncomment this function call if you want to ENTIRELY RESET the User table in the Heroku database
+// resetUserDatabaseTable();
 
 function checkUsernamePasswordCombo(username, password, handleResult) {
     const connection = createConnection();
