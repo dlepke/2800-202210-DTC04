@@ -8,6 +8,7 @@ const bodyParser = require('body-parser');
 const { receiveMessageOnPort } = require('worker_threads');
 
 const PORT = process.env.PORT || 5050;
+console.log(PORT);
 
 var publicPath = path.join(__dirname, 'public');
 var htmlPath = path.join(__dirname, 'public/HTML');
