@@ -126,6 +126,7 @@ function resetUserDatabaseTable() {
 function checkUsernamePasswordCombo(username, password, handleResult) {
     const connection = createConnection();
 
+
     connection.connect()
 
     let result = false;
@@ -133,10 +134,11 @@ function checkUsernamePasswordCombo(username, password, handleResult) {
     connection.query(`SELECT * FROM users WHERE username = '${username}' AND password = '${password}';`, (err, rows, fields) => {
         if (err) {
             throw err;
-        } else if (rows.length == 1) {
+        } else if (rows.length > 0) {
             console.log(rows, rows.length);
             result = true;
         }
+        console.log("Check", username, password, rows)
 
         connection.end();
         handleResult(result);
@@ -155,6 +157,7 @@ app.post('/authenticate',
                 console.log("correct username/pw");
                 next();
             } else {
+                console.log(`${req.body.username} + ${req.body.password}`)
                 console.log("incorrect username/pw");
                 res.redirect('/');
             }
@@ -312,10 +315,84 @@ function fetchItems(handleResult) {
         result = rows;
 
         connection.end();
+
         handleResult(result)
     })
 }
 
+app.get('/all_items', (req, res) => {
+
+    fetchItems((result) => {
+        res.send(result);
+
+    });
+})
+
+app.get('/items', (req, res) => {
+    res.sendFile(path.join(htmlPath + '/itemslist.html'));
+})
+
+
+//Product.ejs
+app.get('/product/:id', function (req, res, handleResult) {
+    // console.log(req.params.id)
+    productid = req.params.id
+
+    //create connection
+    const connection = createConnection();
+    connection.connect()
+
+
+    //Query the database by ID 
+    connection.query(`SELECT * FROM items where itemId = ${productid};`, (err, rows, fields) => {
+        if (err) {
+            throw err;
+        }
+
+        details = rows[0]
+        connection.end();
+        //place on page
+        res.render("productview.ejs", {
+            "id": details.itemId,
+            "name": details.itemName,
+            "img": details.img,
+            "price": details.price,
+            "location": details.brand,
+            "availability": details.itemAvailability
+        });
+    })
+
+});
+
+
+app.get('/getallproducts/:name', function (req, res, handleResult){
+    //Change itemname
+    let productName = req.params.name
+    console.log(productName)
+    const connection = createConnection();
+    connection.connect()
+
+    connection.query(`SELECT * FROM items where itemName = "${productName}";`, (err, rows, fields) => {
+        if (err) {
+            throw err;
+        }
+        else {
+            res.send(rows)
+        }
+    })
+})
+
+
+//This is for accessing watchlist as you need to be a required user
+// app.get('/all_items_list', (req, res) => {
+//     if (req.session.username) {
+//         fetchItems((result) => {
+//             res.sendFile(path.join(htmlPath + '/itemslist.html'));
+//         });
+//     } else {
+//         res.redirect('/user');
+//     }
+// })
 app.get('/search_item', (req, res) => {
 
     fetchItems((result) => {

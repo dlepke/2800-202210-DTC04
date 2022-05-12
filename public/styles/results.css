@@ -25,13 +25,21 @@
     color: rgb(48, 48, 48)
 }
 
+body{
+    position: relative;
+}
+
+main{
+    position: absolute;
+    top: 45px;
+    width: 100%;
+}
+
 hr{
     margin: 0px;
 }
 .items{
     display: flex;
-    padding-left: 10px;
-    padding-right: 10px;
 }
 
 .item_img{
@@ -43,4 +51,16 @@ hr{
 
 .item_info{
     margin: 10px;
+}
+
+#filter_form{
+    padding: 20px;
+}
+
+#results_display a{
+    text-decoration: none;
+}
+
+#padding-footer{
+    height: 30px;
 }
