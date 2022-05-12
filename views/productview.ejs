@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Product</title>
+
+    <!------------------------>
+    <!-- Required meta tags -->
+    <!------------------------>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!------------------------------------------>
+    <!-- Bootstrap Library CSS JS CDN go here -->
+    <!------------------------------------------>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+        </script>
+
+    <!-------------------------------------------------------->
+    <!--Libraries related CSS, JS, JQuery go here -->
+    <!-------------------------------------------------------->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+    <!-------------------------------------------->
+    <!-- Other libraries and styles of your own -->
+    <!-------------------------------------------->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="../styles/skeleton.css">
+    <link rel="stylesheet" href="../styles/productview.css">
+
+
+
+</head>
+
+<body class="container">
+    <!------------------------------>
+    <!-- Your HTML Layout go here -->
+    <!------------------------------>
+
+    <!-- our own navbar goes here -->
+    <nav id="navbarPlaceholder"></nav>
+
+    <!-- the body of your page goes here -->
+
+    <main id="product">
+        <a href="../HTML/Watchlist.html">
+            <i class="material-icons md-48 nav_elements icons" style="float: left">arrow_back</i>
+        </a>
+        <h1>
+            <span id="name"><%= name %></span>
+        </h1> 
+        <div class="img_cont shadow-sm">
+            <!-- Insert img from render -->
+            <!-- <img src="img_path %>" alt=""> -->
+            <img src="../images/banana.png">
+        </div>
+
+        <div class="actions">
+            <button type="button" class="addtolist">
+                <!-- Add an onclick that adds this data set inside watchlist database -->
+                <i class="material-icons md-48 nav_elements icons">post_add</i>
+            </button>
+        </div>
+
+        <article>
+            <h3>Description</h3>   
+            <p> Price: <%= price %></p>
+            <p> Location: <%= location %></p>
+
+
+
+
+
+        </article>
+        <article id="others">
+            <h3>What other locations have it for</h3>
+            <!-- Location and Price -->
+            <!-- Select * From items Where name = 'bananas'; -->
+
+            <!-- For Ordering by Price -->
+            <!-- Select * From items where name = 'bananas' order by price -->
+        
+            <!-- For Ordering by Nearest Location -->
+            <!-- Select * From items where name = 'bananas' order by Location -->
+
+            <!-- For only name, price and location -->
+            <!-- select name, price, location from items where name='bananas' order by price; -->
+            <!-- Drop down? -->
+
+        </article>
+
+
+
+
+    </main>
+
+
+    <!-- our own footer goes here-->
+    <nav id="footerPlaceholder"></nav>
+
+    <!---------------------------------------------->
+    <!-- Your own JavaScript functions go here    -->
+    <!---------------------------------------------->
+
+    <script src="../scripts/skeleton.js"></script>
+    <script src="../scripts/product.js"></script>
+
+
+</body>
+
+</html>

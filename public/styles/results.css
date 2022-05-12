@@ -1,0 +1,66 @@
+/* main {
+    display: grid;
+    grid-template-areas: "sidebar area";
+    grid-template-columns: 1fr, 9fr;
+}
+
+.filter_sort {
+    grid-area: sidebar;
+}
+
+#results {
+    grid-area: display;
+    background-color: green;
+
+}
+
+#container {
+    background-color: red;
+} */
+
+*{
+    box-sizing: border-box;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 16px;
+    color: rgb(48, 48, 48)
+}
+
+body{
+    position: relative;
+}
+
+main{
+    position: absolute;
+    top: 45px;
+    width: 100%;
+}
+
+hr{
+    margin: 0px;
+}
+.items{
+    display: flex;
+}
+
+.item_img{
+    width: 50px;
+    height: 50px;
+    background-color: lightgrey;
+    margin: 10px;
+}
+
+.item_info{
+    margin: 10px;
+}
+
+#filter_form{
+    padding: 20px;
+}
+
+#results_display a{
+    text-decoration: none;
+}
+
+#padding-footer{
+    height: 30px;
+}
