@@ -88,11 +88,11 @@ function parseUrl(url) {
 }
 
 function createConnection() {
-    console.log(DB_PORT, HOST, USER, PASSWORD);
+    // console.log(DB_PORT, HOST, USER, PASSWORD);
 
     // const dbConnectionString = new connectionString.ConnectionString(DB_URL);
     // console.log(dbConnectionString);
-    console.log(DB_URL);
+    // console.log(DB_URL);
     let config = parseUrl(DB_URL);
 
 
@@ -104,15 +104,17 @@ function resetUserDatabaseTable() {
 
     connection.connect();
 
-    connection.query('DROP TABLE Users;');
+    connection.query('DROP TABLE IF EXISTS UserItems;');
 
-    connection.query('CREATE TABLE IF NOT EXISTS Users ( userid int NOT NULL AUTO_INCREMENT PRIMARY KEY, username varchar(50), email varchar(50), password varchar(50), firstName varchar(50), lastName varchar(50), address varchar(100););');
+    connection.query('DROP TABLE IF EXISTS Users;');
 
-    connection.query("INSERT INTO Users (username, email, password, firstName, lastName, address) VALUES ('user1', 'user1@email.com, 'pass1', 'amy', 'adams', '1 first ave, firstland');");
-    connection.query("INSERT INTO Users (username, email, password, firstName, lastName, address) VALUES ('user2', 'user2@email.com, 'pass2', 'bob', 'burns', '2 second ave, secondland');");
-    connection.query("INSERT INTO Users (username, email, password, firstName, lastName, address) VALUES ('user3', 'user3@email.com, 'pass3', 'carrie', 'carlson', '3 third ave, thirdland');");
-    connection.query("INSERT INTO Users (username, email, password, firstName, lastName, address) VALUES ('user4', 'user4@email.com, 'pass4', 'diane', 'davidson', '4 fourth ave, fourthland');");
-    connection.query("INSERT INTO Users (username, email, password, firstName, lastName, address) VALUES ('user5', 'user5@email.com, 'pass5', 'earl', 'ericson', '5 fifth ave, fifthland');");
+    connection.query('CREATE TABLE IF NOT EXISTS Users ( userid int NOT NULL AUTO_INCREMENT PRIMARY KEY, username varchar(50), email varchar(50), password varchar(50), firstName varchar(50), lastName varchar(50), address varchar(100));');
+
+    connection.query('INSERT INTO Users (username, email, password, firstName, lastName, address) VALUES ("user1", "user1@email.com", "pass1", "amy", "adams", "1 first ave, firstland");');
+    connection.query("INSERT INTO Users (username, email, password, firstName, lastName, address) VALUES ('user2', 'user2@email.com', 'pass2', 'bob', 'burns', '2 second ave, secondland');");
+    connection.query("INSERT INTO Users (username, email, password, firstName, lastName, address) VALUES ('user3', 'user3@email.com', 'pass3', 'carrie', 'carlson', '3 third ave, thirdland');");
+    connection.query("INSERT INTO Users (username, email, password, firstName, lastName, address) VALUES ('user4', 'user4@email.com', 'pass4', 'diane', 'davidson', '4 fourth ave, fourthland');");
+    connection.query("INSERT INTO Users (username, email, password, firstName, lastName, address) VALUES ('user5', 'user5@email.com', 'pass5', 'earl', 'ericson', '5 fifth ave, fifthland');");
 
     connection.query("SELECT * FROM users", (err, rows, fields) => {
         console.log(rows);
@@ -125,7 +127,9 @@ function resetItemDatabaseTable() {
 
     connection.connect();
 
-    connection.query('DROP TABLE Items;');
+    connection.query('DROP TABLE IF EXISTS UserItems;');
+
+    connection.query('DROP TABLE IF EXISTS Items;');
 
     connection.query("CREATE TABLE IF NOT EXISTS Items ( itemid int NOT NULL AUTO_INCREMENT PRIMARY KEY, itemName varchar(50), price varchar(50), img varchar(50), brand varchar(50), itemAvailability varchar(50));")
 
@@ -146,14 +150,15 @@ function resetItemDatabaseTable() {
     });
 }
 
+/* this function is not working yet, do not use */
 function resetWatchlistDatabaseTable() {
     const connection = createConnection();
 
     connection.connect();
 
-    connection.query('DROP TABLE UserItems;');
+    connection.query('DROP TABLE IF EXISTS UserItems;');
 
-    connection.query("CREATE TABLE IF NOT EXISTS UserItems (userid FOREIGN KEY, itemid FOREIGN KEY, listid int NOT NULL AUTO_INCREMENT PRIMARY KEY);");
+    connection.query("CREATE TABLE IF NOT EXISTS UserItems (userid int NOT NULL, itemid int NOT NULL, listid int NOT NULL AUTO_INCREMENT PRIMARY KEY, FOREIGN KEY (userid) REFERENCES Users(userid) ON DELETE CASCADE, FOREIGN KEY (itemid) REFERENCES Items(itemid) ON DELETE CASCADE);");
 
     connection.query("INSERT INTO UserItems (userid, itemid) VALUES (1, 1);");
     connection.query("INSERT INTO UserItems (userid, itemid) VALUES (1, 2);");
@@ -173,11 +178,14 @@ function resetWatchlistDatabaseTable() {
     });
 }
 
-// uncomment this function call if you want to ENTIRELY RESET the User table in the Heroku database
-// resetUserDatabaseTable();
+// uncomment this function call if you want to ENTIRELY RESET the User table in the database
+resetUserDatabaseTable();
 
-// uncomment this function call if you want to ENTIRELY RESET the Item table in the Heroku database
+// uncomment this function call if you want to ENTIRELY RESET the Item table in the database
 resetItemDatabaseTable();
+
+// uncomment this function call if you want to ENTIRELY RESET the UserItem table in the database - NOT CURRENTLY WORKING
+// resetWatchlistDatabaseTable();
 
 function checkUsernamePasswordCombo(username, password, handleResult) {
     const connection = createConnection();
