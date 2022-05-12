@@ -28,9 +28,9 @@
     <!-------------------------------------------->
     <!-- Other libraries and styles of your own -->
     <!-------------------------------------------->
+    <link rel="stylesheet" href="../styles/results.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="../styles/results.css" rel="stylesheet">
-
 
 </head>
 
@@ -52,7 +52,7 @@
 
         <form id="filter_sort">
             <div id="filter">
-                <label for="price">Price</label>
+                <!-- <label for="price">Price</label>
                 <div id="price">
                     <input type="radio" id="one_dollar">
                     <label for="one_dollar">One dollar or less</label>
@@ -102,8 +102,38 @@
                     <br>
                     <input type="radio" id="two_star">
                     <label for="two_star">Two stars or above</label>
+                </div> -->
+                <label for="availability">Product Availability</label>
+                <div id="availability">
+                    <!-- <div>
+                        <input type="radio" name="one_option_radio" id="harassment">
+                        <label for="harassment" id="harassment_label">Harassment</label><br>
+                    </div>
+                    <div>
+                        <input type="radio" name="one_option_radio" id="harassment">
+                        <label for="harassment" id="harassment_label">Harassment</label><br>
+                    </div> -->
+                    <div>
+                        <input type="radio" name="product_available" value="available">
+                        <label for="available">Available</label>
+                    </div>
                 </div>
 
+                <label for="store_options">Store</label>
+                <div id="store_options">
+                    <div>
+                        <input type="radio" name="store" value="costco">
+                        <label for="store">Costco</label>
+                    </div>
+                    <div>
+                        <input type="radio" name="store" value="walmart">
+                        <label for="store">Walmart</label>
+                    </div>
+                    <div>
+                        <input type="radio" name="store" value="tnt">
+                        <label for="store">T&T</label>
+                    </div>
+                </div>
             </div>
 
             <br>
@@ -123,8 +153,8 @@
 
             <br>
 
-            <div id="back_to_search">
-                <input type="button" id="return_to_search" value="New search">
+            <div>
+                <input type="button" id="apply_filter" value="Apply">
             </div>
         </form>
 

@@ -1,7 +1,27 @@
+/* main {
+    display: grid;
+    grid-template-areas: "sidebar area";
+    grid-template-columns: 1fr, 9fr;
+}
+
+.filter_sort {
+    grid-area: sidebar;
+}
+
+#results {
+    grid-area: display;
+    background-color: green;
+
+}
+
+#container {
+    background-color: red;
+} */
+
 *{
     box-sizing: border-box;
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    font-size: 13px;
+    font-size: 16px;
     color: rgb(48, 48, 48)
 }
 

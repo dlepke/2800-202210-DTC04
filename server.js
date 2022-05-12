@@ -322,3 +322,50 @@ app.get('/search_item', (req, res) => {
         res.send(result);
     });
 })
+
+function fetchItems_with_filter(name, sort, handleResult) {
+    const connection = createConnection();
+
+    connection.connect()
+
+    let result = false;
+
+    connection.query(`SELECT * FROM items WHERE itemName='${name}' ORDER BY ${sort} ASC;`, (err, rows, fields) => {
+        if (err) {
+            throw err;
+        }
+        result = rows;
+
+        connection.end();
+        handleResult(result)
+    })
+}
+
+app.post('/apply_sort', 
+bodyParser.urlencoded({
+    extended: true
+}),
+(req, res, next) => {
+    console.log(`${req.body.name}, ${req.body.sort}`);
+    fetchItems_with_filter(req.body.name, req.body.sort, (result) => {
+        res.send(result);
+    });
+//     if (req.body.username == "admin" && req.body.password == "admin") {
+//         res.locals.username = req.body.username;
+//         res.locals.admin = true;
+//         next();
+//     } else {
+//         res.redirect('/admin');
+//     }
+// },
+// (req, res) => {
+//     req.session.admin = res.locals.admin;
+//     res.redirect('/account_list');
+//     res.send();
+});
+//(req, res) => {
+    
+//     // fetchItems((result) => {
+//     //     res.send(result);
+//     // });
+// })

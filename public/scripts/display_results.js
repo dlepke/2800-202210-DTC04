@@ -21,3 +21,40 @@ function display_item(item) {
     $${item.price}</div></div>
     <hr>`)
 }
+
+function apply_sort(){
+    select = document.getElementById("sort_options");
+    sort = select.options[select.selectedIndex].value;
+    //checkedValue = testing.filter(":checked").val();
+    //console.log(testing);
+    //console.log(sort);
+    $.ajax({
+        url:`http://localhost:5050/apply_sort`,
+        type: "post",
+        data:{
+            name: keyword,
+            sort: sort
+        },
+        success: apply_filter
+    })
+}
+
+function apply_filter(data){
+    console.log(data);
+    $("#results_display").empty();
+    availability = $("input[name=product_available]").filter(":checked").val();
+    store = $("input[name=store]").filter(":checked").val();
+    //console.log(availability == undefined);
+    for(count = 0; count < data.length; count++){
+        if((availability == data[count].availability || availability == undefined) && (store == data[count].brand.toLowerCase()) || store == undefined){
+            display_item(data[count]);
+        }
+    }
+    
+}
+
+function setup(){
+    $("#apply_filter").click(apply_sort);
+}
+
+$(document).ready(setup);
