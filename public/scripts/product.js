@@ -9,7 +9,9 @@ fetch(`/getallproducts/${product}`)
             $("#others").append(
             `<tr>
                 <td>${items.price}</td>
-                <td>${items.location}</td>
+                <td>${items.brand}</td>
+                <td>${items.itemAvailability}</td>
+
             </tr>`)
         })
     })

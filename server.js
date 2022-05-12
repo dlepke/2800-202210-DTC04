@@ -339,41 +339,42 @@ app.get('/items', (req, res) => {
 app.get('/product/:id', function (req, res, handleResult) {
     // console.log(req.params.id)
     productid = req.params.id
-    items = []
+
     //create connection
     const connection = createConnection();
     connection.connect()
 
 
-    //Quuery the database by ID 
-    connection.query(`SELECT * FROM items where id = ${productid};`, (err, rows, fields) => {
+    //Query the database by ID 
+    connection.query(`SELECT * FROM items where itemId = ${productid};`, (err, rows, fields) => {
         if (err) {
             throw err;
         }
-        // rows.forEach(item => {
-        //     items.push(item)
-        // })
+
         details = rows[0]
         connection.end();
-
+        //place on page
         res.render("productview.ejs", {
-            "id": details.id,
-            "name": details.name,
+            "id": details.itemId,
+            "name": details.itemName,
             "img": details.img,
             "price": details.price,
-            "location": details.location,   
+            "location": details.brand,
+            "availability": details.itemAvailability
         });
     })
 
 });
 
+
 app.get('/getallproducts/:name', function (req, res, handleResult){
+    //Change itemname
     let productName = req.params.name
     console.log(productName)
     const connection = createConnection();
     connection.connect()
 
-    connection.query(`SELECT * FROM items where name = "${productName}";`, (err, rows, fields) => {
+    connection.query(`SELECT * FROM items where itemName = "${productName}";`, (err, rows, fields) => {
         if (err) {
             throw err;
         }
@@ -382,8 +383,6 @@ app.get('/getallproducts/:name', function (req, res, handleResult){
         }
     })
 })
-
-
 
 
 //This is for accessing watchlist as you need to be a required user

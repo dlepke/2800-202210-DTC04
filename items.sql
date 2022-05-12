@@ -18,51 +18,52 @@ DROP TABLE Items;
 CREATE DATABASE IF NOT EXISTS Items;
 
 CREATE TABLE IF NOT EXISTS Items (
-    name varchar(50),
+    itemName varchar(50),
     price varchar(50),
     img varchar(50),
-    location varchar(50),
-    id varchar(50),
+    brand varchar(50),
+    itemId varchar(50),
+    itemAvailability varchar(50)
 );
 
 
 /* some sample users to test with */
-INSERT INTO Items (name, price, img, location, id) VALUES (
-    'bananas', '$1', 'banana.png', 'Walmart', '1'
+INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability ) VALUES (
+    'bananas', '$1', 'banana.png', 'Walmart', '1', 'available'
 );
 
-INSERT INTO Items (name, price, img, location, id) VALUES (
-    'bananas', '$2', 'banana.png', 'Superstore', '2'
+INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability ) VALUES (
+    'bananas', '$2', 'banana.png', 'Superstore', '2', 'unavailable'
 );
 
-INSERT INTO Items (name, price, img, location, id) VALUES (
-    'bananas', '$.90', 'banana.png', 'Costco', '3'
+INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability ) VALUES (
+    'bananas', '$.90', 'banana.png', 'Costco', '3', 'available'
 );
 
-INSERT INTO Items (name, price, img, location, id) VALUES (
-    'eggs', '$5', 'eggs.png', 'Superstore', '4'
+INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability ) VALUES (
+    'eggs', '$5', 'eggs.png', 'Superstore', '4', 'unavailable'
 );
 
-INSERT INTO Items (name, price, img, location, id) VALUES (
-    'eggs', '$6', 'eggs.png', 'Walmart', '5'
+INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability ) VALUES (
+    'eggs', '$6', 'eggs.png', 'Walmart', '5', 'available'
 );
 
-INSERT INTO Items (name, price, img, location, id) VALUES (
-    'chocolate', '$4', 'chocolate.png', 'Superstore', '6'
+INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability ) VALUES (
+    'chocolate', '$4', 'chocolate.png', 'Superstore', '6', 'available'
 );
 
-INSERT INTO Items (name, price, img, location, id) VALUES (
-    'chocolate', '$5', 'chocolate.png', 'Superstore', '7'
+INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability ) VALUES (
+    'chocolate', '$5', 'chocolate.png', 'Superstore', '7', 'unavailable'
 );
 
-INSERT INTO Items (name, price, img, location, id) VALUES (
-    'toilet_paper', '$8', 'toiletpaper.png', 'Walmart', '8'
+INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability ) VALUES (
+    'toilet_paper', '$8', 'toiletpaper.png', 'Walmart', '8', 'available'
 );
 
-INSERT INTO Items (name, price, img, location, id) VALUES ( 
-    'toilet_paper', '$7.90', 'toiletpaper.png', 'Costco', '9'
+INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability ) VALUES (
+    'toilet_paper', '$7.90', 'toiletpaper.png', 'Costco', '9', 'unavailable'
 );
 
-INSERT INTO Items (name, price, img, location, id) VALUES (
-    'meat', '$4', 'meat.png', 'SaveOnFoods', '10'
+INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability ) VALUES (
+    'meat', '$4', 'meat.png', 'SaveOnFoods', '10', 'unavailable'
 );
