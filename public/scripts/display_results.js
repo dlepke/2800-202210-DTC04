@@ -15,12 +15,12 @@ fetch('/search_item')
     });
 
 function display_item(item) {
-    $("#results_display").append(`<div id=${item.itemId} class=items> 
+    $("#results_display").append(`<a href="/product/${item.itemId}"><div id=${item.itemId} class=items> 
     <div class="item_img"><img src=""></div>
     <div class="item_info">${item.itemName}<br>
-    $${item.price}<br>
+    ${item.price}<br>
     ${item.brand}</div></div>
-    <hr>`)
+    </a><hr>`)
 }
 
 function apply_sort(){
@@ -45,10 +45,13 @@ function apply_filter(data){
     $("#results_display").empty();
     availability = $("input[name=product_available]").filter(":checked").val();
     store = $("input[name=store]").filter(":checked").val();
+    console.log(availability);
     //console.log(availability == undefined);
     for(count = 0; count < data.length; count++){
-        if((availability == data[count].availability || availability == undefined) && (store == data[count].brand.toLowerCase()) || store == undefined){
+        if((availability == data[count].itemAvailability || availability === undefined) && (store == data[count].brand.toLowerCase() || store == undefined)){
             display_item(data[count]);
+            //console.log(data[count].itemAvailability == availability)
+            //console.log(availability === undefined)
         }
     }
     
