@@ -369,3 +369,11 @@ bodyParser.urlencoded({
 //     //     res.send(result);
 //     // });
 // })
+
+app.get('/edit_profile', (req, res) => {
+    res.sendFile(path.join(htmlPath + "/edit_profile.html"))
+})
+
+app.get('/change_password', (req, res) => {
+    res.sendFile(path.join(htmlPath + '/change_password.html'))
+})
