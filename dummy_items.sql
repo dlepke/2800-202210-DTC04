@@ -47,3 +47,11 @@ INSERT INTO Items (itemId, itemName, price, brand, distance) VALUES (
     005, 'apple', 1, 'TNT', 3
 );
 
+INSERT INTO Items (itemId, itemName, price, brand, distance) VALUES (
+    006, 'banana', 1, 'Costco', 4
+);
+
+INSERT INTO Items (itemId, itemName, price, brand, distance) VALUES (
+    007, 'banana', 1, 'TNT', 3
+);
+
