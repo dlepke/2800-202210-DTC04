@@ -18,7 +18,8 @@ function display_item(item) {
     $("#results_display").append(`<div id=${item.itemId} class=items> 
     <div class="item_img"><img src=""></div>
     <div class="item_info">${item.itemName}<br>
-    $${item.price}</div></div>
+    $${item.price}<br>
+    ${item.brand}</div></div>
     <hr>`)
 }
 
