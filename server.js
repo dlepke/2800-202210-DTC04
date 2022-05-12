@@ -106,13 +106,13 @@ function resetUserDatabaseTable() {
 
     connection.query('DROP TABLE Users;');
 
-    connection.query('CREATE TABLE IF NOT EXISTS Users ( userid int NOT NULL AUTO_INCREMENT PRIMARY KEY, username varchar(50), password varchar(50), firstName varchar(50), lastName varchar(50));');
+    connection.query('CREATE TABLE IF NOT EXISTS Users ( userid int NOT NULL AUTO_INCREMENT PRIMARY KEY, username varchar(50), email varchar(50), password varchar(50), firstName varchar(50), lastName varchar(50), address varchar(100););');
 
-    connection.query("INSERT INTO Users (username, password, firstName, lastName) VALUES ('user1', 'pass1', 'amy', 'adams');");
-    connection.query("INSERT INTO Users (username, password, firstName, lastName) VALUES ('user2', 'pass2', 'bob', 'burns');");
-    connection.query("INSERT INTO Users (username, password, firstName, lastName) VALUES ('user3', 'pass3', 'carrie', 'carlson');");
-    connection.query("INSERT INTO Users (username, password, firstName, lastName) VALUES ('user4', 'pass4', 'diane', 'davidson');");
-    connection.query("INSERT INTO Users (username, password, firstName, lastName) VALUES ('user5', 'pass5', 'earl', 'ericson');");
+    connection.query("INSERT INTO Users (username, email, password, firstName, lastName, address) VALUES ('user1', 'user1@email.com, 'pass1', 'amy', 'adams', '1 first ave, firstland');");
+    connection.query("INSERT INTO Users (username, email, password, firstName, lastName, address) VALUES ('user2', 'user2@email.com, 'pass2', 'bob', 'burns', '2 second ave, secondland');");
+    connection.query("INSERT INTO Users (username, email, password, firstName, lastName, address) VALUES ('user3', 'user3@email.com, 'pass3', 'carrie', 'carlson', '3 third ave, thirdland');");
+    connection.query("INSERT INTO Users (username, email, password, firstName, lastName, address) VALUES ('user4', 'user4@email.com, 'pass4', 'diane', 'davidson', '4 fourth ave, fourthland');");
+    connection.query("INSERT INTO Users (username, email, password, firstName, lastName, address) VALUES ('user5', 'user5@email.com, 'pass5', 'earl', 'ericson', '5 fifth ave, fifthland');");
 
     connection.query("SELECT * FROM users", (err, rows, fields) => {
         console.log(rows);
@@ -120,8 +120,64 @@ function resetUserDatabaseTable() {
     });
 }
 
+function resetItemDatabaseTable() {
+    const connection = createConnection();
+
+    connection.connect();
+
+    connection.query('DROP TABLE Items;');
+
+    connection.query("CREATE TABLE IF NOT EXISTS Items ( itemid int NOT NULL AUTO_INCREMENT PRIMARY KEY, itemName varchar(50), price varchar(50), img varchar(50), brand varchar(50), itemAvailability varchar(50));")
+
+    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability ) VALUES ('bananas', '$1', 'banana.png', 'Walmart', '1', 'available');")
+    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability ) VALUES ('bananas', '$2', 'banana.png', 'Superstore', '2', 'unavailable');")
+    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability ) VALUES ('bananas', '$0.90', 'banana.png', 'Costco', '3', 'available');")
+    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability ) VALUES ('eggs', '$5', 'eggs.png', 'Superstore', '4', 'unavailable');")
+    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability ) VALUES ('eggs', '$6', 'eggs.png', 'Walmart', '5', 'available');")
+    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability ) VALUES ('chocolate', '$4', 'chocolate.png', 'Superstore', '6', 'available');")
+    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability ) VALUES ('chocolate', '$5', 'chocolate.png', 'Superstore', '7', 'unavailable');")
+    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability ) VALUES ('toilet paper', '$8', 'toilet_paper.png', 'Walmart', '8', 'available');")
+    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability ) VALUES ('toilet paper', '$7.90', 'toilet_paper.png', 'Costco', '9', 'unavailable');")
+    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability ) VALUES ('meat', '$4', ', meat.png', 'Save On Foods', '10', 'unavailable');")
+
+    connection.query("SELECT * FROM items", (err, rows, fields) => {
+        console.log(rows);
+        connection.end();
+    });
+}
+
+function resetWatchlistDatabaseTable() {
+    const connection = createConnection();
+
+    connection.connect();
+
+    connection.query('DROP TABLE UserItems;');
+
+    connection.query("CREATE TABLE IF NOT EXISTS UserItems (userid FOREIGN KEY, itemid FOREIGN KEY, listid int NOT NULL AUTO_INCREMENT PRIMARY KEY);");
+
+    connection.query("INSERT INTO UserItems (userid, itemid) VALUES (1, 1);");
+    connection.query("INSERT INTO UserItems (userid, itemid) VALUES (1, 2);");
+    connection.query("INSERT INTO UserItems (userid, itemid) VALUES (1, 3);");
+    connection.query("INSERT INTO UserItems (userid, itemid) VALUES (1, 4);");
+    connection.query("INSERT INTO UserItems (userid, itemid) VALUES (1, 5);");
+
+    connection.query("INSERT INTO UserItems (userid, itemid) VALUES (2, 6);");
+    connection.query("INSERT INTO UserItems (userid, itemid) VALUES (2, 7);");
+    connection.query("INSERT INTO UserItems (userid, itemid) VALUES (2, 8);");
+    connection.query("INSERT INTO UserItems (userid, itemid) VALUES (2, 9);");
+    connection.query("INSERT INTO UserItems (userid, itemid) VALUES (2, 10);");
+
+    connection.query("SELECT * FROM useritems", (err, rows, fields) => {
+        console.log(rows);
+        connection.end();
+    });
+}
+
 // uncomment this function call if you want to ENTIRELY RESET the User table in the Heroku database
 // resetUserDatabaseTable();
+
+// uncomment this function call if you want to ENTIRELY RESET the Item table in the Heroku database
+resetItemDatabaseTable();
 
 function checkUsernamePasswordCombo(username, password, handleResult) {
     const connection = createConnection();
