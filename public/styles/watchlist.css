@@ -1,3 +1,6 @@
+body {
+    padding:100px;
+}
 #items {
     display: grid;
     /* grid-template: auto / auto auto; */

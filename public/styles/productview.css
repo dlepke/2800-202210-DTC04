@@ -1,8 +1,7 @@
-/* body {
+body {
+    padding-top: 70px;
+}
 
-    background-color: #F0EAD6;
-
-} */
 #backtitle {
     display: flex;
 

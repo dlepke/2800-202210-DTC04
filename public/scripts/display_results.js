@@ -15,10 +15,14 @@ fetch('/search_item')
     });
 
 function display_item(item) {
-    $("#results_display").append(`<div id=${item.itemId} class=items> 
+    // Replace localhost with herokulink
+    $("#results_display").append(`
+    <a href="http://localhost:5050/product/${item.itemId}">
+    <div id=${item.itemId} class=items> 
     <div class="item_img"><img src=""></div>
     <div class="item_info">${item.itemName}<br>
-    $${item.price}</div></div>
+    ${item.price}</div></div>
+    </a>
     <hr>`)
 }
 

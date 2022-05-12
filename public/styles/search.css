@@ -32,6 +32,9 @@ p{
     color: rgb(48, 48, 48)
 }
 
+body {
+    padding-top: 100px;
+}
 #search_input{
     width: 70%;
     border-radius: 0.5rem;
