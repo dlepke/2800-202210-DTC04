@@ -297,3 +297,28 @@ app.get('/account_list', (req, res) => {
         res.redirect('/admin');
     }
 })
+
+function fetchItems(handleResult) {
+    const connection = createConnection();
+
+    connection.connect()
+
+    let result = false;
+
+    connection.query(`SELECT * FROM items;`, (err, rows, fields) => {
+        if (err) {
+            throw err;
+        }
+        result = rows;
+
+        connection.end();
+        handleResult(result)
+    })
+}
+
+app.get('/search_item', (req, res) => {
+
+    fetchItems((result) => {
+        res.send(result);
+    });
+})
