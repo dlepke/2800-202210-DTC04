@@ -1,0 +1,19 @@
+main {
+    display: grid;
+    grid-template-areas: "sidebar area";
+    grid-template-columns: 1fr, 9fr;
+}
+
+.filter_sort {
+    grid-area: sidebar;
+}
+
+#results {
+    grid-area: display;
+    background-color: green;
+
+}
+
+#container {
+    background-color: red;
+}
