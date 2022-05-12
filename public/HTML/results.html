@@ -105,17 +105,34 @@
                 </div> -->
                 <label for="availability">Product Availability</label>
                 <div id="availability">
-                    <input type="radio" id="available">
-                    <label for="available">Available</label>
+                    <!-- <div>
+                        <input type="radio" name="one_option_radio" id="harassment">
+                        <label for="harassment" id="harassment_label">Harassment</label><br>
+                    </div>
+                    <div>
+                        <input type="radio" name="one_option_radio" id="harassment">
+                        <label for="harassment" id="harassment_label">Harassment</label><br>
+                    </div> -->
+                    <div>
+                        <input type="radio" name="product_available" value="available">
+                        <label for="available">Available</label>
+                    </div>
                 </div>
+
                 <label for="store_options">Store</label>
                 <div id="store_options">
-                    <input type="radio" id="costco">
-                    <label for="store">Costco</label><br>
-                    <input type="radio" id="walmart">
-                    <label for="store">Walmart</label><br>
-                    <input type="radio" id="TNT">
-                    <label for="store">T&T</label><br>
+                    <div>
+                        <input type="radio" name="store" value="costco">
+                        <label for="store">Costco</label>
+                    </div>
+                    <div>
+                        <input type="radio" name="store" value="walmart">
+                        <label for="store">Walmart</label>
+                    </div>
+                    <div>
+                        <input type="radio" name="store" value="tnt">
+                        <label for="store">T&T</label>
+                    </div>
                 </div>
             </div>
 
@@ -137,7 +154,7 @@
             <br>
 
             <div>
-                <input type="button" id="return_to_search" value="Apply">
+                <input type="button" id="apply_filter" value="Apply">
             </div>
         </form>
 
