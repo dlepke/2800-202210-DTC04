@@ -10,7 +10,6 @@ var session = require('express-session');
 var mysql = require('mysql2');
 const bodyParser = require('body-parser');
 const { receiveMessageOnPort } = require('worker_threads');
-app.set('view engine', 'ejs');
 
 const DB_PORT = process.env.DB_PORT;
 const HOST = process.env.DB_HOST;
@@ -298,59 +297,3 @@ app.get('/account_list', (req, res) => {
         res.redirect('/admin');
     }
 })
-// EXPERIMENTAL SHIT 
-// Create Connection
-function fetchItems(handleResult) {
-    const connection = mysql.createConnection({
-        port: 3306,
-        host: '127.0.0.1',
-        user: 'foodbuddy',
-        password: 'comp2800',
-        database: 'foodbuddy'
-      });
-
-    connection.connect()
-
-    let result = false;
-
-    connection.query(`SELECT * FROM items;`, (err, rows, fields) => {
-        if (err) {
-            throw err;
-        }
-        result = rows;
-
-        connection.end();
-        handleResult(result)
-    })
-}
-
-app.get("/items_list", (req, res) => {
-    res.sendFile(path.join(htmlPath + '/items_list.html'));
-});
-
-
-
-// app.get('/items_list_data', (req, res) => {
-
-//     fetchItems((result) => {
-//         res.send(result);   
-//     });
-// })
-
-// app.get('/item_list', (req, res) => {
-//     if (req.session.admin) {
-//         fetchItems((result) => {
-//             res.sendFile(path.join(htmlPath + '/items_list.html'));
-//         });
-//     } else {
-//         res.redirect('/admin');
-//     }
-// })
-
-// Not so experimental stuff :) For Product.ejs
-
-// app.get('/product/:id', function (req, res) {
-//     const url = `http://localhost:5050/${req.params.id}`
-
-
-// })
