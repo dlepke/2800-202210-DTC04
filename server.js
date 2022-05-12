@@ -1,3 +1,7 @@
+require('dotenv').config();
+
+const connectionString = require('connection-string');
+
 const express = require('express');
 const app = express();
 const path = require('path');
@@ -7,7 +11,17 @@ var mysql = require('mysql2');
 const bodyParser = require('body-parser');
 const { receiveMessageOnPort } = require('worker_threads');
 
-var publicPath = path.join(__dirname, 'public');
+const DB_PORT = process.env.DB_PORT;
+const HOST = process.env.DB_HOST;
+const USER = process.env.DB_USER;
+const PASSWORD = process.env.DB_PASSWORD;
+
+const DB_URL = process.env.CLEARDB_DATABASE_URL;
+
+const PORT = process.env.PORT;
+
+
+// var publicPath = path.join(__dirname, 'public');
 var htmlPath = path.join(__dirname, 'public/HTML');
 
 app.use(express.static('public'));
@@ -19,12 +33,6 @@ app.use(bodyParser.json());
 
 const oneDay = 1000 * 60 * 60 * 24;
 
-let users = {
-    "user1": "password",
-    "user2": "pw",
-    "user3": "pass"
-};
-
 app.use(session({
     secret: 'shush',
     saveUninitialized: true,
@@ -32,7 +40,7 @@ app.use(session({
     cookie: { maxAge: oneDay }
 }));
 
-app.listen(5050, function(err) {
+app.listen(process.env.port || PORT, function(err) {
     if (err) {
         console.log(err);
     }
@@ -55,14 +63,68 @@ app.get("/profile", function (req, res, next) {
     }
 });
 
+function parseUrl(url) {
+    let username = url.split(':')[1].slice(2);
+
+    let password = url.split(':')[2].split('@')[0];
+
+    let host = url.split('@')[1].split('/')[0];
+
+    let database = url.split('/')[3].split('?')[0];
+
+    console.log("user: ", username);
+    console.log("password: ", password);
+    console.log("host: ", host);
+    console.log("database: ", database);
+    console.log("port: ", DB_PORT);
+
+    return {
+        port: DB_PORT,
+        user: username,
+        password: password,
+        database: database,
+        host: host
+    }
+}
+
+function createConnection() {
+    console.log(DB_PORT, HOST, USER, PASSWORD);
+
+    // const dbConnectionString = new connectionString.ConnectionString(DB_URL);
+    // console.log(dbConnectionString);
+    console.log(DB_URL);
+    let config = parseUrl(DB_URL);
+
+
+    return mysql.createConnection(config);
+}
+
+function resetUserDatabaseTable() {
+    const connection = createConnection();
+
+    connection.connect();
+
+    connection.query('DROP TABLE Users;');
+
+    connection.query('CREATE TABLE IF NOT EXISTS Users ( userid int NOT NULL AUTO_INCREMENT PRIMARY KEY, username varchar(50), password varchar(50), firstName varchar(50), lastName varchar(50));');
+
+    connection.query("INSERT INTO Users (username, password, firstName, lastName) VALUES ('user1', 'pass1', 'amy', 'adams');");
+    connection.query("INSERT INTO Users (username, password, firstName, lastName) VALUES ('user2', 'pass2', 'bob', 'burns');");
+    connection.query("INSERT INTO Users (username, password, firstName, lastName) VALUES ('user3', 'pass3', 'carrie', 'carlson');");
+    connection.query("INSERT INTO Users (username, password, firstName, lastName) VALUES ('user4', 'pass4', 'diane', 'davidson');");
+    connection.query("INSERT INTO Users (username, password, firstName, lastName) VALUES ('user5', 'pass5', 'earl', 'ericson');");
+
+    connection.query("SELECT * FROM users", (err, rows, fields) => {
+        console.log(rows);
+        connection.end();
+    });
+}
+
+// uncomment this function call if you want to ENTIRELY RESET the User table in the Heroku database
+// resetUserDatabaseTable();
+
 function checkUsernamePasswordCombo(username, password, handleResult) {
-    const connection = mysql.createConnection({
-        port: 3306,
-        host: '127.0.0.1',
-        user: 'foodbuddy',
-        password: 'comp2800',
-        database: 'foodbuddy'
-      });
+    const connection = createConnection();
 
     connection.connect()
 
@@ -118,13 +180,7 @@ app.get("/create_account", (req, res) => {
 });
 
 function createNewAccount(username, password, firstName, lastName, handleResult) {
-    const connection = mysql.createConnection({
-        port: 3306,
-        host: '127.0.0.1',
-        user: 'foodbuddy',
-        password: 'comp2800',
-        database: 'users'
-      });
+    const connection = createConnection();
 
     connection.connect()
 
@@ -208,13 +264,7 @@ app.post('/authenticate_admin',
 );
 
 function fetchAccounts(handleResult) {
-    const connection = mysql.createConnection({
-        port: 3306,
-        host: '127.0.0.1',
-        user: 'foodbuddy',
-        password: 'comp2800',
-        database: 'foodbuddy'
-      });
+    const connection = createConnection();
 
     connection.connect()
 

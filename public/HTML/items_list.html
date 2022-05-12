@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Account List</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    </head>
+
+    <body>
+        <h1>Items list:</h1>
+
+        <table id="items-list">
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Password</th>
+            </tr>
+        </table>
+
+        <a href="/logout">Logout</a>
+
+        <script>
+            fetch('/items_list_data')
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+
+                data.forEach((items) => {
+                    $(document).ready(function() {
+                        $("#account-list").append(`<tr>
+                            <td>${items.name}</td>
+                            <td>${items.price}</td>
+                            <td>${items.img}</td>
+                            <td>${items.location}</td>
+                            <td>${items.id}</td>
+                        </tr>`)
+                    })
+                })
+            });
+        </script>
+    </body>
+</html>
