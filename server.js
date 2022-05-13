@@ -290,9 +290,11 @@ They can add their address through the profile page, but we chose to omit this f
 account creation to streamline the signup process. */
     connection.query(
         `INSERT INTO Users (email, password, firstName, lastName) VALUES ('${email}', '${password}', '${firstName}', '${lastName}');`,
-        (err) => {
+        (err, res) => {
             if (err) {
                 throw err;
+            } else {
+                handleResult(res.insertId);
             }
 
             connection.end();
@@ -336,10 +338,12 @@ app.post("/create_account_in_db",
                     console.log("username/pw already exists");
                     res.redirect('/create_account?userAlreadyExists=true');
                 } else {
-                    req.session.userid = req.body.userid;
+                    // req.session.userid = req.body.userid;
                     console.log("valid/new username/pw");
-                    createNewAccount(req.body.email, req.body.password, req.body.firstName, req.body.lastName)
-                    next();
+                    createNewAccount(req.body.email, req.body.password, req.body.firstName, req.body.lastName, (generatedUserid) => {
+                        req.session.userid = generatedUserid;
+                        next();
+                    })
                 }
             });
         }
