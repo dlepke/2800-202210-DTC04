@@ -224,7 +224,7 @@ app.post('/authenticate',
             } else {
                 // console.log(`${req.body.username} + ${req.body.password}`)
                 // console.log("incorrect username/pw");
-                res.redirect('/');
+                res.redirect('/?loginfailed=true');
             }
         });
     },
@@ -288,7 +288,7 @@ app.post("/create_account_in_db",
                     // console.log("username/pw already exists");
                     res.redirect('/create_account');
                 } else {
-                    res.locals.username = req.body.username;
+                    req.session.userid = req.body.userid;
                     // console.log("valid/new username/pw");
                     createNewAccount(req.body.username, req.body.password, req.body.firstName, req.body.lastName)
                     next();

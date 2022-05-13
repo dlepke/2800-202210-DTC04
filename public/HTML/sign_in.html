@@ -27,8 +27,23 @@
                 <input type="text" placeholder="Password" id="password" name="password">
                 <button id="signin_submit">Sign in</button>
             </form>
+            <div id="login-unsuccessful-warning" style="background-color: pink; border: solid 1px red; margin: 1%; padding: 1%;" hidden>
+                Invalid username/password combination.
+            </div>
         </main>
     </div>
+
+    <script>
+        // console.log("current location: ", document.location.href);
+
+        let previouslyFailed = document.location.href.split("loginfailed=")[1];
+
+        console.log("previously failed? ", previouslyFailed);
+
+        if (previouslyFailed === "true") {
+            document.getElementById("login-unsuccessful-warning").hidden = false;
+        }
+    </script>
 </body>
 
 </html>
