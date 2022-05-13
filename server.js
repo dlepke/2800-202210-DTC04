@@ -515,6 +515,14 @@ app.get('/getallproducts/:name', function (req, res, handleResult){
 //         res.redirect('/user');
 //     }
 // })
+app.get("/search", (req, res) => {
+    res.sendFile(path.join(htmlPath + '/search.html'));
+});
+
+app.get("/results", (req, res) => {
+    res.sendFile(path.join(htmlPath + '/results.html'));
+});
+
 app.get('/search_item', (req, res) => {
 
     fetchItems((result) => {
