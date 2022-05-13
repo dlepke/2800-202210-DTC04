@@ -15,8 +15,8 @@ fetch('/search_item')
     });
 
 function display_item(item) {
-    console.log(item)
-    console.log(item.itemid)
+    // console.log(item)
+    // console.log(item.itemid)
     $("#results_display").append(`<a href="/product/${item.itemid}"><div id=${item.itemid} class=items> 
     <div class="item_img"><img src=""></div>
     <div class="item_info">${item.itemName}<br>
