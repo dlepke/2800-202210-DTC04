@@ -330,7 +330,7 @@ app.post('/authenticate_admin',
             res.locals.admin = true;
             next();
         } else {
-            res.redirect('/admin');
+            res.redirect('/admin?loginFailed=true');
         }
     },
     (req, res) => {
