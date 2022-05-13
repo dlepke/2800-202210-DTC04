@@ -63,6 +63,38 @@ app.get("/profile", function (req, res, next) {
     }
 });
 
+function getUserFullName(userid, handleResult) {
+    const connection = createConnection();
+
+    connection.connect()
+
+    let firstName = "false";
+    let lastName = "false";
+
+    console.log("getting name for user ", userid);
+
+    connection.query(`SELECT * FROM users WHERE userid = ${userid};`, (err, rows, fields) => {
+        if (err) {
+            throw err;
+        }
+        firstName = rows[0].firstName;
+        lastName = rows[0].lastName;
+
+        connection.end();
+        handleResult(firstName, lastName)
+    })
+}
+
+app.get("/getUserFullName", (req, res) => {
+    getUserFullName(req.session.userid, (userFirstName, userLastName) => {
+        let userFullName = userFirstName + ' ' + userLastName;
+
+        res.send(JSON.stringify({
+            fullName: userFullName
+        }))
+    })
+})
+
 function parseUrl(url) {
     let username = url.split(':')[1].slice(2);
 

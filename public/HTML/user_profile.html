@@ -25,11 +25,12 @@
     </header>
     <main>
         <div id="display_profile">
-            <div id="profile_pic">
-
+            <div id="profile_pic" class="material-icons">
+                account_circle
             </div>
-            <div id="name">
-                Alice Ng
+            <div id="change-avatar-link"><a href="edit_profile.html">Change Avatar</a></div>
+            <div id="user-full-name">
+
             </div>
         </div>
         <div id="options">
@@ -46,6 +47,20 @@
     </main>
     <nav id="footerPlaceholder"></nav>
     <script src="../scripts/skeleton.js"></script>
+
+    <script>
+        $(document).ready(() => {
+            populateUserFullName();
+        })
+
+        function populateUserFullName() {
+            $.get('/getUserFullName', (userFullName) => {
+                let fullName = JSON.parse(userFullName).fullName;
+
+                document.getElementById("user-full-name").innerHTML = fullName.toUpperCase();
+            })
+        }
+    </script>
 </body>
 
 </html>
