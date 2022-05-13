@@ -557,25 +557,7 @@ bodyParser.urlencoded({
     fetchItems_with_filter(req.body.name, req.body.sort, (result) => {
         res.send(result);
     });
-//     if (req.body.username == "admin" && req.body.password == "admin") {
-//         res.locals.username = req.body.username;
-//         res.locals.admin = true;
-//         next();
-//     } else {
-//         res.redirect('/admin');
-//     }
-// },
-// (req, res) => {
-//     req.session.admin = res.locals.admin;
-//     res.redirect('/account_list');
-//     res.send();
 });
-//(req, res) => {
-    
-//     // fetchItems((result) => {
-//     //     res.send(result);
-//     // });
-// })
 
 app.get('/edit_profile', (req, res) => {
     res.sendFile(path.join(htmlPath + "/edit_profile.html"))
