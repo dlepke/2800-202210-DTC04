@@ -20,6 +20,17 @@ main{
 
 #display_profile{
     text-align: center;
+    display: grid;
+    grid-template-columns: 100%;
+    justify-items: center;
+}
+
+#change-avatar-link a {
+    font-size: 10px;
+}
+
+#user-full-name {
+    font-size: 30px;
 }
 
 #options{
@@ -31,8 +42,8 @@ main{
     border-radius: 50%;
     width: 100px;
     height: 100px;
-    background-color: lightgrey;
-    
+    /* background-color: lightgrey; */
+    font-size: 100px;
 }
 
 #name{

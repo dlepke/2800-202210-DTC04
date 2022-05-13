@@ -15,7 +15,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="../styles/edit_profile.css">
+    <script src="../scripts/edit_profile.js"></script>
     <title>Edit Profile</title>
 </head>
 
@@ -24,25 +24,30 @@
         <nav id="navbarPlaceholder"></nav>
     </header>
     <main>
+        <br>
         <div>
-            <p>First Name</p>
             <input type="text" placeholder="First name" id="first_name">
+            <button class="save_change" onclick="editFirstName()">Save</button>
+            <p>First Name</p>
         </div>
         <div>
-            <p>Last Name</p>
             <input type="text" placeholder="Last name" id="last_name">
+            <button class="save_change" onclick="editLastName()">Save</button>
+            <p>Last Name</p>
         </div>
         <div>
-            <p>Address</p>
             <input type="text" placeholder="New address" id="new_address">
+            <button class="save_change" onclick="editAddress()">Save</button>
+            <p>Address</p>
         </div>
         <div>
-            <p>Email</p>
             <input type="text" placeholder="Email" id="new_email">
+            <button class="save_change" onclick="editEmail()">Save</button>
+            <p>Email</p>
         </div>
+        <br>
         <div>
-            <button id="save_change">Save</button>
-            <button id="cancel_change">Discard</button>
+            <a href="/profile"><button id="cancel_change">Back to Profile</button></a>
         </div>
     </main>
     <nav id="footerPlaceholder"></nav>
