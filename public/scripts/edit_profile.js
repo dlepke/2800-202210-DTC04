@@ -10,27 +10,23 @@ function editEmail() {
 function editFirstName() {
     firstName = document.getElementById('first_name').value;
 
-    $.post('edit_first_name', {
-        newFirstName: firstName,
-    })
+    $.post('/edit_first_name', {
+        newFirstName: firstName
+    });
 }
 
 function editLastName() {
     lastName = document.getElementById('last_name').value;
 
-    $.post('edit_last_name', {
-        newLastName: lastName,
-    })
+    $.post('/edit_last_name', {
+        newLastName: lastName
+    });
 }
 
 function editAddress() {
     address = document.getElementById('new_address').value;
 
-    $.post('edit_address', {
-        newAddress: address,
-    })
-}
-
-function backToProfile() {
-
+    $.post('/edit_address', {
+        newAddress: address
+    });
 }
