@@ -57,3 +57,9 @@ body{
     position: relative;
     background-color: rgb(241, 241, 241)
 }
+
+button{
+    border: none;
+    background-color: transparent;
+    color: rgb(48, 48, 48);
+}
