@@ -262,7 +262,7 @@ app.post('/authenticate',
         // console.log(res.locals.userid);
         // req.session.userid = res.locals.userid;
 
-        res.redirect('/profile');
+        res.redirect('/search');
         res.send();
     }
 );
