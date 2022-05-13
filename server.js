@@ -307,7 +307,11 @@ app.post("/create_account_in_db",
 );
 
 app.get('/admin', (req, res) => {
-    res.sendFile(path.join(htmlPath + '/admin_login.html'));
+    if (req.session.admin) {
+        res.redirect("/account_list");
+    } else {
+        res.sendFile(path.join(htmlPath + '/admin_login.html'));
+    }
 })
 
 app.post('/authenticate_admin',
