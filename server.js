@@ -504,6 +504,9 @@ app.get('/getallproducts/:name', function (req, res, handleResult){
     })
 })
 
+app.get('/watchlist', (req, res) => {
+    res.sendFile(path.join(htmlPath + "/Watchlist.html"))
+})
 
 //This is for accessing watchlist as you need to be a required user
 // app.get('/all_items_list', (req, res) => {
