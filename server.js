@@ -136,8 +136,6 @@ function resetUserDatabaseTable() {
 
     connection.connect();
 
-    connection.query('DROP TABLE IF EXISTS UserItems;');
-
     connection.query('DROP TABLE IF EXISTS Users;');
 
     connection.query('CREATE TABLE IF NOT EXISTS Users ( userid int NOT NULL AUTO_INCREMENT PRIMARY KEY, email varchar(50), password varchar(50), firstName varchar(50), lastName varchar(50), address varchar(100));');
@@ -158,8 +156,6 @@ function resetItemDatabaseTable() {
     const connection = createConnection();
 
     connection.connect();
-
-    connection.query('DROP TABLE IF EXISTS UserItems;');
 
     connection.query('DROP TABLE IF EXISTS Items;');
 
@@ -214,7 +210,7 @@ function resetWatchlistDatabaseTable() {
 resetUserDatabaseTable();
 
 // uncomment this function call if you want to ENTIRELY RESET the Item table in the database
-// resetItemDatabaseTable();
+resetItemDatabaseTable();
 
 // uncomment this function call if you want to ENTIRELY RESET the UserItem table in the database - NOT CURRENTLY WORKING
 // resetWatchlistDatabaseTable();
@@ -610,4 +606,12 @@ app.post('/edit_address', (req, res) => {
     connection.connect();
 
     connection.query(`UPDATE users SET address = '${req.body.newAddress}' WHERE userid = '${req.session.userid}';`);
+})
+
+app.post('/change_password', (req, res) => {
+    let connection = createConnection();
+
+    connection.connect();
+
+    connection.query(`UPDATE users SET password = '${req.body.newPassword}' WHERE userid = '${req.session.userid}';`);
 })
