@@ -24,15 +24,31 @@
             <form id="info_form" action="/create_account_in_db" method="post">
                 <input type="text" placeholder="First name" id="first" name="firstName">
                 <input type="text" placeholder="Last name" id="last" name="lastName">
-                <input type="text" placeholder="Email" id="email" name="username">
-                <input type="text" placeholder="Password" id="password" name="password">
-                <input type="text" placeholder="Confirm password" id="confirm_password" name="confirmPassword">
+                <input type="text" placeholder="Email" id="email" name="email">
+                <input type="password" placeholder="Password" id="password" name="password">
+                <input type="password" placeholder="Confirm password" id="confirm_password" name="confirmPassword">
                 <p id="note">You password should be a minimum of 8 characters, at least 1 capital letter and 1 number.</p>
                 <button id="signup_submit">Sign up</button>
             </form>
 
+            <div id="account-already-exists-warning" style="background-color: pink; border: 1px solid red;" hidden>Email already connected to an account.</div>
+            <div id="passwords-dont-match-warning" style="background-color: pink; border: 1px solid red;" hidden>Password confirmation does not match given password.</div>
+
         </main>
     </div>
+
+    <script>
+        console.log("current location: ", document.location.href);
+
+        let passwordMismatch = document.location.href.split("passwordMismatch=")[1];
+        let userAlreadyExists = document.location.href.split("userAlreadyExists=")[1];
+
+        if (passwordMismatch === "true") {
+            document.getElementById("passwords-dont-match-warning").hidden = false;
+        } else if (userAlreadyExists === "true") {
+            document.getElementById("account-already-exists-warning").hidden = false;
+        }
+    </script>
 </body>
 
 </html>
