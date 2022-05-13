@@ -187,7 +187,7 @@ resetUserDatabaseTable();
 // uncomment this function call if you want to ENTIRELY RESET the UserItem table in the database - NOT CURRENTLY WORKING
 // resetWatchlistDatabaseTable();
 
-function checkUsernamePasswordCombo(username, password, handleResult) {
+function checkUsernamePasswordCombo(email, password, handleResult) {
     const connection = createConnection();
 
 
@@ -195,7 +195,7 @@ function checkUsernamePasswordCombo(username, password, handleResult) {
 
     let userID = -1;
 
-    connection.query(`SELECT * FROM users WHERE username = '${username}' AND password = '${password}';`, (err, rows, fields) => {
+    connection.query(`SELECT * FROM users WHERE email = '${email}' AND password = '${password}';`, (err, rows, fields) => {
         if (err) {
             throw err;
         } else if (rows.length > 0) {
@@ -271,12 +271,28 @@ account creation to streamline the signup process. */
     })
 }
 
+function checkIfEmailExists(emailToCheck, resultHandler) {
+    let connection = createConnection();
+
+    connection.connect();
+
+    connection.query(`SELECT * FROM Users WHERE email = "${emailToCheck}";`, (err, rows, fields) => {
+        if (err) {
+            throw err;
+        } else if (rows.length > 0) {
+            resultHandler(true);
+        } else {
+            resultHandler(false);
+        }
+    });
+}
+
 app.post("/create_account_in_db",
     bodyParser.urlencoded({
         extended: true
     }),
     (req, res, next) => {
-        console.log(`username: ${req.body.email}\n
+        console.log(`email: ${req.body.email}\n
         password: ${req.body.password}\n
         confirmed password: ${req.body.confirmPassword}\n
         first name: ${req.body.firstName}\n
@@ -287,8 +303,8 @@ app.post("/create_account_in_db",
             res.redirect('/create_account?passwordMismatch=true');
         } else {
 
-            checkUsernamePasswordCombo(req.body.email, req.body.password, (result) => {
-                if (result > 0) {
+            checkIfEmailExists(req.body.email, (result) => {
+                if (result) {
                     console.log("username/pw already exists");
                     res.redirect('/create_account?userAlreadyExists=true');
                 } else {
@@ -305,7 +321,7 @@ app.post("/create_account_in_db",
         req.session.loggedIn = true;
         req.session.username = res.locals.username;
 
-        res.redirect('/profile');
+        res.redirect('/');
         res.send();
     }
 );
@@ -459,7 +475,7 @@ app.get('/getallproducts/:name', function (req, res, handleResult){
 
 //This is for accessing watchlist as you need to be a required user
 // app.get('/all_items_list', (req, res) => {
-//     if (req.session.username) {
+//     if (req.session.userid) {
 //         fetchItems((result) => {
 //             res.sendFile(path.join(htmlPath + '/itemslist.html'));
 //         });

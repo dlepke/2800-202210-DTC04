@@ -31,8 +31,24 @@
                 <button id="signup_submit">Sign up</button>
             </form>
 
+            <div id="account-already-exists-warning" style="background-color: pink; border: 1px solid red;" hidden>Email already connected to an account.</div>
+            <div id="passwords-dont-match-warning" style="background-color: pink; border: 1px solid red;" hidden>Password confirmation does not match given password.</div>
+
         </main>
     </div>
+
+    <script>
+        console.log("current location: ", document.location.href);
+
+        let passwordMismatch = document.location.href.split("passwordMismatch=")[1];
+        let userAlreadyExists = document.location.href.split("userAlreadyExists=")[1];
+
+        if (passwordMismatch === "true") {
+            document.getElementById("passwords-dont-match-warning").hidden = false;
+        } else if (userAlreadyExists === "true") {
+            document.getElementById("account-already-exists-warning").hidden = false;
+        }
+    </script>
 </body>
 
 </html>
