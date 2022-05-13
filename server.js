@@ -108,13 +108,13 @@ function resetUserDatabaseTable() {
 
     connection.query('DROP TABLE IF EXISTS Users;');
 
-    connection.query('CREATE TABLE IF NOT EXISTS Users ( userid int NOT NULL AUTO_INCREMENT PRIMARY KEY, username varchar(50), email varchar(50), password varchar(50), firstName varchar(50), lastName varchar(50), address varchar(100));');
+    connection.query('CREATE TABLE IF NOT EXISTS Users ( userid int NOT NULL AUTO_INCREMENT PRIMARY KEY, email varchar(50), password varchar(50), firstName varchar(50), lastName varchar(50), address varchar(100));');
 
-    connection.query('INSERT INTO Users (username, email, password, firstName, lastName, address) VALUES ("user1", "user1@email.com", "pass1", "amy", "adams", "1 first ave, firstland");');
-    connection.query("INSERT INTO Users (username, email, password, firstName, lastName, address) VALUES ('user2', 'user2@email.com', 'pass2', 'bob', 'burns', '2 second ave, secondland');");
-    connection.query("INSERT INTO Users (username, email, password, firstName, lastName, address) VALUES ('user3', 'user3@email.com', 'pass3', 'carrie', 'carlson', '3 third ave, thirdland');");
-    connection.query("INSERT INTO Users (username, email, password, firstName, lastName, address) VALUES ('user4', 'user4@email.com', 'pass4', 'diane', 'davidson', '4 fourth ave, fourthland');");
-    connection.query("INSERT INTO Users (username, email, password, firstName, lastName, address) VALUES ('user5', 'user5@email.com', 'pass5', 'earl', 'ericson', '5 fifth ave, fifthland');");
+    connection.query('INSERT INTO Users (email, password, firstName, lastName, address) VALUES ("user1@email.com", "pass1", "amy", "adams", "1 first ave, firstland");');
+    connection.query("INSERT INTO Users (email, password, firstName, lastName, address) VALUES ('user2@email.com', 'pass2', 'bob', 'burns', '2 second ave, secondland');");
+    connection.query("INSERT INTO Users (email, password, firstName, lastName, address) VALUES ('user3@email.com', 'pass3', 'carrie', 'carlson', '3 third ave, thirdland');");
+    connection.query("INSERT INTO Users (email, password, firstName, lastName, address) VALUES ('user4@email.com', 'pass4', 'diane', 'davidson', '4 fourth ave, fourthland');");
+    connection.query("INSERT INTO Users (email, password, firstName, lastName, address) VALUES ('user5@email.com', 'pass5', 'earl', 'ericson', '5 fifth ave, fifthland');");
 
     connection.query("SELECT * FROM users", (err, rows, fields) => {
         // console.log(rows);
@@ -179,7 +179,7 @@ function resetWatchlistDatabaseTable() {
 }
 
 // uncomment this function call if you want to ENTIRELY RESET the User table in the database
-// resetUserDatabaseTable();
+resetUserDatabaseTable();
 
 // uncomment this function call if you want to ENTIRELY RESET the Item table in the database
 // resetItemDatabaseTable();
@@ -248,7 +248,7 @@ app.get("/create_account", (req, res) => {
     res.sendFile(path.join(htmlPath + '/create_account.html'));
 });
 
-function createNewAccount(username, password, firstName, lastName, handleResult) {
+function createNewAccount(email, password, firstName, lastName, handleResult) {
     const connection = createConnection();
 
     connection.connect()
@@ -256,8 +256,12 @@ function createNewAccount(username, password, firstName, lastName, handleResult)
     // console.log("inserting new user into db");
     // console.log(username, password, firstName, lastName)
 
+
+/* Note: The account creation form does NOT require the user to enter their address.
+They can add their address through the profile page, but we chose to omit this from
+account creation to streamline the signup process. */
     connection.query(
-        `INSERT INTO Users (username, password, firstName, lastName) VALUES ('${username}', '${password}', '${firstName}', '${lastName}');`,
+        `INSERT INTO Users (email, password, firstName, lastName) VALUES ('${email}', '${password}', '${firstName}', '${lastName}');`,
         (err) => {
             if (err) {
                 throw err;
@@ -272,25 +276,25 @@ app.post("/create_account_in_db",
         extended: true
     }),
     (req, res, next) => {
-        console.log(`username: ${req.body.username}\n
+        console.log(`username: ${req.body.email}\n
         password: ${req.body.password}\n
         confirmed password: ${req.body.confirmPassword}\n
         first name: ${req.body.firstName}\n
         last name: ${req.body.lastName}`);
 
         if (req.body.password != req.body.confirmPassword) {
-            // console.log("passwords do not match")
-            res.redirect('create_account');
+            console.log("passwords do not match")
+            res.redirect('/create_account?passwordMismatch=true');
         } else {
 
-            checkUsernamePasswordCombo(req.body.username, req.body.password, (result) => {
-                if (result) {
-                    // console.log("username/pw already exists");
-                    res.redirect('/create_account');
+            checkUsernamePasswordCombo(req.body.email, req.body.password, (result) => {
+                if (result > 0) {
+                    console.log("username/pw already exists");
+                    res.redirect('/create_account?userAlreadyExists=true');
                 } else {
                     req.session.userid = req.body.userid;
-                    // console.log("valid/new username/pw");
-                    createNewAccount(req.body.username, req.body.password, req.body.firstName, req.body.lastName)
+                    console.log("valid/new username/pw");
+                    createNewAccount(req.body.email, req.body.password, req.body.firstName, req.body.lastName)
                     next();
                 }
             });
