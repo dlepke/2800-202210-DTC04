@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>My BCIT Project</title>
+    <title>Product</title>
 
     <!------------------------>
     <!-- Required meta tags -->
@@ -50,36 +50,49 @@
         <a href="../HTML/Watchlist.html">
             <i class="material-icons md-48 nav_elements icons" style="float: left">arrow_back</i>
         </a>
-        <h1>Bananas</h1> 
+        <h1>
+            <span id="name"><%= name %></span>
+        </h1> 
         <div class="img_cont shadow-sm">
+            <!-- Insert img from render -->
+            <!-- <img src="img_path %>" alt=""> -->
             <img src="../images/banana.png">
         </div>
 
         <div class="actions">
             <button type="button" class="addtolist">
+                <!-- Add an onclick that adds this data set inside watchlist database -->
                 <i class="material-icons md-48 nav_elements icons">post_add</i>
             </button>
         </div>
 
-
         <article>
-            <h3>Description</h3>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Et sunt, at laborum aut rem eum nostrum asperiores
-            delectus enim perspiciatis soluta ut dolores ratione architecto repellat non eveniet veritatis odit.
+            <h3>Description</h3>   
+            <p> Price: <%= price %></p>
+            <p> Location: <%= location %></p>
+
+
+
+
 
         </article>
-        <article>
-            <h3>Best Price</h3>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Et sunt, at laborum aut rem eum nostrum asperiores
-            delectus enim perspiciatis soluta ut dolores ratione architecto repellat non eveniet veritatis odit.
+        <article id="others">
+            <h3>What other locations have it for</h3>
+            <!-- Location and Price -->
+            <!-- Select * From items Where name = 'bananas'; -->
+
+            <!-- For Ordering by Price -->
+            <!-- Select * From items where name = 'bananas' order by price -->
+        
+            <!-- For Ordering by Nearest Location -->
+            <!-- Select * From items where name = 'bananas' order by Location -->
+
+            <!-- For only name, price and location -->
+            <!-- select name, price, location from items where name='bananas' order by price; -->
+            <!-- Drop down? -->
 
         </article>
-        <article>
-            <h3>Nearest Location</h3>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Et sunt, at laborum aut rem eum nostrum asperiores
-            delectus enim perspiciatis soluta ut dolores ratione architecto repellat non eveniet veritatis odit.
 
-        </article>
 
 
 
@@ -94,7 +107,8 @@
     <!---------------------------------------------->
 
     <script src="../scripts/skeleton.js"></script>
-    <!-- <script src="./scripts/script.js"></script> -->
+    <script src="../scripts/product.js"></script>
+
 
 </body>
 
