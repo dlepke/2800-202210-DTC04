@@ -1,0 +1,32 @@
+h1 {
+    text-align: center;
+}
+
+main {
+    margin-top: 30%;
+}
+#buttons_list {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    /* align-items: center; */
+    padding: 10px;
+    margin: 10px;
+}
+
+
+.space {
+    margin-top: 5%;
+}
+
+.admin_menu_buttons {
+    border-radius: 10px;
+    text-decoration: none;
+    background-color: rgb(61, 108, 54);
+    border: none;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    width: 100%;
+
+}

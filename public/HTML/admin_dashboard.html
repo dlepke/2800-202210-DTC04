@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>FoodBuddy</title>
+    <title>Admin Dashboard</title>
     <!-- Taken from 1537 Template  -->
     <!------------------------>
     <!-- Required meta tags -->
@@ -29,6 +29,7 @@
     <!-- Other libraries and styles of your own -->
     <!-------------------------------------------->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="../styles/admin_dash.css" rel="stylesheet">
 
 
 </head>
@@ -42,29 +43,24 @@
     <nav id="navbarPlaceholder"></nav>
 
     <!-- the body of your page goes here -->
-    <h1>This is a page</h1>
+    <h1>Admin Dashboard</h1>
     <main>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum ullam minima doloribus. Eaque dolore optio ea
-        voluptates sunt dolores est ipsam, distinctio eum doloremque explicabo nesciunt, impedit praesentium eius
-        tempora.
+        <div id="buttons_list" >
+            <a href="./itemslist.html">
+                <button class="admin_menu_buttons">
+                    <h2>
+                        Item database
+                    </h2>
+                </button>
+            <a href="./account_list.html">
+                <button class="space admin_menu_buttons">
+                    <h2>
+                        User database
+                    </h2>
+                </button> 
+            </a>
 
-        <article>
-            <h3>first</h3>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Et sunt, at laborum aut rem eum nostrum asperiores
-            delectus enim perspiciatis soluta ut dolores ratione architecto repellat non eveniet veritatis odit.
-
-        </article>
-        <article>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Et sunt, at laborum aut rem eum nostrum asperiores
-            delectus enim perspiciatis soluta ut dolores ratione architecto repellat non eveniet veritatis odit.
-
-        </article>
-        <article>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Et sunt, at laborum aut rem eum nostrum asperiores
-            delectus enim perspiciatis soluta ut dolores ratione architecto repellat non eveniet veritatis odit.
-
-        </article>
-
+        </div>
 
 
     </main>
@@ -78,7 +74,7 @@
     <!---------------------------------------------->
 
     <script src="../scripts/skeleton.js"></script>
-    <!-- <script src="./scripts/script.js"></script> -->
+
 
 </body>
 
