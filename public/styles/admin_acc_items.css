@@ -1,0 +1,27 @@
+#account_list {
+    width: 100%;
+}
+
+.title {
+    display: flex;
+
+}
+h1{
+    margin-left: 17%;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 10%;
+    background-color: rgb(61, 108, 54);
+    color: white;
+
+
+}
+
+td, th {
+    border-bottom: 1px solid black;
+    padding: 5px;
+    text-align: center;
+
+}
+
+
