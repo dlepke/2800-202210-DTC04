@@ -37,10 +37,10 @@
     <main>
         <div id="search_bar">
             <input type="search" id="search_text" placeholder="Please enter keywords">
-            <a href="/results"><input type="button" id="search_submit" value="Search"></a>
+            <input type="button" id="search_submit" value="Search">
         </div>
         <button id="toggle_filter">Filter</button>
-        <div id="filter_form">
+        <div id="filter_form" style="display: none;">
             <label for="filter_sort">
                 <p><b>
                     Filter By:
@@ -53,7 +53,7 @@
                     <label for="availability">Product Availability</label>
                     <div id="availability">
                         <div>
-                            <input type="radio" name="product_available" value="available">
+                            <input type="radio" name="product_available" value="available" class="radio_buttons">
                             <label for="available">Available</label>
                         </div>
                     </div>
@@ -61,15 +61,15 @@
                     <label for="store_options">Store</label>
                     <div id="store_options">
                         <div>
-                            <input type="radio" name="store" value="costco">
+                            <input type="radio" name="store" value="costco" class="radio_buttons">
                             <label for="store">Costco</label>
                         </div>
                         <div>
-                            <input type="radio" name="store" value="walmart">
+                            <input type="radio" name="store" value="walmart" class="radio_buttons">
                             <label for="store">Walmart</label>
                         </div>
                         <div>
-                            <input type="radio" name="store" value="tnt">
+                            <input type="radio" name="store" value="tnt" class="radio_buttons">
                             <label for="store">T&T</label>
                         </div>
                     </div>
@@ -101,9 +101,10 @@
 
             <br>
 
-            <div id="results_display">
+            
+        </div>
+        <div id="results_display">
 
-            </div>
         </div>
         <div id="padding-footer"></div>
     </main>
