@@ -495,7 +495,7 @@ app.get('/product/:id', function (req, res, handleResult) {
             "name": details.itemName,
             "img": details.img,
             "price": details.price,
-            "location": details.brand,
+            "brand": details.brand,
             "availability": details.itemAvailability
         });
     })
