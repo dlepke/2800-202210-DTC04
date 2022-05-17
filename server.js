@@ -621,3 +621,15 @@ app.post('/add_item', (req, res) => {
 app.get('/add_item', (req, res) => {
     res.sendFile(path.join(htmlPath + "/user_add_item.html"))
 })
+
+app.get('/update_item', (req, res) => {
+    res.sendFile(path.join(htmlPath + "/update_item.html"))
+})
+
+app.post('/update_item', (req, res) => {
+    let connection = createConnection();
+
+    connection.connect();
+
+    connection.query(`UPDATE items SET price = '${req.body.newPrice}' WHERE itemName = '${req.body.itemName}' AND brand = '${req.body.itemStore}';`);
+})
