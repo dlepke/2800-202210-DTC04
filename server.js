@@ -46,6 +46,14 @@ app.listen(process.env.port || PORT, function(err) {
     }
 });
 
+app.get('/isLoggedIn', (req, res) => {
+    if (req.session.loggedIn) {
+        res.send(true);
+    } else {
+        res.send(false);
+    }
+})
+
 app.get('/', function (req, res, next) {
     if (req.session.loggedIn) {
         res.redirect('/profile');
