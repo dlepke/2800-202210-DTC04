@@ -23,6 +23,7 @@
     <!--Libraries related CSS, JS, JQuery go here -->
     <!-------------------------------------------------------->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="../scripts/add_item.js"></script>
 
 
     <!-------------------------------------------->
@@ -44,8 +45,23 @@
 
     <main>
 
-
-
+        <div id="item_info">
+            <div id="name_required" style="visibility: hidden;">You must enter an item name!</div>
+            <p>Item Name</p>
+            <input id="item_name" placeholder="Item Name">
+            <br>
+            <div id="price_required" style="visibility: hidden;">You must enter an item price!</div>
+            <p>Price (Dollars)</p>
+            <input id="price" placeholder="Price in Dollars">
+            <br>
+            <div id="store_required" style="visibility: hidden;">You must enter a store name!</div>
+            <p>Store Name</p>
+            <input id="store" placeholder="Store Name">
+            <br>
+        </div>
+        <br>
+        <br>
+        <button id="submit_item" onclick="addItem()">Submit Item</button>
 
 
     </main>
