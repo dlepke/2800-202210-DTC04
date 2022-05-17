@@ -35,7 +35,7 @@ p{
 #search_input{
     width: 70%;
     border-radius: 0.5rem;
-    border: none;
+    border: 0.01px solid rgb(48, 48, 48);
     padding-left: 10px;
 }
 
@@ -47,19 +47,43 @@ p{
 }
 
 main{
-    padding: 20px;
+    /* padding: 20px;
     position: absolute;
-    top: 45px;
+    top: 45px; */
+    position: fixed;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
+    text-align: center;
+}
+
+main div{
     width: 100%;
 }
 
-body{
+/* body{
     position: relative;
     background-color: rgb(241, 241, 241)
-}
+} */
 
 button{
     border: none;
     background-color: transparent;
     color: rgb(48, 48, 48);
+}
+
+#watchlist_direct, #add_items{
+    border: 0.01px solid rgb(48, 48, 48);
+    border-radius: 0.5rem;
+    width: 50%;
+    margin: 10px 10px 0px 0px;
+}
+
+#buttons{
+    margin-top: 30px;
 }

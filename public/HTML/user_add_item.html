@@ -23,35 +23,47 @@
     <!--Libraries related CSS, JS, JQuery go here -->
     <!-------------------------------------------------------->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="../scripts/add_item.js"></script>
 
 
     <!-------------------------------------------->
     <!-- Other libraries and styles of your own -->
     <!-------------------------------------------->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="../styles/search.css">
+
 
 </head>
 
-<body>
-    <header>
-        <nav id="navbarPlaceholder"></nav>
-    </header>
-    <!-- the body of your page goes here -->
-    <main>
-        <div class="search">
-            <input type="search" id="search_input" placeholder="Please enter keywords">
-            <a href="/results"><input type="button" id="search_button" value="Search"></a>
-        </div>
-        <div id="buttons">
-            <a href=""><button id="watchlist_direct">Watchlist</button></a><br>
-            <a href=""><button id="add_items">Add new items</button></a>
-        </div>
+<body class="container">
+    <!------------------------------>
+    <!-- Your HTML Layout go here -->
+    <!------------------------------>
 
-        <!-- <div id="logo">
-            <img src="../images/foodbuddy-logo-icononly.png" id="logo_icon">
-            <p id="logo_text">FoodBuddy</p>
-        </div> -->
+    <!-- our own navbar goes here -->
+    <nav id="navbarPlaceholder"></nav>
+
+
+    <main>
+
+        <div id="item_info">
+            <div id="name_required" style="visibility: hidden;">You must enter an item name!</div>
+            <p>Item Name</p>
+            <input id="item_name" placeholder="Item Name">
+            <br>
+            <div id="price_required" style="visibility: hidden;">You must enter an item price!</div>
+            <p>Price (Dollars)</p>
+            <input id="price" placeholder="Price in Dollars">
+            <br>
+            <div id="store_required" style="visibility: hidden;">You must enter a store name!</div>
+            <p>Store Name</p>
+            <input id="store" placeholder="Store Name">
+            <br>
+        </div>
+        <br>
+        <br>
+        <button id="submit_item" onclick="addItem()">Submit Item</button>
+
+
     </main>
 
 
@@ -63,7 +75,6 @@
     <!---------------------------------------------->
 
     <script src="../scripts/skeleton.js"></script>
-    <script src="../scripts/search.js"></script>
     <!-- <script src="./scripts/script.js"></script> -->
 
 </body>

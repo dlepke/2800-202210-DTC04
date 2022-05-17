@@ -612,3 +612,15 @@ app.post('/change_password', (req, res) => {
 
     connection.query(`UPDATE users SET password = '${req.body.newPassword}' WHERE userid = '${req.session.userid}';`);
 })
+
+app.post('/add_item', (req, res) => {
+    let connection = createConnection();
+
+    connection.connect();
+
+    connection.query(`INSERT INTO items (itemName, price, img, brand, itemAvailability) VALUES ('${req.body.newItem}', '${req.body.newItemPrice}', 'Null', '${req.body.newItemStore}', 'available');`);
+})
+
+app.get('/add_item', (req, res) => {
+    res.sendFile(path.join(htmlPath + "/user_add_item.html"))
+})
