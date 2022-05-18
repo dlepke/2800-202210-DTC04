@@ -506,7 +506,8 @@ app.get('/product/:id', function (req, res, handleResult) {
             "img": details.img,
             "price": details.price,
             "brand": details.brand,
-            "availability": details.itemAvailability
+            "availability": details.itemAvailability,
+            "address": details.storeAddress
         });
     })
 

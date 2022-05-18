@@ -16,8 +16,9 @@ fetch(`/getallproducts/${product}`)
     console.log(data)
     data.forEach((items) => {
         $(document).ready(function() {
-            console.log(items.itemAvailability)
-            colorcode(items.itemAvailability)
+            console.log(items.storeAddress)
+
+            // colorcode(items.itemAvailability)
             $("#others").append(
             `
             <a class="links" href="/product/${items.itemid}">
