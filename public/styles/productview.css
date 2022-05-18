@@ -33,7 +33,7 @@ article {
 
 .description_text{
     display: flex;
-    width: 60%;
+    width: 70%;
     flex-flow: wrap column;
 }
 
@@ -47,7 +47,7 @@ i {
     flex-wrap: wrap;
     justify-content: end;
     margin-top: 15px;
-    width: 40%;
+    width: 30%;
 }
 /* 
 .correction {
@@ -55,7 +55,7 @@ i {
 } */
 
 .addtolist {
-    display: flex;  
+
     border: none;
     border-radius: 10px;
     height: 20%;

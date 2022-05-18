@@ -169,7 +169,7 @@ function resetItemDatabaseTable() {
 
     connection.query('DROP TABLE IF EXISTS Items;');
 
-    connection.query("CREATE TABLE IF NOT EXISTS Items ( itemid int NOT NULL AUTO_INCREMENT PRIMARY KEY, itemName varchar(50), price varchar(50), img varchar(50), brand varchar(50), itemAvailability varchar(50));")
+    connection.query("CREATE TABLE IF NOT EXISTS Items ( itemid int NOT NULL AUTO_INCREMENT PRIMARY KEY, itemName varchar(50), price varchar(50), img varchar(50), brand varchar(50), itemAvailability varchar(50), storeAddress varchar(100))")
 
     connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress ) VALUES ('bananas', '$1', 'banana.png', 'Walmart', '1', 'available', '9251 Alderbridge Way, Richmond, BC V6X 0N1');")
     connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress ) VALUES ('bananas', '$2', 'banana.png', 'Superstore', '2', 'unavailable', '4651 No. 3 Rd, Richmond, BC V6X 2C4');")
@@ -220,7 +220,7 @@ function resetWatchlistDatabaseTable() {
 // resetUserDatabaseTable();
 
 // uncomment this function call if you want to ENTIRELY RESET the Item table in the database
-// resetItemDatabaseTable();
+resetItemDatabaseTable();
 
 // uncomment this function call if you want to ENTIRELY RESET the UserItem table in the database - NOT CURRENTLY WORKING
 // resetWatchlistDatabaseTable();
