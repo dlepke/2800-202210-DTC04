@@ -2,8 +2,8 @@
 <html lang="en">
 
 <head>
-    <title>Watchlist</title>
-
+    <title>Admin Dashboard</title>
+    <!-- Taken from 1537 Template  -->
     <!------------------------>
     <!-- Required meta tags -->
     <!------------------------>
@@ -29,10 +29,7 @@
     <!-- Other libraries and styles of your own -->
     <!-------------------------------------------->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="../styles/watchlist.css">
-
-
-
+    <link href="../styles/admin_dash.css" rel="stylesheet">
 
 
 </head>
@@ -46,29 +43,24 @@
     <nav id="navbarPlaceholder"></nav>
 
     <!-- the body of your page goes here -->
-    <h1>Watchlist</h1>
+    <h1>Admin Dashboard</h1>
     <main>
-        <h3>Your selected items</h3>
-        <div id="items">
-            <div class="product shadow">
-                <div class="productimg shadow-sm">
-                    <a href="/product/1">
-                        <img src="../images/banana.png" width="100%">
-                    </a>
-                </div>
-                <div class="product_textbox">
-                    <h3 class="product_title">
-                        Banana
-                    </h3>
-                    <div class="product_description">
-                        Current Cheapest Location: 
-                    </div>
-                </div>
-            </div>
-            
-            <!-- This is where the items will be generated from database-->
-        </div>
+        <div id="buttons_list" >
+            <a href="/items_list">
+                <button class="admin_menu_buttons">
+                    <h2>
+                        Item database
+                    </h2>
+                </button>
+            <a href="/account_list">
+                <button class="space admin_menu_buttons">
+                    <h2>
+                        User database
+                    </h2>
+                </button> 
+            </a>
 
+        </div>
 
 
     </main>
@@ -82,7 +74,7 @@
     <!---------------------------------------------->
 
     <script src="../scripts/skeleton.js"></script>
-    <!-- <script src="./scripts/script.js"></script> -->
+
 
 </body>
 

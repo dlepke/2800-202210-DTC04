@@ -47,12 +47,10 @@
     <!-- the body of your page goes here -->
 
     <main id="product">
-        <a href="../HTML/Watchlist.html">
+        <a href="../search">
             <i class="material-icons md-48 nav_elements icons" style="float: left">arrow_back</i>
         </a>
-        <h1>
-            <span id="name"><%= name %></span>
-        </h1> 
+
         <div class="img_cont shadow-sm">
             <!-- Insert img from render -->
             <!-- <img src="img_path %>" alt=""> -->
@@ -67,17 +65,14 @@
         </div>
 
         <article>
-            <h3>Description</h3>   
-            <p> Price: <%= price %></p>
-            <p> Location: <%= location %></p>
-
-
-
-
-
+            <h1>
+                <span id="name"><%= name %></span>
+            </h1> 
+            <p> <%= price %></p>
+            <p> <%= brand %></p>
         </article>
         <article id="others">
-            <h3>What other locations have it for</h3>
+            <h3>Similar Products:</h3>
             <!-- Location and Price -->
             <!-- Select * From items Where name = 'bananas'; -->
 
@@ -90,7 +85,6 @@
             <!-- For only name, price and location -->
             <!-- select name, price, location from items where name='bananas' order by price; -->
             <!-- Drop down? -->
-
         </article>
 
 
