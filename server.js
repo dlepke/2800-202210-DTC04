@@ -171,16 +171,16 @@ function resetItemDatabaseTable() {
 
     connection.query("CREATE TABLE IF NOT EXISTS Items ( itemid int NOT NULL AUTO_INCREMENT PRIMARY KEY, itemName varchar(50), price varchar(50), img varchar(50), brand varchar(50), itemAvailability varchar(50));")
 
-    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability ) VALUES ('bananas', '$1', 'banana.png', 'Walmart', '1', 'available');")
-    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability ) VALUES ('bananas', '$2', 'banana.png', 'Superstore', '2', 'unavailable');")
-    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability ) VALUES ('bananas', '$0.90', 'banana.png', 'Costco', '3', 'available');")
-    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability ) VALUES ('eggs', '$5', 'eggs.png', 'Superstore', '4', 'unavailable');")
-    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability ) VALUES ('eggs', '$6', 'eggs.png', 'Walmart', '5', 'available');")
-    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability ) VALUES ('chocolate', '$4', 'chocolate.png', 'Superstore', '6', 'available');")
-    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability ) VALUES ('chocolate', '$5', 'chocolate.png', 'Superstore', '7', 'unavailable');")
-    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability ) VALUES ('toilet paper', '$8', 'toilet_paper.png', 'Walmart', '8', 'available');")
-    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability ) VALUES ('toilet paper', '$7.90', 'toilet_paper.png', 'Costco', '9', 'unavailable');")
-    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability ) VALUES ('meat', '$4', ', meat.png', 'Save On Foods', '10', 'unavailable');")
+    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress ) VALUES ('bananas', '$1', 'banana.png', 'Walmart', '1', 'available', '9251 Alderbridge Way, Richmond, BC V6X 0N1');")
+    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress ) VALUES ('bananas', '$2', 'banana.png', 'Superstore', '2', 'unavailable', '4651 No. 3 Rd, Richmond, BC V6X 2C4');")
+    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress ) VALUES ('bananas', '$0.90', 'banana.png', 'Costco', '3', 'available', '9151 Bridgeport Rd, Richmond, BC V6X 3L9');")
+    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress ) VALUES ('eggs', '$5', 'eggs.png', 'Superstore', '4', 'unavailable', '4651 No. 3 Rd, Richmond, BC V6X 2C4');")
+    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress ) VALUES ('eggs', '$6', 'eggs.png', 'Walmart', '5', 'available', '9251 Alderbridge Way, Richmond, BC V6X 0N1');")
+    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress ) VALUES ('chocolate', '$4', 'chocolate.png', 'Superstore', '6', 'available', '3185 Grandview Hwy, Vancouver, BC V5M 2E9');")
+    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress ) VALUES ('chocolate', '$5', 'chocolate.png', 'Superstore', '7', 'unavailable', '3185 Grandview Hwy, Vancouver, BC V5M 2E9');")
+    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress ) VALUES ('toilet paper', '$8', 'toilet_paper.png', 'Walmart', '8', 'available', '9251 Alderbridge Way, Richmond, BC V6X 0N1');")
+    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress ) VALUES ('toilet paper', '$7.90', 'toilet_paper.png', 'Costco', '9', 'unavailable', '9151 Bridgeport Rd, Richmond, BC V6X 3L9');")
+    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress ) VALUES ('meat', '$4', ', meat.png', 'Safeway', '10', 'unavailable', '8671 No 1 Rd, Richmond, BC V7C 1V2');")
 
     connection.query("SELECT * FROM items", (err, rows, fields) => {
         // console.log(rows);
