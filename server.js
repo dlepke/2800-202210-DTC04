@@ -43,8 +43,18 @@ app.use(session({
 app.listen(process.env.port || PORT, function(err) {
     if (err) {
         console.log(err);
+    } else {
+        console.log(`Now listening on port ${PORT}`)
     }
 });
+
+app.get('/isLoggedIn', (req, res) => {
+    if (req.session.loggedIn) {
+        res.send(true);
+    } else {
+        res.send(false);
+    }
+})
 
 app.get('/', function (req, res, next) {
     if (req.session.loggedIn) {
