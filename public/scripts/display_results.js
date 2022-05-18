@@ -47,7 +47,7 @@ function apply_sort() {
     //console.log(testing);
     //console.log(sort);
     $.ajax({
-        url: `http://localhost:5050/apply_sort`,
+        url: `https://dtc04-foodbuddy.herokuapp.com/apply_sort`,
         type: "post",
         data: {
             name: keyword,
@@ -104,3 +104,4 @@ function setup() {
 $(document).ready(setup);
 
 //https://dtc04-foodbuddy.herokuapp.com
+//http://localhost:5050
