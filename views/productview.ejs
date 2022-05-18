@@ -57,22 +57,53 @@
             <img src="../images/banana.png">
         </div>
 
-        <div class="actions">
-            <button type="button" class="addtolist">
-                <!-- Add an onclick that adds this data set inside watchlist database -->
-                <i class="material-icons md-48 nav_elements icons">post_add</i>
-            </button>
+        <div class="description">
+
+            <article class="description_text">
+                <h5>
+                    <b id="name"><%= name %></b>
+                </h5> 
+                <p> 
+                    <i class="material-icons md-48 nav_elements icons">attach_money</i>
+                    <%= price %>
+                </p>
+                <p> 
+                    <i class="material-icons md-36 nav_elements icons">store</i>
+                    <span class="description_tags"><%= brand %></span>
+                </p>
+                <p> 
+                    <!-- <i class="material-icons md-36 nav_elements icons">pin_drop</i> -->
+                    <a class="links"href="https://maps.google.com/?q=<%= address %>"> 
+                        <i class="material-icons md-36 nav_elements icons">pin_drop</i>
+
+                    </a>
+                    <%= address %>
+                </p>
+            </article>       
+
+            <div class="actions">
+                <button id="edit" data-toggle="modal" data-target="#x" type="button" class="addtolist">
+                    <!-- Add an onclick that edits this data set inside watchlist database -->
+                    <i class="material-icons md-48 ">edit_note</i>
+                </button>
+                <button type="button" class="addtolist">
+                    <!-- Add an onclick that adds this data set inside watchlist database -->
+                    <i class="material-icons md-48">favorite</i>
+                </button>
+                <!-- <div class="correction">
+                    <input class="correction" type="text"></input>
+                    <input type="submit"></input>
+                </div> -->
+
+
+
+            </div>
+
         </div>
 
-        <article>
-            <h1>
-                <span id="name"><%= name %></span>
-            </h1> 
-            <p> <%= price %></p>
-            <p> <%= brand %></p>
-        </article>
+
         <article id="others">
-            <h3>Similar Products:</h3>
+            <b> Similar Products:</b>
             <!-- Location and Price -->
             <!-- Select * From items Where name = 'bananas'; -->
 
