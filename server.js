@@ -357,12 +357,21 @@ app.post("/create_account_in_db",
         res.send();
     }
 );
-
+//Admin
 app.get('/admin', (req, res) => {
     if (req.session.admin) {
-        res.redirect("/account_list");
+        res.redirect("/admin_dashboard");
     } else {
         res.sendFile(path.join(htmlPath + '/admin_login.html'));
+    }
+})
+
+//Admin Dashboard
+app.get('/admin_dashboard', (req, res) => {
+    if (req.session.admin) {
+        res.sendFile(path.join(htmlPath + "/admin_dashboard.html"))
+    } else {
+        res.redirect('/admin');
     }
 })
 
@@ -383,7 +392,7 @@ app.post('/authenticate_admin',
     },
     (req, res) => {
         req.session.admin = res.locals.admin;
-        res.redirect('/account_list');
+        res.redirect('/admin_dashboard');
         res.send();
     }
 );
@@ -423,6 +432,8 @@ app.get('/account_list', (req, res) => {
     }
 })
 
+
+//Fetch Item
 function fetchItems(handleResult) {
     const connection = createConnection();
 
@@ -450,8 +461,13 @@ app.get('/all_items', (req, res) => {
     });
 })
 
-app.get('/items', (req, res) => {
-    res.sendFile(path.join(htmlPath + '/itemslist.html'));
+app.get('/items_list', (req, res) => {
+    if (req.session.admin) {
+        res.sendFile(path.join(htmlPath + '/itemslist.html'));
+    } else {
+        res.sendFile(path.join(htmlPath + '/admin_login.html'));
+    }
+   
 })
 
 
@@ -479,7 +495,7 @@ app.get('/product/:id', function (req, res, handleResult) {
             "name": details.itemName,
             "img": details.img,
             "price": details.price,
-            "location": details.brand,
+            "brand": details.brand,
             "availability": details.itemAvailability
         });
     })
