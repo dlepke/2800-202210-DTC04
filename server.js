@@ -223,7 +223,7 @@ function resetWatchlistDatabaseTable() {
 // resetItemDatabaseTable();
 
 // uncomment this function call if you want to ENTIRELY RESET the UserItem table in the database - NOT CURRENTLY WORKING
-// resetWatchlistDatabaseTable();
+resetWatchlistDatabaseTable();
 
 function checkUsernamePasswordCombo(email, password, handleResult) {
     const connection = createConnection();
@@ -255,9 +255,9 @@ app.post('/authenticate',
         // console.log(`${req.body.username} + ${req.body.password}`);
         checkUsernamePasswordCombo(req.body.username, req.body.password, (result) => {
             if (result > 0) {
-                // console.log(result);
+                console.log(result);
                 req.session.userid = result;
-                // console.log("correct username/pw");
+                console.log("correct username/pw");
                 next();
             } else {
                 // console.log(`${req.body.username} + ${req.body.password}`)
@@ -531,7 +531,29 @@ app.get('/getallproducts/:name', function (req, res, handleResult){
 })
 
 app.get('/watchlist', (req, res) => {
-    res.sendFile(path.join(htmlPath + "/Watchlist.html"))
+    if (req.session.loggedIn) {
+        res.sendFile(path.join(htmlPath + "/Watchlist.html"))
+    } else {
+        res.redirect('/');
+    }
+})
+
+app.get('/watchlist_items', (req, res) => {
+    // sql to access watchlist items with user id
+    // sql to get items
+    // send items
+
+    console.log(req.session.userid);
+
+    let connection = createConnection();
+
+    connection.connect();
+
+    connection.query(`SELECT * FROM items WHERE itemid IN (SELECT itemid FROM useritems WHERE userid = ${req.session.userid})`, (err, rows, fields) => {
+        console.log(rows);
+
+        res.send(rows);
+    });
 })
 
 //This is for accessing watchlist as you need to be a required user
