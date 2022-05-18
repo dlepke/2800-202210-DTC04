@@ -5,8 +5,7 @@ function fetch_item() {
     fetch('/search_item')
         .then(response => response.json())
         .then(data => {
-            console.log(data)
-
+            //console.log(data)
             data.forEach((item) => {
                 //console.log(item.price);
                 if (item.itemName == keyword.toLowerCase()) {
@@ -17,20 +16,27 @@ function fetch_item() {
 }
 
 function search_item() {
-    keyword = $("#search_text").val();
-    //console.log($("#search_text").val());
-    $("#results_display").empty();
-    fetch_item();
+    //keyword = $("#search_text").val();
+    if ($("#search_text").val() == "") {
+        $("#search_bar").append("<p id='error_message'><i>Enter search keyword to proceed</i></p>")
+    } else {
+        $("#error_message").remove();
+        localStorage.setItem("keyword", $("#search_text").val());
+        keyword = localStorage.getItem("keyword");
+        //console.log($("#search_text").val());
+        $("#results_display").empty();
+        fetch_item();
+    }
 }
 
 function display_item(item) {
     // console.log(item)
     // console.log(item.itemid)
     $("#results_display").append(`<a href="/product/${item.itemid}"><div id=${item.itemid} class=items> 
-    <div class="item_img"><img src=""></div>
-    <div class="item_info">${item.itemName}<br>
-    ${item.price}<br>
-    ${item.brand}</div></div>
+    <div class="item_img"><img src="https://i5.walmartimages.com/asr/41305aa3-3de8-4bab-80e9-484cf63cadc5_1.e46fb74bc2e4fa0751ad18233d4d4854.jpeg?odnHeight=450&odnWidth=450&odnBg=ffffff"></div>
+    <div class="item_info"><span>${capitalize(item.itemName)}</span><br>
+    <span id="item_price"><b>${item.price}</b></span><br>
+    <span>${item.brand}</span></div></div>
     </a><hr>`)
 }
 
@@ -41,7 +47,7 @@ function apply_sort() {
     //console.log(testing);
     //console.log(sort);
     $.ajax({
-        url: `https://dtc04-foodbuddy.herokuapp.com/apply_sort`,
+        url: `http://localhost:5050/apply_sort`,
         type: "post",
         data: {
             name: keyword,
@@ -68,6 +74,10 @@ function apply_filter(data) {
         }
     }
 
+}
+
+function capitalize(word) {
+    return word.charAt(0).toUpperCase() + word.slice(1);
 }
 
 function toggle_filter() {

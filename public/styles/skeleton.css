@@ -37,7 +37,7 @@ i {
 }
 
 body {
-    padding-top: 100px;
+    padding-top: 65px;
     margin-bottom: 100px;
     clear: both;
  }
@@ -73,13 +73,15 @@ body {
 }
 
 #logo {
-    width: 30%;
+    width: 90px;
     align-self: center;
+    position: relative;
+    left: 50%;
 }
 
 .navbar, .footer{
     box-shadow: 2px 2px 3px 2px rgb(209, 209, 209);
-    padding: 10px;
+    padding: 10px 0px 10px 0px;
     background-color: white;
 }
 
@@ -135,6 +137,10 @@ header {
     padding: 20px;
   }
   
+  #hamburger-menu{
+    margin: 0px;
+  }
+
   /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
   @media screen and (max-height: 450px) {
     .sidenav {padding-top: 15px;}
@@ -146,6 +152,6 @@ header {
       color: black;
       background-color:white;
       border: 1px solid black;
-      padding: 2%;
+      padding: 0px 5px 0px 5px;
       border-radius: 8px;
   }
