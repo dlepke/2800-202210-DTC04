@@ -7,12 +7,10 @@ fetch(`/getallproducts/${product}`)
     data.forEach((items) => {
         $(document).ready(function() {
             $("#others").append(
-            `<tr>
-                <td>${items.price}</td>
-                <td>${items.brand}</td>
-                <td>${items.itemAvailability}</td>
-
-            </tr>`)
+            `
+            <a href="/product/${items.itemid}">
+                <p style="margin-bottom: 0px"> ${items.itemAvailability} for ${items.price} at ${items.brand} </p>
+            </a>`)
         })
     })
 });

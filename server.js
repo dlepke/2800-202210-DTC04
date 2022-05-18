@@ -207,10 +207,10 @@ function resetWatchlistDatabaseTable() {
 }
 
 // uncomment this function call if you want to ENTIRELY RESET the User table in the database
-resetUserDatabaseTable();
+// resetUserDatabaseTable();
 
 // uncomment this function call if you want to ENTIRELY RESET the Item table in the database
-resetItemDatabaseTable();
+// resetItemDatabaseTable();
 
 // uncomment this function call if you want to ENTIRELY RESET the UserItem table in the database - NOT CURRENTLY WORKING
 // resetWatchlistDatabaseTable();
@@ -357,12 +357,21 @@ app.post("/create_account_in_db",
         res.send();
     }
 );
-
+//Admin
 app.get('/admin', (req, res) => {
     if (req.session.admin) {
-        res.redirect("/account_list");
+        res.redirect("/admin_dashboard");
     } else {
         res.sendFile(path.join(htmlPath + '/admin_login.html'));
+    }
+})
+
+//Admin Dashboard
+app.get('/admin_dashboard', (req, res) => {
+    if (req.session.admin) {
+        res.sendFile(path.join(htmlPath + "/admin_dashboard.html"))
+    } else {
+        res.redirect('/admin');
     }
 })
 
@@ -383,7 +392,7 @@ app.post('/authenticate_admin',
     },
     (req, res) => {
         req.session.admin = res.locals.admin;
-        res.redirect('/account_list');
+        res.redirect('/admin_dashboard');
         res.send();
     }
 );
@@ -423,6 +432,8 @@ app.get('/account_list', (req, res) => {
     }
 })
 
+
+//Fetch Item
 function fetchItems(handleResult) {
     const connection = createConnection();
 
@@ -450,8 +461,13 @@ app.get('/all_items', (req, res) => {
     });
 })
 
-app.get('/items', (req, res) => {
-    res.sendFile(path.join(htmlPath + '/itemslist.html'));
+app.get('/items_list', (req, res) => {
+    if (req.session.admin) {
+        res.sendFile(path.join(htmlPath + '/itemslist.html'));
+    } else {
+        res.sendFile(path.join(htmlPath + '/admin_login.html'));
+    }
+   
 })
 
 
@@ -479,7 +495,7 @@ app.get('/product/:id', function (req, res, handleResult) {
             "name": details.itemName,
             "img": details.img,
             "price": details.price,
-            "location": details.brand,
+            "brand": details.brand,
             "availability": details.itemAvailability
         });
     })
@@ -504,6 +520,9 @@ app.get('/getallproducts/:name', function (req, res, handleResult){
     })
 })
 
+app.get('/watchlist', (req, res) => {
+    res.sendFile(path.join(htmlPath + "/Watchlist.html"))
+})
 
 //This is for accessing watchlist as you need to be a required user
 // app.get('/all_items_list', (req, res) => {
@@ -608,4 +627,28 @@ app.post('/change_password', (req, res) => {
     connection.connect();
 
     connection.query(`UPDATE users SET password = '${req.body.newPassword}' WHERE userid = '${req.session.userid}';`);
+})
+
+app.post('/add_item', (req, res) => {
+    let connection = createConnection();
+
+    connection.connect();
+
+    connection.query(`INSERT INTO items (itemName, price, img, brand, itemAvailability) VALUES ('${req.body.newItem}', '${req.body.newItemPrice}', 'Null', '${req.body.newItemStore}', 'available');`);
+})
+
+app.get('/add_item', (req, res) => {
+    res.sendFile(path.join(htmlPath + "/user_add_item.html"))
+})
+
+app.get('/update_item', (req, res) => {
+    res.sendFile(path.join(htmlPath + "/update_item.html"))
+})
+
+app.post('/update_item', (req, res) => {
+    let connection = createConnection();
+
+    connection.connect();
+
+    connection.query(`UPDATE items SET price = '${req.body.newPrice}' WHERE itemName = '${req.body.itemName}' AND brand = '${req.body.itemStore}';`);
 })
