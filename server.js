@@ -43,6 +43,8 @@ app.use(session({
 app.listen(process.env.port || PORT, function(err) {
     if (err) {
         console.log(err);
+    } else {
+        console.log(`Now listening on port ${PORT}`)
     }
 });
 
