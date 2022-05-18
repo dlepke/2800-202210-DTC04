@@ -77,6 +77,8 @@ body {
     align-self: center;
     position: relative;
     left: 50%;
+    border-radius:0em !important;
+    box-shadow: none;
 }
 
 .navbar, .footer{
