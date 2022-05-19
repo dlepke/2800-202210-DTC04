@@ -706,6 +706,13 @@ app.post('/search_item_by_name', (req, res) => {
     });
 })
 
+// app.get('/search_item_by_name/:name', (req, res) => {
+//     console.log("testing")
+//     fetchItems_by_name(req.params.name, (result) => {
+//         res.send(result);
+//     });
+// })
+
 app.post('/search_item_by_category', (req, res) => {
 
     fetchItems_by_category(req.body.category, (result) => {

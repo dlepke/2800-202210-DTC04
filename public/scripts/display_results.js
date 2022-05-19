@@ -2,11 +2,11 @@ keyword = localStorage.getItem("keyword");
 console.log(keyword);
 search_by = null
 
-function check_keyword(){
-    if(keyword == "produce" || keyword == "dairy" || keyword == "meat" || keyword == "seafood" || keyword == "snack" || keyword == "bakery"){
+function check_keyword() {
+    if (keyword == "produce" || keyword == "dairy" || keyword == "meat" || keyword == "seafood" || keyword == "snack" || keyword == "bakery") {
         get_items_by_category(keyword);
         search_by = 'category'
-    }else{
+    } else {
         get_items_by_name(keyword);
         search_by = 'name'
     }
@@ -26,35 +26,41 @@ function check_keyword(){
 //         });
 // }
 
-function get_items_by_name(keyword){
+function get_items_by_name(keyword) {
     $.ajax({
-        url: `http://localhost:5050/search_item_by_name`,
+        url: `https://dtc04-foodbuddy.herokuapp.com/search_item_by_name`,
         type: "post",
         data: {
             name: keyword
         },
         success: process_items
     })
+    //$.get(`/search_item_by_name/${keyword}`, process_items(items))
 }
 
-function get_items_by_category(keyword){
+function get_items_by_category(keyword) {
     $.ajax({
-        url: `http://localhost:5050/search_item_by_category`,
+        url: `https://dtc04-foodbuddy.herokuapp.com/search_item_by_category`,
         type: "post",
         data: {
             category: keyword
         },
         success: process_items
     })
+    // $.post('/search_item_by_category',
+    //     {
+    //         category: keyword
+    //     },
+    //     process_items(items))
 }
 
-function process_items(items){
-    if(items.length == 0){
+function process_items(items) {
+    if (items.length == 0) {
         $("#results_display").append("<p id='no_product'><i>No product found</i></p>")
-    }else{
+    } else {
         //console.log(items);
         $("#results_display").empty();
-        for(count = 0; count < items.length; count++){
+        for (count = 0; count < items.length; count++) {
             display_item(items[count]);
         }
     }
@@ -94,7 +100,7 @@ function apply_sort() {
     //console.log(testing);
     //console.log(sort);
     $.ajax({
-        url: `http://localhost:5050/apply_sort_${search_by}`,
+        url: `https://dtc04-foodbuddy.herokuapp.com/apply_sort_${search_by}`,
         type: "post",
         data: {
             key: keyword,
@@ -104,6 +110,14 @@ function apply_sort() {
     }).then(() => {
         $("#filter_form").css("display", "none");
     })
+    // $.post(`/apply_sort_${search_by}`,
+    //     {
+    //         key: keyword,
+    //         sort: sort
+    //     },
+    //     apply_filter(items)).then(()=>{
+    //         $("#filter_form").css("display", "none");
+    //     })
 }
 
 function apply_filter(data) {
@@ -140,16 +154,23 @@ function reset_filter() {
     $(".radio_buttons").prop("checked", false);
 }
 
+// function change_icon_color() {
+//     $("#search").css("color", "rgb(116, 173, 122)")
+//     $("#home").css("color", "rgb(129, 129, 129)")
+//     $("#watchlist").css("color", "rgb(129, 129, 129)")
+// }
+
 function setup() {
     $("#apply_filter").click(apply_sort);
     $("#toggle_filter").click(toggle_filter);
     $("#reset").click(reset_filter);
     $("#search_submit").click(search_item);
     //fetch_item();
+    //change_icon_color();
     check_keyword();
 }
 
 $(document).ready(setup);
 
-//http://localhost:5050
-//http://localhost:5050
+//https://dtc04-foodbuddy.herokuapp.com/ 
+//https://dtc04-foodbuddy.herokuapp.com/
