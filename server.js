@@ -512,7 +512,7 @@ app.get('/items_list', (req, res) => {
 
 //Product.ejs
 app.get('/product/:id', function (req, res, handleResult) {
-    // console.log(req.params.id)
+    console.log("req.params.id: ", req.params.id)
     productid = req.params.id
 
     //create connection
@@ -527,6 +527,7 @@ app.get('/product/:id', function (req, res, handleResult) {
         }
 
         details = rows[0]
+        console.log("details: ", details);
         connection.end();
         //place on page
         res.render("productview.ejs", {
@@ -539,7 +540,6 @@ app.get('/product/:id', function (req, res, handleResult) {
             "address": details.storeAddress
         });
     })
-
 });
 
 
@@ -583,7 +583,30 @@ app.get('/watchlist_items', (req, res) => {
         console.log(rows);
 
         res.send(rows);
+
+        connection.end();
     });
+})
+
+app.post('/add_to_watchlist', (req, res) => {
+    // console.log(req.body);
+
+    let itemid = req.body.itemid;
+    let userid = req.session.userid;
+
+    console.log("itemid: ", itemid, " userid: ", userid);
+
+    let connection = createConnection();
+
+    connection.connect();
+
+    connection.query(`INSERT INTO useritems (userid, itemid) VALUES (${userid}, ${itemid});`);
+
+    connection.query(`SELECT * FROM useritems WHERE userid = ${userid}`, ((err, rows, fields) => {
+        console.log("result: ", rows);
+
+        connection.end();
+    }))
 })
 
 //This is for accessing watchlist as you need to be a required user

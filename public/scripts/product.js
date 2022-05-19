@@ -35,3 +35,11 @@ fetch(`/getallproducts/${product}`)
         })
     })
 });
+
+function addToWatchlist() {
+    let itemid = document.location.href.split("product/")[1];
+    
+    $.post('/add_to_watchlist', {
+        itemid: itemid
+    })
+}

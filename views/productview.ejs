@@ -53,7 +53,7 @@
         </a>
 
         <div class="img_cont shadow-sm">
-            <img src="<%= img %>">
+            <img src="/images/<%= img %>">
         </div>
 
         <div class="description">
@@ -87,7 +87,7 @@
                     <!-- Add an onclick that edits this data set inside watchlist database -->
                     <i class="material-icons md-48 ">edit_note</i>
                 </button>
-                <button type="button" class="addtolist">
+                <button type="button" class="addtolist" onclick="addToWatchlist()">
                     <!-- Add an onclick that adds this data set inside watchlist database -->
                     <i class="material-icons md-48">favorite</i>
                 </button>
