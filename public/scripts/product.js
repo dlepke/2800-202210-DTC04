@@ -8,6 +8,10 @@ function colorcode(availability){
         $(".availability").css("color", "red")
     }
 }
+function capitalize(word) {
+    return word.charAt(0).toUpperCase() + word.slice(1);
+}
+
 
 
 fetch(`/getallproducts/${product}`)
@@ -17,7 +21,7 @@ fetch(`/getallproducts/${product}`)
     data.forEach((items) => {
         $(document).ready(function() {
             console.log(items.storeAddress)
-
+            
             // colorcode(items.itemAvailability)
             $("#others").append(
             `
