@@ -588,25 +588,97 @@ app.get('/watchlist_items', (req, res) => {
     });
 })
 
-app.post('/add_to_watchlist', (req, res) => {
-    // console.log(req.body);
-
-    let itemid = req.body.itemid;
-    let userid = req.session.userid;
-
-    console.log("itemid: ", itemid, " userid: ", userid);
-
+function isItemOnWatchlist(itemid, userid, handleResult) {
     let connection = createConnection();
 
     connection.connect();
 
-    connection.query(`INSERT INTO useritems (userid, itemid) VALUES (${userid}, ${itemid});`);
-
-    connection.query(`SELECT * FROM useritems WHERE userid = ${userid}`, ((err, rows, fields) => {
-        console.log("result: ", rows);
+    connection.query(`SELECT * FROM useritems WHERE userid = ${userid} AND itemid = ${itemid}`, ((err, rows, fields) => {
+        // console.log("result: ", rows);
 
         connection.end();
+
+        if (rows.length > 0) {
+            handleResult(true);
+        } else {
+            handleResult(false);
+        }
     }))
+}
+
+app.post('/add_to_watchlist', (req, res) => {
+    // console.log(req.body);
+
+    if (req.session.userid) {
+
+        let itemid = req.body.itemid;
+        let userid = req.session.userid;
+
+        // console.log("itemid: ", itemid, " userid: ", userid);
+
+        let connection = createConnection();
+
+        connection.connect();
+
+        connection.query(`INSERT INTO useritems (userid, itemid) VALUES (${userid}, ${itemid});`);
+
+        connection.query(`SELECT * FROM useritems WHERE userid = ${userid}`, ((err, rows, fields) => {
+            console.log("result: ", rows);
+
+            connection.end();
+        }))
+    } else {
+        res.send({
+            userLoggedIn: false
+        })
+    }
+})
+
+app.post('/remove_from_watchlist', (req, res) => {
+    if (req.session.userid) {
+
+        let itemid = req.body.itemid;
+        let userid = req.session.userid;
+
+        // console.log("itemid: ", itemid, " userid: ", userid);
+
+        let connection = createConnection();
+
+        connection.connect();
+
+        connection.query(`DELETE FROM useritems WHERE userid = ${userid} AND itemid = ${itemid};`);
+
+        connection.query(`SELECT * FROM useritems WHERE userid = ${userid}`, ((err, rows, fields) => {
+            console.log("result: ", rows);
+
+            connection.end();
+        }))
+    } else {
+        res.send({
+            userLoggedIn: false
+        })
+    }
+})
+
+app.get('/is_on_watchlist/:itemid', (req, res) => {
+    let itemid = req.params.itemid;
+    let userid = req.session.userid;
+
+    console.log("itemid: ", itemid, " userid: ", userid);
+
+    if (!userid) {
+        res.send({
+            is_item_on_watchlist: false
+        })
+    } else {
+
+        isItemOnWatchlist(itemid, userid, (result) => {
+            res.send({
+                is_item_on_watchlist: result
+            })
+        });
+
+    }
 })
 
 //This is for accessing watchlist as you need to be a required user

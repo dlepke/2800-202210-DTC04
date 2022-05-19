@@ -36,10 +36,56 @@ fetch(`/getallproducts/${product}`)
     })
 });
 
+function isOnWatchlist(handleResult) {
+    let itemid = document.location.href.split("product/")[1];
+
+    $.get(`/is_on_watchlist/${itemid}`, (result) => {
+        console.log(`is item ${itemid} on user's watchlist: `, result.is_item_on_watchlist);
+
+        if (result.is_item_on_watchlist) {
+            handleResult(true);
+        } else {
+            handleResult(false);
+        }
+    })
+}
+
+$(document).ready(() => {
+    isOnWatchlist((isOnWatchlist) => {
+        if (isOnWatchlist) {
+            $("#favourite-button").css('color', 'red');
+        } else {
+            $("#favourite-button").css('color', 'rgb(129, 129, 129)');
+        }
+    });
+})
+
+function addOrRemoveFromWatchlist() {
+    isOnWatchlist((isOnWatchlist) => {
+        if (isOnWatchlist) {
+            removeFromWatchlist();
+        } else {
+            addToWatchlist();
+        }
+    });
+}
+
 function addToWatchlist() {
     let itemid = document.location.href.split("product/")[1];
     
     $.post('/add_to_watchlist', {
         itemid: itemid
     })
+
+    $("#favourite-button").css('color', 'red');
+}
+
+function removeFromWatchlist() {
+    let itemid = document.location.href.split("product/")[1];
+    
+    $.post('/remove_from_watchlist', {
+        itemid: itemid
+    })
+
+    $("#favourite-button").css('color', 'rgb(129, 129, 129)');
 }
