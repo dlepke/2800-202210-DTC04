@@ -1,6 +1,14 @@
 keyword = localStorage.getItem("keyword");
 console.log(keyword);
 
+function check_keyword(){
+    if(keyword == "produce" || keyword == "dairy" || keyword == "meat" || keyword == "seafood" || keyword == "snack" || keyword == "bakery"){
+        get_items_by_category(keyword);
+    }else{
+        get_items_by_name(keyword)
+    }
+}
+
 function fetch_item() {
     fetch('/search_item')
         .then(response => response.json())
@@ -13,6 +21,40 @@ function fetch_item() {
                 }
             })
         });
+}
+
+function get_items_by_name(keyword){
+    $.ajax({
+        url: `http://localhost:5050/search_item_by_name`,
+        type: "post",
+        data: {
+            name: keyword
+        },
+        success: process_items
+    })
+}
+
+function get_items_by_category(keyword){
+    $.ajax({
+        url: `http://localhost:5050/search_item_by_category`,
+        type: "post",
+        data: {
+            category: keyword
+        },
+        success: process_items
+    })
+}
+
+function process_items(items){
+    if(items.length == 0){
+        $("#results_display").append("<p id='no_product'><i>No product found</i></p>")
+    }else{
+        //console.log(items);
+        $("#results_display").empty();
+        for(count = 0; count < items.length; count++){
+            display_item(items[count]);
+        }
+    }
 }
 
 function search_item() {
@@ -47,7 +89,7 @@ function apply_sort() {
     //console.log(testing);
     //console.log(sort);
     $.ajax({
-        url: `https://dtc04-foodbuddy.herokuapp.com/apply_sort`,
+        url: `http://localhost:5050/apply_sort`,
         type: "post",
         data: {
             name: keyword,
@@ -98,10 +140,11 @@ function setup() {
     $("#toggle_filter").click(toggle_filter);
     $("#reset").click(reset_filter);
     $("#search_submit").click(search_item);
-    fetch_item();
+    //fetch_item();
+    check_keyword();
 }
 
 $(document).ready(setup);
 
-//https://dtc04-foodbuddy.herokuapp.com
+//http://localhost:5050
 //http://localhost:5050
