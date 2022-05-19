@@ -46,22 +46,23 @@
 
     <!-- the body of your page goes here -->
 
+
     <main id="product">
         <a href="../search">
             <i class="material-icons md-48 nav_elements icons" style="float: left">arrow_back</i>
         </a>
 
         <div class="img_cont shadow-sm">
-            <!-- Insert img from render -->
-            <!-- <img src="img_path %>" alt=""> -->
-            <img src="../images/banana.png">
+            <img src="<%= img %>">
         </div>
 
         <div class="description">
 
             <article class="description_text">
+                <!-- Strange enough, this ejs function still works despite being commented out -->
+                <!-- <%= capitalize = function capitalize(word) {return word.charAt(0).toUpperCase() + word.slice(1);} %> -->
                 <h5>
-                    <b id="name"><%= name %></b>
+                    <b id="name"><%= capitalize(name) %></b>
                 </h5> 
                 <p> 
                     <i class="material-icons md-48 nav_elements icons">attach_money</i>
