@@ -30,8 +30,6 @@ hr{
 
 .item_img{
     width: 100px;
-    height: 100px;
-    background-color: lightgrey;
     margin: 10px 10px 10px 0px;
 }
 
@@ -69,7 +67,7 @@ input{
     margin: 5px 0px 10px 0px;
 }
 
-img{
+.pic{
     width: 100%;
 }
 
