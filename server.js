@@ -206,7 +206,7 @@ function resetWatchlistDatabaseTable() {
 
     connection.query('DROP TABLE IF EXISTS UserItems;');
 
-    connection.query("CREATE TABLE IF NOT EXISTS UserItems (userid int NOT NULL, itemid int NOT NULL, listid int NOT NULL AUTO_INCREMENT PRIMARY KEY, FOREIGN KEY (userid) REFERENCES Users(userid) ON DELETE CASCADE, FOREIGN KEY (itemid) REFERENCES Items(itemid) ON DELETE CASCADE);");
+    connection.query("CREATE TABLE IF NOT EXISTS UserItems (userid int NOT NULL, itemid int NOT NULL, listid int NOT NULL AUTO_INCREMENT PRIMARY KEY, FOREIGN KEY UserItems.userid REFERENCES Users.userid ON DELETE CASCADE, FOREIGN KEY Items.itemid REFERENCES Items.itemid ON DELETE CASCADE);");
 
     connection.query("INSERT INTO UserItems (userid, itemid) VALUES (1, 1);");
     connection.query("INSERT INTO UserItems (userid, itemid) VALUES (1, 2);");
