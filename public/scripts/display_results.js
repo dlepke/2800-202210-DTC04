@@ -28,24 +28,30 @@ function check_keyword() {
 
 function get_items_by_name(keyword) {
     $.ajax({
-        url: `https://dtc04-foodbuddy.herokuapp.com//search_item_by_name`,
+        url: `https://dtc04-foodbuddy.herokuapp.com/search_item_by_name`,
         type: "post",
         data: {
             name: keyword
         },
         success: process_items
     })
+    //$.get(`/search_item_by_name/${keyword}`, process_items(items))
 }
 
 function get_items_by_category(keyword) {
     $.ajax({
-        url: `https://dtc04-foodbuddy.herokuapp.com//search_item_by_category`,
+        url: `https://dtc04-foodbuddy.herokuapp.com/search_item_by_category`,
         type: "post",
         data: {
             category: keyword
         },
         success: process_items
     })
+    // $.post('/search_item_by_category',
+    //     {
+    //         category: keyword
+    //     },
+    //     process_items(items))
 }
 
 function process_items(items) {
@@ -94,7 +100,7 @@ function apply_sort() {
     //console.log(testing);
     //console.log(sort);
     $.ajax({
-        url: `https://dtc04-foodbuddy.herokuapp.com//apply_sort_${search_by}`,
+        url: `https://dtc04-foodbuddy.herokuapp.com/apply_sort_${search_by}`,
         type: "post",
         data: {
             key: keyword,
@@ -104,6 +110,14 @@ function apply_sort() {
     }).then(() => {
         $("#filter_form").css("display", "none");
     })
+    // $.post(`/apply_sort_${search_by}`,
+    //     {
+    //         key: keyword,
+    //         sort: sort
+    //     },
+    //     apply_filter(items)).then(()=>{
+    //         $("#filter_form").css("display", "none");
+    //     })
 }
 
 function apply_filter(data) {
@@ -158,5 +172,5 @@ function setup() {
 
 $(document).ready(setup);
 
-//https://dtc04-foodbuddy.herokuapp.com/
+//https://dtc04-foodbuddy.herokuapp.com/ 
 //https://dtc04-foodbuddy.herokuapp.com/
