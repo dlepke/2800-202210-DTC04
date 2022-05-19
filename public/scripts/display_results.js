@@ -1,27 +1,30 @@
 keyword = localStorage.getItem("keyword");
 console.log(keyword);
+search_by = null
 
 function check_keyword(){
     if(keyword == "produce" || keyword == "dairy" || keyword == "meat" || keyword == "seafood" || keyword == "snack" || keyword == "bakery"){
         get_items_by_category(keyword);
+        search_by = 'category'
     }else{
-        get_items_by_name(keyword)
+        get_items_by_name(keyword);
+        search_by = 'name'
     }
 }
 
-function fetch_item() {
-    fetch('/search_item')
-        .then(response => response.json())
-        .then(data => {
-            //console.log(data)
-            data.forEach((item) => {
-                //console.log(item.price);
-                if (item.itemName == keyword.toLowerCase()) {
-                    display_item(item);
-                }
-            })
-        });
-}
+// function fetch_item() {
+//     fetch('/search_item')
+//         .then(response => response.json())
+//         .then(data => {
+//             //console.log(data)
+//             data.forEach((item) => {
+//                 //console.log(item.price);
+//                 if (item.itemName == keyword.toLowerCase()) {
+//                     display_item(item);
+//                 }
+//             })
+//         });
+// }
 
 function get_items_by_name(keyword){
     $.ajax({
@@ -67,7 +70,9 @@ function search_item() {
         keyword = localStorage.getItem("keyword");
         //console.log($("#search_text").val());
         $("#results_display").empty();
-        fetch_item();
+        //fetch_item();
+        get_items_by_name(keyword);
+        search_by = 'name'
     }
 }
 
@@ -89,10 +94,10 @@ function apply_sort() {
     //console.log(testing);
     //console.log(sort);
     $.ajax({
-        url: `http://localhost:5050/apply_sort`,
+        url: `http://localhost:5050/apply_sort_${search_by}`,
         type: "post",
         data: {
-            name: keyword,
+            key: keyword,
             sort: sort
         },
         success: apply_filter
