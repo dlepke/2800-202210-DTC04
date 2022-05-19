@@ -33,7 +33,7 @@ function display_item(item) {
     // console.log(item)
     // console.log(item.itemid)
     $("#results_display").append(`<a href="/product/${item.itemid}"><div id=${item.itemid} class=items> 
-    <div class="item_img"><img src="https://i5.walmartimages.com/asr/41305aa3-3de8-4bab-80e9-484cf63cadc5_1.e46fb74bc2e4fa0751ad18233d4d4854.jpeg?odnHeight=450&odnWidth=450&odnBg=ffffff"></div>
+    <div class="item_img"><img class ="pic" src="${item.img}"></div>
     <div class="item_info"><span>${capitalize(item.itemName)}</span><br>
     <span id="item_price"><b>${item.price}</b></span><br>
     <span>${item.brand}</span></div></div>
