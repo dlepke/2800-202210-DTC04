@@ -596,7 +596,7 @@ app.post('/search_item_by_category', (req, res) => {
     });
 })
 
-function fetchItems_with_filter(name, sort, handleResult) {
+function fetchItems_name_with_filter(name, sort, handleResult) {
     const connection = createConnection();
 
     connection.connect()
@@ -614,13 +614,42 @@ function fetchItems_with_filter(name, sort, handleResult) {
     })
 }
 
-app.post('/apply_sort', 
+function fetchItems_category_with_filter(category, sort, handleResult) {
+    const connection = createConnection();
+
+    connection.connect()
+
+    let result = false;
+
+    connection.query(`SELECT * FROM items WHERE category='${category}' ORDER BY ${sort} ASC;`, (err, rows, fields) => {
+        if (err) {
+            throw err;
+        }
+        result = rows;
+
+        connection.end();
+        handleResult(result)
+    })
+}
+
+app.post('/apply_sort_name', 
 bodyParser.urlencoded({
     extended: true
 }),
 (req, res, next) => {
     // console.log(`${req.body.name}, ${req.body.sort}`);
-    fetchItems_with_filter(req.body.name, req.body.sort, (result) => {
+    fetchItems_name_with_filter(req.body.key, req.body.sort, (result) => {
+        res.send(result);
+    });
+});
+
+app.post('/apply_sort_category', 
+bodyParser.urlencoded({
+    extended: true
+}),
+(req, res, next) => {
+    // console.log(`${req.body.name}, ${req.body.sort}`);
+    fetchItems_category_with_filter(req.body.key, req.body.sort, (result) => {
         res.send(result);
     });
 });
