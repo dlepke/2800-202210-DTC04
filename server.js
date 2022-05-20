@@ -157,7 +157,7 @@ function resetUserDatabaseTable() {
     connection.query("INSERT INTO Users (email, password, firstName, lastName, address) VALUES ('user5@email.com', 'pass5', 'earl', 'ericson', '5 fifth ave, fifthland');");
 
     connection.query("SELECT * FROM users", (err, rows, fields) => {
-        console.log(rows);
+        // console.log(rows);
         connection.end();
         resetItemDatabaseTable();
     });
@@ -194,7 +194,7 @@ function resetItemDatabaseTable() {
     connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress, category ) VALUES ('prawns', '$17.99', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAAz3M_kM0x6dte8xiwD8li8YAuUOcazfUUw&usqp=CAU', 'Safeway', '20', 'unavailable', '8671 No 1 Rd, Richmond, BC V7C 1V2', 'seafood');")
 
     connection.query("SELECT * FROM items", (err, rows, fields) => {
-        console.log(rows);
+        // console.log(rows);
         connection.end();
         resetWatchlistDatabaseTable();
     });
@@ -223,7 +223,7 @@ function resetWatchlistDatabaseTable() {
     connection.query("INSERT INTO UserItems (userid, itemid) VALUES (2, 10);");
 
     connection.query("SELECT * FROM useritems", (err, rows, fields) => {
-        console.log(rows);
+        // console.log(rows);
         connection.end();
     });
 }
@@ -232,10 +232,10 @@ function resetWatchlistDatabaseTable() {
 resetUserDatabaseTable();
 
 // uncomment this function call if you want to ENTIRELY RESET the Item table in the database
-resetItemDatabaseTable();
+// resetItemDatabaseTable();
 
 // uncomment this function call if you want to ENTIRELY RESET the UserItem table in the database - NOT CURRENTLY WORKING
-resetWatchlistDatabaseTable();
+// resetWatchlistDatabaseTable();
 
 function checkUsernamePasswordCombo(email, password, handleResult) {
     const connection = createConnection();
