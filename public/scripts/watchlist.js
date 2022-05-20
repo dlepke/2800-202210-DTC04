@@ -3,11 +3,11 @@ function populateWatchlist() {
         console.log(result);
 
         result.forEach((item) => {
-            console.log(item.img);
+            console.log(item);
 
             let itemCard = `<div class="product shadow">
             <div class="productimg shadow-sm">
-                <a href="/product/1">
+                <a href="/product/${item.itemid}">
                     <img src="${item.img}" width="100%">
                 </a>
             </div>
