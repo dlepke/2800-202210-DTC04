@@ -174,4 +174,4 @@ function setup() {
 $(document).ready(setup);
 
 //https://dtc04-foodbuddy.herokuapp.com/ 
-//http://localhost:5050/
+//https://dtc04-foodbuddy.herokuapp.com/
