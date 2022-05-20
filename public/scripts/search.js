@@ -1,4 +1,5 @@
 function search_item() {
+    $("#error_message").remove();
     if ($("#search_input").val() == "") {
         $(".search").append(`<p id='error_message'><i>Enter search keyword to proceed</i></p>`)
     } else {

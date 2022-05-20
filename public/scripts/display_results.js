@@ -68,10 +68,11 @@ function process_items(items) {
 
 function search_item() {
     //keyword = $("#search_text").val();
+    $("#error_message").remove();
+    reset_filter();
     if ($("#search_text").val() == "") {
         $("#search_bar").append("<p id='error_message'><i>Enter search keyword to proceed</i></p>")
     } else {
-        $("#error_message").remove();
         localStorage.setItem("keyword", $("#search_text").val());
         keyword = localStorage.getItem("keyword");
         //console.log($("#search_text").val());
@@ -173,4 +174,4 @@ function setup() {
 $(document).ready(setup);
 
 //https://dtc04-foodbuddy.herokuapp.com/ 
-//https://dtc04-foodbuddy.herokuapp.com/
+//http://localhost:5050/
