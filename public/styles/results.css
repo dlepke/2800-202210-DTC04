@@ -57,13 +57,14 @@ hr{
 
 input{
     border-radius: 0.5rem;
-    border: 0.01px solid rgb(48, 48, 48);
+    border: none;
+
 }
 
 #toggle_filter, #reset{
     border-radius: 0.5rem;
-    background: transparent;
-    border: 0.01px solid rgb(48, 48, 48);
+    background: white;
+    border: none;
     margin: 5px 0px 10px 0px;
 }
 
