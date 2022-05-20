@@ -492,6 +492,24 @@ function fetchItems_by_category(category, handleResult) {
     })
 }
 
+function fetchItems(handleResult) {
+    const connection = createConnection();
+
+    connection.connect()
+
+    let result = false;
+
+    connection.query(`SELECT * FROM items;`, (err, rows, fields) => {
+        if (err) {
+            throw err;
+        }
+        result = rows;
+
+        connection.end();
+        handleResult(result)
+    })
+}
+
 app.get('/all_items', (req, res) => {
 
     fetchItems((result) => {
