@@ -33,8 +33,9 @@
                 <button id="signup_submit">Sign up</button>
             </form>
 
-            <div id="account-already-exists-warning" style="background-color: pink; border: 1px solid red;" hidden>Email already connected to an account.</div>
-            <div id="passwords-dont-match-warning" style="background-color: pink; border: 1px solid red;" hidden>Password confirmation does not match given password.</div>
+            <div id="account-already-exists-warning" style="background-color: pink; border: 1px solid red; border-radius: 5px; padding: 1%; margin: 1%;" hidden>Email already connected to an account.</div>
+            <div id="passwords-dont-match-warning" style="background-color: pink; border: 1px solid red; border-radius: 5px; padding: 1%; margin: 1%;" hidden>Password confirmation does not match given password.</div>
+            <div id="empty-fields-warning" style="background-color: pink; border: 1px solid red; border-radius: 5px; padding: 1%; margin: 1%;" hidden>Please fill out all fields.</div>
 
         </main>
     </div>
@@ -44,11 +45,14 @@
 
         let passwordMismatch = document.location.href.split("passwordMismatch=")[1];
         let userAlreadyExists = document.location.href.split("userAlreadyExists=")[1];
+        let emptyFields = document.location.href.split("emptyFields=")[1];
 
         if (passwordMismatch === "true") {
             document.getElementById("passwords-dont-match-warning").hidden = false;
         } else if (userAlreadyExists === "true") {
             document.getElementById("account-already-exists-warning").hidden = false;
+        } else if (emptyFields === "true") {
+            document.getElementById("empty-fields-warning").hidden = false;
         }
     </script>
 </body>

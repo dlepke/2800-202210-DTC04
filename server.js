@@ -357,6 +357,9 @@ app.post("/create_account_in_db",
                 if (result) {
                     console.log("username/pw already exists");
                     res.redirect('/create_account?userAlreadyExists=true');
+                } else if (req.body.email === '' || req.body.password === '' || req.body.confirmPassword === '' || req.body.firstName === '' || req.body.lastName === '') {
+                    console.log("fields left empty");
+                    res.redirect('/create_account?emptyFields=true')
                 } else {
                     // req.session.userid = req.body.userid;
                     console.log("valid/new username/pw");
