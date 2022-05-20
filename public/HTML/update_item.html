@@ -2,8 +2,8 @@
 <html lang="en">
 
 <head>
-    <title>Account_list</title>
-    <!-- Taken from 1537 Template  -->
+    <title>My BCIT Project</title>
+
     <!------------------------>
     <!-- Required meta tags -->
     <!------------------------>
@@ -23,13 +23,14 @@
     <!--Libraries related CSS, JS, JQuery go here -->
     <!-------------------------------------------------------->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="../scripts/update_item.js"></script>
 
 
     <!-------------------------------------------->
     <!-- Other libraries and styles of your own -->
     <!-------------------------------------------->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="../styles/admin_acc_items.css" rel="stylesheet">
+    <link href="../styles/update_item.css" rel="stylesheet">
 
 
 </head>
@@ -42,26 +43,29 @@
     <!-- our own navbar goes here -->
     <nav id="navbarPlaceholder"></nav>
 
-    <!-- the body of your page goes here -->
-
 
     <main>
-        <div class="title">
-            <a href="/admin_dashboard">
-                <i class="material-icons md-48 nav_elements icons" style="float: left">arrow_back</i>
-            </a>
-            <h1>Items list</h1>
+
+        <div id="item_info">
+            <div id="name_required" style="visibility: hidden;">You must enter an item name!</div>
+            Item Name: <br>
+            <input id="item_name" placeholder="Item Name">
+            <br>
+            <br>
+            <div id="store_required" style="visibility: hidden;">You must enter a store name!</div>
+            Store Name: <br>
+            <input id="store" placeholder="Store Name">
+            <br>
+            <br>
+            <div id="new_price" style="visibility: hidden;">You must enter an item price!</div>
+            New Price (Dollars): <br>
+            <input id="price" placeholder="Price in Dollars">
+            <div id="number_required" style="visibility: hidden;">Item price must be a number!</div>
         </div>
+        <div id="item_updated_successfully" style="visibility: hidden;">Item successfully updated!</div>
+        <button id="update_item" onclick="updateItem()">Update Item</button>
 
-        <table id="items_list">
-            <tr>
-                <th>name</th>
-                <th>price</th>
-                <th>store</th>
-                <th>id</th>
 
-            </tr>
-        </table>
     </main>
 
 
@@ -73,7 +77,7 @@
     <!---------------------------------------------->
 
     <script src="../scripts/skeleton.js"></script>
-    <script src="../scripts/itemlist.js"></script>
+    <!-- <script src="./scripts/script.js"></script> -->
 
 </body>
 

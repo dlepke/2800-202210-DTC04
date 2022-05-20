@@ -7,9 +7,8 @@ fetch('/all_items')
             $("#items_list").append(`<tr>
                 <td>${items.itemName}</td>
                 <td>${items.price}</td>
-                <td>${items.img}</td>
                 <td>${items.brand}</td>
-                <td>${items.itemId}</td>
+                <td>${items.itemid}</td>
             </tr>`)
             $('.name').html(items.name)
         })

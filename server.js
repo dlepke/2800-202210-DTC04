@@ -43,8 +43,18 @@ app.use(session({
 app.listen(process.env.port || PORT, function(err) {
     if (err) {
         console.log(err);
+    } else {
+        console.log(`Now listening on port ${PORT}`)
     }
 });
+
+app.get('/isLoggedIn', (req, res) => {
+    if (req.session.loggedIn) {
+        res.send(true);
+    } else {
+        res.send(false);
+    }
+})
 
 app.get('/', function (req, res, next) {
     if (req.session.loggedIn) {
@@ -159,18 +169,28 @@ function resetItemDatabaseTable() {
 
     connection.query('DROP TABLE IF EXISTS Items;');
 
-    connection.query("CREATE TABLE IF NOT EXISTS Items ( itemid int NOT NULL AUTO_INCREMENT PRIMARY KEY, itemName varchar(50), price varchar(50), img varchar(50), brand varchar(50), itemAvailability varchar(50));")
+    connection.query("CREATE TABLE IF NOT EXISTS Items ( itemid int NOT NULL AUTO_INCREMENT PRIMARY KEY, itemName varchar(50), price varchar(50), img varchar(1000), brand varchar(50), itemAvailability varchar(50), storeAddress varchar(100), category varchar(50))")
 
-    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability ) VALUES ('bananas', '$1', 'banana.png', 'Walmart', '1', 'available');")
-    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability ) VALUES ('bananas', '$2', 'banana.png', 'Superstore', '2', 'unavailable');")
-    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability ) VALUES ('bananas', '$0.90', 'banana.png', 'Costco', '3', 'available');")
-    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability ) VALUES ('eggs', '$5', 'eggs.png', 'Superstore', '4', 'unavailable');")
-    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability ) VALUES ('eggs', '$6', 'eggs.png', 'Walmart', '5', 'available');")
-    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability ) VALUES ('chocolate', '$4', 'chocolate.png', 'Superstore', '6', 'available');")
-    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability ) VALUES ('chocolate', '$5', 'chocolate.png', 'Superstore', '7', 'unavailable');")
-    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability ) VALUES ('toilet paper', '$8', 'toilet_paper.png', 'Walmart', '8', 'available');")
-    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability ) VALUES ('toilet paper', '$7.90', 'toilet_paper.png', 'Costco', '9', 'unavailable');")
-    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability ) VALUES ('meat', '$4', ', meat.png', 'Save On Foods', '10', 'unavailable');")
+    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress, category ) VALUES ('bananas', '$1', 'https://images.costcobusinessdelivery.com/ImageDelivery/imageService?profileId=12027981&itemId=30669&recipeName=680', 'Walmart', '1', 'available', '9251 Alderbridge Way, Richmond, BC V6X 0N1', 'produce');")
+    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress, category ) VALUES ('bananas', '$2', 'https://i5.walmartimages.com/asr/41305aa3-3de8-4bab-80e9-484cf63cadc5_1.e46fb74bc2e4fa0751ad18233d4d4854.jpeg?odnHeight=450&odnWidth=450&odnBg=ffffff', 'Superstore', '2', 'unavailable', '4651 No. 3 Rd, Richmond, BC V6X 2C4', 'produce');")
+    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress, category ) VALUES ('bananas', '$0.90', 'https://i0.wp.com/superstore.mangopoint.in/wp-content/uploads/2019/10/banana-karpuravalli-500x500.jpg?fit=330%2C330&ssl=1', 'Costco', '3', 'available', '9151 Bridgeport Rd, Richmond, BC V6X 3L9', 'produce');")
+    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress, category ) VALUES ('eggs', '$5', 'https://www.verywellhealth.com/thmb/kXxeAfjFaNtlyEYmCRtKxoLbtCY=/2880x1920/filters:no_upscale():max_bytes(150000):strip_icc()/uncover-hidden-egg-ingredients-1324275-primary-recirc-3cf777cca7044ee1992cc0a27d6449fa.jpg', 'Superstore', '4', 'unavailable', '4651 No. 3 Rd, Richmond, BC V6X 2C4', 'protein');")
+    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress, category ) VALUES ('eggs', '$6', 'https://www.unlockfood.ca/EatRightOntario/media/Website-images-resized/All-About-Eggs-resized.jpg', 'Walmart', '5', 'available', '9251 Alderbridge Way, Richmond, BC V6X 0N1', 'protein');")
+    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress, category ) VALUES ('chocolate', '$4', 'https://perfectdailygrind.com/wp-content/uploads/2020/04/Hs_5Ce8ecmXodh-AdEVHyT07irPaZ-zAAhYkKYRJgS5CVzHKs0cAAdyeAF9TIgyh4KI5gqYmyuIDwJnf2f9wCdNvJ5WbQOlSoRr5zmmzMalyR1-RQxvlOtTZkJq9G_GPUiVZ6_WX-1-1.jpeg', 'Superstore', '6', 'available', '3185 Grandview Hwy, Vancouver, BC V5M 2E9', 'snack');")
+    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress, category ) VALUES ('chocolate', '$5', 'https://www.heart.org/-/media/Images/News/2019/February-2019/0212Chocolate_SC.png', 'Superstore', '7', 'unavailable', '3185 Grandview Hwy, Vancouver, BC V5M 2E9', 'snack');")
+    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress, category ) VALUES ('toilet paper', '$8', 'https://www.mayrand.ca/globalassets/mayrand/catalog-mayrand/entretien/40414-papier-hygienique-mega-264-feuilles-x12-charmin.png', 'Walmart', '8', 'available', '9251 Alderbridge Way, Richmond, BC V6X 0N1', 'household');")
+    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress, category ) VALUES ('toilet paper', '$7.90', 'https://images.heb.com/is/image/HEBGrocery/000912650', 'Costco', '9', 'unavailable', '9151 Bridgeport Rd, Richmond, BC V6X 3L9', 'household');")
+    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress, category ) VALUES ('chicken', '$18.99', 'https://i.pinimg.com/550x/ec/30/7b/ec307bfa3ded904a6eda6e0d668531b3.jpg', 'Safeway', '10', 'unavailable', '8671 No 1 Rd, Richmond, BC V7C 1V2', 'meat');")
+    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress, category ) VALUES ('beef', '$33.72', 'https://hips.hearstapps.com/hmg-prod/images/delish-roast-beef-horizontal-1540505165.jpg', 'Walmart', '11', 'available', '9251 Alderbridge Way, Richmond, BC V6X 0N1', 'meat');")
+    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress, category ) VALUES ('salmon', '$32.59', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQME7frMp2eIbAaNGoi23UfaF4-Bi0wZ__C1w&usqp=CAU', 'Superstore', '12', 'unavailable', '4651 No. 3 Rd, Richmond, BC V6X 2C4', 'seafood');")
+    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress, category ) VALUES ('mussel', '$15.99', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1ivU4IWGsFjfG4PlMzcLiTgUDbajkvDuFjw&usqp=CAU', 'Costco', '13', 'available', '9151 Bridgeport Rd, Richmond, BC V6X 3L9', 'seafood');")
+    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress, category ) VALUES ('milk', '$4.99', 'https://i5.walmartimages.ca/images/Enlarge/611/022/6000204611022.jpg', 'Superstore', '14', 'unavailable', '4651 No. 3 Rd, Richmond, BC V6X 2C4', 'dairy');")
+    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress, category ) VALUES ('milk', '$5.42', 'https://www.lactaid.com/sites/lactaid_us/files/styles/jjbos_adaptive_images_generic-desktop/public/product-images/whole_milk.jpg', 'Walmart', '15', 'available', '9251 Alderbridge Way, Richmond, BC V6X 0N1', 'dairy');")
+    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress, category ) VALUES ('cheese', '$6.99', 'https://myculturedpalate.com/wp-content/uploads/2010/01/Homemade-Mozzarella-Cheese-sliced-500x375.jpg', 'Superstore', '16', 'available', '3185 Grandview Hwy, Vancouver, BC V5M 2E9', 'dairy');")
+    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress, category ) VALUES ('reese', '$2', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSjeIWAefE1s00F2Gk6aEeDHpJNY4wADWhVdYUkhR99ZRQd_ghf4CuImowuGXe_9sVIsqo&usqp=CAU', 'Superstore', '17', 'unavailable', '3185 Grandview Hwy, Vancouver, BC V5M 2E9', 'snack');")
+    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress, category ) VALUES ('bread', '$5.99', 'https://www.kingarthurbaking.com/sites/default/files/2020-02/the-easiest-loaf-of-bread-youll-ever-bake.jpg', 'Walmart', '18', 'available', '9251 Alderbridge Way, Richmond, BC V6X 0N1', 'bakery');")
+    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress, category ) VALUES ('croissant', '$7.90', 'https://www.theflavorbender.com/wp-content/uploads/2020/05/French-Croissants-SM-2363.jpg', 'Costco', '19', 'unavailable', '9151 Bridgeport Rd, Richmond, BC V6X 3L9', 'bakery');")
+    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress, category ) VALUES ('prawns', '$17.99', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAAz3M_kM0x6dte8xiwD8li8YAuUOcazfUUw&usqp=CAU', 'Safeway', '20', 'unavailable', '8671 No 1 Rd, Richmond, BC V7C 1V2', 'seafood');")
 
     connection.query("SELECT * FROM items", (err, rows, fields) => {
         // console.log(rows);
@@ -207,13 +227,13 @@ function resetWatchlistDatabaseTable() {
 }
 
 // uncomment this function call if you want to ENTIRELY RESET the User table in the database
-resetUserDatabaseTable();
+// resetUserDatabaseTable();
 
 // uncomment this function call if you want to ENTIRELY RESET the Item table in the database
-resetItemDatabaseTable();
+// resetItemDatabaseTable();
 
 // uncomment this function call if you want to ENTIRELY RESET the UserItem table in the database - NOT CURRENTLY WORKING
-// resetWatchlistDatabaseTable();
+resetWatchlistDatabaseTable();
 
 function checkUsernamePasswordCombo(email, password, handleResult) {
     const connection = createConnection();
@@ -245,9 +265,9 @@ app.post('/authenticate',
         // console.log(`${req.body.username} + ${req.body.password}`);
         checkUsernamePasswordCombo(req.body.username, req.body.password, (result) => {
             if (result > 0) {
-                // console.log(result);
+                console.log(result);
                 req.session.userid = result;
-                // console.log("correct username/pw");
+                console.log("correct username/pw");
                 next();
             } else {
                 // console.log(`${req.body.username} + ${req.body.password}`)
@@ -262,7 +282,7 @@ app.post('/authenticate',
         // console.log(res.locals.userid);
         // req.session.userid = res.locals.userid;
 
-        res.redirect('/profile');
+        res.redirect('/search');
         res.send();
     }
 );
@@ -357,12 +377,21 @@ app.post("/create_account_in_db",
         res.send();
     }
 );
-
+//Admin
 app.get('/admin', (req, res) => {
     if (req.session.admin) {
-        res.redirect("/account_list");
+        res.redirect("/admin_dashboard");
     } else {
         res.sendFile(path.join(htmlPath + '/admin_login.html'));
+    }
+})
+
+//Admin Dashboard
+app.get('/admin_dashboard', (req, res) => {
+    if (req.session.admin) {
+        res.sendFile(path.join(htmlPath + "/admin_dashboard.html"))
+    } else {
+        res.redirect('/admin');
     }
 })
 
@@ -383,7 +412,7 @@ app.post('/authenticate_admin',
     },
     (req, res) => {
         req.session.admin = res.locals.admin;
-        res.redirect('/account_list');
+        res.redirect('/admin_dashboard');
         res.send();
     }
 );
@@ -423,6 +452,46 @@ app.get('/account_list', (req, res) => {
     }
 })
 
+
+//Fetch Item
+function fetchItems_by_name(name, handleResult) {
+    const connection = createConnection();
+
+    connection.connect()
+
+    let result = false;
+
+    connection.query(`SELECT * FROM items WHERE itemName = '${name}';`, (err, rows, fields) => {
+        if (err) {
+            throw err;
+        }
+        result = rows;
+
+        connection.end();
+
+        handleResult(result)
+    })
+}
+
+function fetchItems_by_category(category, handleResult) {
+    const connection = createConnection();
+
+    connection.connect()
+
+    let result = false;
+
+    connection.query(`SELECT * FROM items WHERE category = '${category}';`, (err, rows, fields) => {
+        if (err) {
+            throw err;
+        }
+        result = rows;
+
+        connection.end();
+
+        handleResult(result)
+    })
+}
+
 function fetchItems(handleResult) {
     const connection = createConnection();
 
@@ -437,7 +506,6 @@ function fetchItems(handleResult) {
         result = rows;
 
         connection.end();
-
         handleResult(result)
     })
 }
@@ -450,14 +518,19 @@ app.get('/all_items', (req, res) => {
     });
 })
 
-app.get('/items', (req, res) => {
-    res.sendFile(path.join(htmlPath + '/itemslist.html'));
+app.get('/items_list', (req, res) => {
+    if (req.session.admin) {
+        res.sendFile(path.join(htmlPath + '/itemslist.html'));
+    } else {
+        res.sendFile(path.join(htmlPath + '/admin_login.html'));
+    }
+   
 })
 
 
 //Product.ejs
 app.get('/product/:id', function (req, res, handleResult) {
-    // console.log(req.params.id)
+    console.log("req.params.id: ", req.params.id)
     productid = req.params.id
 
     //create connection
@@ -472,6 +545,7 @@ app.get('/product/:id', function (req, res, handleResult) {
         }
 
         details = rows[0]
+        console.log("details: ", details);
         connection.end();
         //place on page
         res.render("productview.ejs", {
@@ -479,11 +553,11 @@ app.get('/product/:id', function (req, res, handleResult) {
             "name": details.itemName,
             "img": details.img,
             "price": details.price,
-            "location": details.brand,
-            "availability": details.itemAvailability
+            "brand": details.brand,
+            "availability": details.itemAvailability,
+            "address": details.storeAddress
         });
     })
-
 });
 
 
@@ -504,6 +578,126 @@ app.get('/getallproducts/:name', function (req, res, handleResult){
     })
 })
 
+app.get('/watchlist', (req, res) => {
+    if (req.session.loggedIn) {
+        res.sendFile(path.join(htmlPath + "/Watchlist.html"))
+    } else {
+        res.redirect('/');
+    }
+})
+
+app.get('/watchlist_items', (req, res) => {
+    // sql to access watchlist items with user id
+    // sql to get items
+    // send items
+
+    console.log(req.session.userid);
+
+    let connection = createConnection();
+
+    connection.connect();
+
+    connection.query(`SELECT * FROM items WHERE itemid IN (SELECT itemid FROM useritems WHERE userid = ${req.session.userid})`, (err, rows, fields) => {
+        console.log(rows);
+
+        res.send(rows);
+
+        connection.end();
+    });
+})
+
+function isItemOnWatchlist(itemid, userid, handleResult) {
+    let connection = createConnection();
+
+    connection.connect();
+
+    connection.query(`SELECT * FROM useritems WHERE userid = ${userid} AND itemid = ${itemid}`, ((err, rows, fields) => {
+        // console.log("result: ", rows);
+
+        connection.end();
+
+        if (rows.length > 0) {
+            handleResult(true);
+        } else {
+            handleResult(false);
+        }
+    }))
+}
+
+app.post('/add_to_watchlist', (req, res) => {
+    // console.log(req.body);
+
+    if (req.session.userid) {
+
+        let itemid = req.body.itemid;
+        let userid = req.session.userid;
+
+        // console.log("itemid: ", itemid, " userid: ", userid);
+
+        let connection = createConnection();
+
+        connection.connect();
+
+        connection.query(`INSERT INTO useritems (userid, itemid) VALUES (${userid}, ${itemid});`);
+
+        connection.query(`SELECT * FROM useritems WHERE userid = ${userid}`, ((err, rows, fields) => {
+            console.log("result: ", rows);
+
+            connection.end();
+        }))
+    } else {
+        res.send({
+            userLoggedIn: false
+        })
+    }
+})
+
+app.post('/remove_from_watchlist', (req, res) => {
+    if (req.session.userid) {
+
+        let itemid = req.body.itemid;
+        let userid = req.session.userid;
+
+        // console.log("itemid: ", itemid, " userid: ", userid);
+
+        let connection = createConnection();
+
+        connection.connect();
+
+        connection.query(`DELETE FROM useritems WHERE userid = ${userid} AND itemid = ${itemid};`);
+
+        connection.query(`SELECT * FROM useritems WHERE userid = ${userid}`, ((err, rows, fields) => {
+            console.log("result: ", rows);
+
+            connection.end();
+        }))
+    } else {
+        res.send({
+            userLoggedIn: false
+        })
+    }
+})
+
+app.get('/is_on_watchlist/:itemid', (req, res) => {
+    let itemid = req.params.itemid;
+    let userid = req.session.userid;
+
+    console.log("itemid: ", itemid, " userid: ", userid);
+
+    if (!userid) {
+        res.send({
+            is_item_on_watchlist: false
+        })
+    } else {
+
+        isItemOnWatchlist(itemid, userid, (result) => {
+            res.send({
+                is_item_on_watchlist: result
+            })
+        });
+
+    }
+})
 
 //This is for accessing watchlist as you need to be a required user
 // app.get('/all_items_list', (req, res) => {
@@ -515,14 +709,36 @@ app.get('/getallproducts/:name', function (req, res, handleResult){
 //         res.redirect('/user');
 //     }
 // })
-app.get('/search_item', (req, res) => {
+app.get("/search", (req, res) => {
+    res.sendFile(path.join(htmlPath + '/search.html'));
+});
 
-    fetchItems((result) => {
+app.get("/results", (req, res) => {
+    res.sendFile(path.join(htmlPath + '/results.html'));
+});
+
+app.post('/search_item_by_name', (req, res) => {
+
+    fetchItems_by_name(req.body.name, (result) => {
         res.send(result);
     });
 })
 
-function fetchItems_with_filter(name, sort, handleResult) {
+// app.get('/search_item_by_name/:name', (req, res) => {
+//     console.log("testing")
+//     fetchItems_by_name(req.params.name, (result) => {
+//         res.send(result);
+//     });
+// })
+
+app.post('/search_item_by_category', (req, res) => {
+
+    fetchItems_by_category(req.body.category, (result) => {
+        res.send(result);
+    });
+})
+
+function fetchItems_name_with_filter(name, sort, handleResult) {
     const connection = createConnection();
 
     connection.connect()
@@ -540,34 +756,45 @@ function fetchItems_with_filter(name, sort, handleResult) {
     })
 }
 
-app.post('/apply_sort', 
+function fetchItems_category_with_filter(category, sort, handleResult) {
+    const connection = createConnection();
+
+    connection.connect()
+
+    let result = false;
+
+    connection.query(`SELECT * FROM items WHERE category='${category}' ORDER BY ${sort} ASC;`, (err, rows, fields) => {
+        if (err) {
+            throw err;
+        }
+        result = rows;
+
+        connection.end();
+        handleResult(result)
+    })
+}
+
+app.post('/apply_sort_name', 
 bodyParser.urlencoded({
     extended: true
 }),
 (req, res, next) => {
     // console.log(`${req.body.name}, ${req.body.sort}`);
-    fetchItems_with_filter(req.body.name, req.body.sort, (result) => {
+    fetchItems_name_with_filter(req.body.key, req.body.sort, (result) => {
         res.send(result);
     });
-//     if (req.body.username == "admin" && req.body.password == "admin") {
-//         res.locals.username = req.body.username;
-//         res.locals.admin = true;
-//         next();
-//     } else {
-//         res.redirect('/admin');
-//     }
-// },
-// (req, res) => {
-//     req.session.admin = res.locals.admin;
-//     res.redirect('/account_list');
-//     res.send();
 });
-//(req, res) => {
-    
-//     // fetchItems((result) => {
-//     //     res.send(result);
-//     // });
-// })
+
+app.post('/apply_sort_category', 
+bodyParser.urlencoded({
+    extended: true
+}),
+(req, res, next) => {
+    // console.log(`${req.body.name}, ${req.body.sort}`);
+    fetchItems_category_with_filter(req.body.key, req.body.sort, (result) => {
+        res.send(result);
+    });
+});
 
 app.get('/edit_profile', (req, res) => {
     res.sendFile(path.join(htmlPath + "/edit_profile.html"))
@@ -618,4 +845,28 @@ app.post('/change_password', (req, res) => {
     connection.connect();
 
     connection.query(`UPDATE users SET password = '${req.body.newPassword}' WHERE userid = '${req.session.userid}';`);
+})
+
+app.post('/add_item', (req, res) => {
+    let connection = createConnection();
+
+    connection.connect();
+
+    connection.query(`INSERT INTO items (itemName, price, img, brand, itemAvailability) VALUES ('${req.body.newItem}', '${req.body.newItemPrice}', 'Null', '${req.body.newItemStore}', 'available');`);
+})
+
+app.get('/add_item', (req, res) => {
+    res.sendFile(path.join(htmlPath + "/user_add_item.html"))
+})
+
+app.get('/update_item', (req, res) => {
+    res.sendFile(path.join(htmlPath + "/update_item.html"))
+})
+
+app.post('/update_item', (req, res) => {
+    let connection = createConnection();
+
+    connection.connect();
+
+    connection.query(`UPDATE items SET price = '${req.body.newPrice}' WHERE itemName = '${req.body.itemName}' AND brand = '${req.body.itemStore}';`);
 })
