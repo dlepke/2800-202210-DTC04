@@ -46,33 +46,64 @@
 
     <!-- the body of your page goes here -->
 
+
     <main id="product">
-        <a href="../search">
+        <a href="../results">
             <i class="material-icons md-48 nav_elements icons" style="float: left">arrow_back</i>
         </a>
 
         <div class="img_cont shadow-sm">
-            <!-- Insert img from render -->
-            <!-- <img src="img_path %>" alt=""> -->
-            <img src="../images/banana.png">
+            <img src="<%= img %>">
         </div>
 
-        <div class="actions">
-            <button type="button" class="addtolist">
-                <!-- Add an onclick that adds this data set inside watchlist database -->
-                <i class="material-icons md-48 nav_elements icons">post_add</i>
-            </button>
+        <div class="description">
+
+            <article class="description_text">
+                <!-- Strange enough, this ejs function still works despite being commented out -->
+                <!-- <%= capitalize = function capitalize(word) {return word.charAt(0).toUpperCase() + word.slice(1);} %> -->
+                <h5>
+                    <b id="name"><%= capitalize(name) %></b>
+                </h5> 
+                <p> 
+                    <i class="material-icons md-48 nav_elements icons">attach_money</i>
+                    <%= price %>
+                </p>
+                <p> 
+                    <i class="material-icons md-36 nav_elements icons">store</i>
+                    <span class="description_tags"><%= brand %></span>
+                </p>
+                <p> 
+                    <!-- <i class="material-icons md-36 nav_elements icons">pin_drop</i> -->
+                    <a class="links"href="https://maps.google.com/?q=<%= address %>"> 
+                        <i class="material-icons md-36 nav_elements icons">pin_drop</i>
+
+                    </a>
+                    <%= address %>
+                </p>
+            </article>       
+
+            <div class="actions">
+                <button onclick="location.href='/update_item'" id="edit" type="button" class="addtolist" >
+                    <i class="material-icons md-48 ">edit_note</i>
+                </button>
+                <button type="button" class="addtolist" onclick="addOrRemoveFromWatchlist()">
+                    <!-- Add an onclick that adds this data set inside watchlist database -->
+                    <i class="material-icons md-48" id="favourite-button" >favorite</i>
+                </button>
+                <!-- <div class="correction">
+                    <input class="correction" type="text"></input>
+                    <input type="submit"></input>
+                </div> -->
+
+
+
+            </div>
+
         </div>
 
-        <article>
-            <h1>
-                <span id="name"><%= name %></span>
-            </h1> 
-            <p> <%= price %></p>
-            <p> <%= brand %></p>
-        </article>
+
         <article id="others">
-            <h3>Similar Products:</h3>
+            <b> Similar Products:</b>
             <!-- Location and Price -->
             <!-- Select * From items Where name = 'bananas'; -->
 

@@ -1,18 +1,69 @@
 keyword = localStorage.getItem("keyword");
 console.log(keyword);
+search_by = null
 
-function fetch_item() {
-    fetch('/search_item')
-        .then(response => response.json())
-        .then(data => {
-            //console.log(data)
-            data.forEach((item) => {
-                //console.log(item.price);
-                if (item.itemName == keyword.toLowerCase()) {
-                    display_item(item);
-                }
-            })
-        });
+function check_keyword() {
+    if (keyword == "produce" || keyword == "dairy" || keyword == "meat" || keyword == "seafood" || keyword == "snack" || keyword == "bakery") {
+        get_items_by_category(keyword);
+        search_by = 'category'
+    } else {
+        get_items_by_name(keyword);
+        search_by = 'name'
+    }
+}
+
+// function fetch_item() {
+//     fetch('/search_item')
+//         .then(response => response.json())
+//         .then(data => {
+//             //console.log(data)
+//             data.forEach((item) => {
+//                 //console.log(item.price);
+//                 if (item.itemName == keyword.toLowerCase()) {
+//                     display_item(item);
+//                 }
+//             })
+//         });
+// }
+
+function get_items_by_name(keyword) {
+    $.ajax({
+        url: `https://dtc04-foodbuddy.herokuapp.com/search_item_by_name`,
+        type: "post",
+        data: {
+            name: keyword
+        },
+        success: process_items
+    })
+    //$.get(`/search_item_by_name/${keyword}`, process_items(items))
+}
+
+function get_items_by_category(keyword) {
+    $.ajax({
+        url: `https://dtc04-foodbuddy.herokuapp.com/search_item_by_category`,
+        type: "post",
+        data: {
+            category: keyword
+        },
+        success: process_items
+    })
+    // $.post('/search_item_by_category',
+    //     {
+    //         category: keyword
+    //     },
+    //     process_items(items))
+}
+
+function process_items(items) {
+    if (items.length == 0) {
+        $("#results_display").append("<p id='no_product'><i>No product found</i></p>")
+    } else {
+        //console.log(items);
+        $("#results_display").empty();
+        for (count = 0; count < items.length; count++) {
+            display_item(items[count]);
+        }
+    }
 }
 
 function search_item() {
@@ -25,7 +76,9 @@ function search_item() {
         keyword = localStorage.getItem("keyword");
         //console.log($("#search_text").val());
         $("#results_display").empty();
-        fetch_item();
+        //fetch_item();
+        get_items_by_name(keyword);
+        search_by = 'name'
     }
 }
 
@@ -33,7 +86,7 @@ function display_item(item) {
     // console.log(item)
     // console.log(item.itemid)
     $("#results_display").append(`<a href="/product/${item.itemid}"><div id=${item.itemid} class=items> 
-    <div class="item_img"><img src="https://i5.walmartimages.com/asr/41305aa3-3de8-4bab-80e9-484cf63cadc5_1.e46fb74bc2e4fa0751ad18233d4d4854.jpeg?odnHeight=450&odnWidth=450&odnBg=ffffff"></div>
+    <div class="item_img"><img class ="pic" src="${item.img}"></div>
     <div class="item_info"><span>${capitalize(item.itemName)}</span><br>
     <span id="item_price"><b>${item.price}</b></span><br>
     <span>${item.brand}</span></div></div>
@@ -47,16 +100,24 @@ function apply_sort() {
     //console.log(testing);
     //console.log(sort);
     $.ajax({
-        url: `https://dtc04-foodbuddy.herokuapp.com/apply_sort`,
+        url: `https://dtc04-foodbuddy.herokuapp.com/apply_sort_${search_by}`,
         type: "post",
         data: {
-            name: keyword,
+            key: keyword,
             sort: sort
         },
         success: apply_filter
     }).then(() => {
         $("#filter_form").css("display", "none");
     })
+    // $.post(`/apply_sort_${search_by}`,
+    //     {
+    //         key: keyword,
+    //         sort: sort
+    //     },
+    //     apply_filter(items)).then(()=>{
+    //         $("#filter_form").css("display", "none");
+    //     })
 }
 
 function apply_filter(data) {
@@ -93,15 +154,23 @@ function reset_filter() {
     $(".radio_buttons").prop("checked", false);
 }
 
+// function change_icon_color() {
+//     $("#search").css("color", "rgb(116, 173, 122)")
+//     $("#home").css("color", "rgb(129, 129, 129)")
+//     $("#watchlist").css("color", "rgb(129, 129, 129)")
+// }
+
 function setup() {
     $("#apply_filter").click(apply_sort);
     $("#toggle_filter").click(toggle_filter);
     $("#reset").click(reset_filter);
     $("#search_submit").click(search_item);
-    fetch_item();
+    //fetch_item();
+    //change_icon_color();
+    check_keyword();
 }
 
 $(document).ready(setup);
 
-//https://dtc04-foodbuddy.herokuapp.com
-//http://localhost:5050
+//https://dtc04-foodbuddy.herokuapp.com/ 
+//https://dtc04-foodbuddy.herokuapp.com/

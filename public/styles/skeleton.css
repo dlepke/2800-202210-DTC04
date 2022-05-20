@@ -63,7 +63,7 @@ body {
     size: small;
     text-align: center;
     margin: auto;
-    color: rgb(129, 129, 129);
+    color: rgb(129, 129, 129); 
 }
 
 .navbar .container {
@@ -77,6 +77,8 @@ body {
     align-self: center;
     position: relative;
     left: 50%;
+    border-radius:0em !important;
+    box-shadow: none;
 }
 
 .navbar, .footer{

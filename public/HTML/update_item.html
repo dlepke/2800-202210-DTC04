@@ -30,6 +30,7 @@
     <!-- Other libraries and styles of your own -->
     <!-------------------------------------------->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="../styles/update_item.css" rel="stylesheet">
 
 
 </head>
@@ -47,20 +48,21 @@
 
         <div id="item_info">
             <div id="name_required" style="visibility: hidden;">You must enter an item name!</div>
-            <p>Item Name</p>
+            Item Name: <br>
             <input id="item_name" placeholder="Item Name">
             <br>
+            <br>
             <div id="store_required" style="visibility: hidden;">You must enter a store name!</div>
-            <p>Store Name</p>
+            Store Name: <br>
             <input id="store" placeholder="Store Name">
             <br>
-            <div id="new_price" style="visibility: hidden;">You must enter an item price!</div>
-            <p>New Price (Dollars)</p>
-            <input id="price" placeholder="Price in Dollars">
             <br>
+            <div id="new_price" style="visibility: hidden;">You must enter an item price!</div>
+            New Price (Dollars): <br>
+            <input id="price" placeholder="Price in Dollars">
+            <div id="number_required" style="visibility: hidden;">Item price must be a number!</div>
         </div>
-        <br>
-        <br>
+        <div id="item_updated_successfully" style="visibility: hidden;">Item successfully updated!</div>
         <button id="update_item" onclick="updateItem()">Update Item</button>
 
 

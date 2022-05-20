@@ -24,6 +24,7 @@
     <!-------------------------------------------------------->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="../scripts/add_item.js"></script>
+    <link rel="stylesheet" href="../styles/add_item.css">
 
 
     <!-------------------------------------------->
@@ -47,20 +48,21 @@
 
         <div id="item_info">
             <div id="name_required" style="visibility: hidden;">You must enter an item name!</div>
-            <p>Item Name</p>
+            Item Name: <br>
             <input id="item_name" placeholder="Item Name">
             <br>
-            <div id="price_required" style="visibility: hidden;">You must enter an item price!</div>
-            <p>Price (Dollars)</p>
-            <input id="price" placeholder="Price in Dollars">
             <br>
+            <div id="price_required" style="visibility: hidden;">You must enter an item price!</div>
+            Price (Dollars): <br>
+            <input id="price" placeholder="Price in Dollars">
+            <div id="number_required" style="visibility: hidden;">Item price must be a number!</div>
             <div id="store_required" style="visibility: hidden;">You must enter a store name!</div>
-            <p>Store Name</p>
+            Store Name: <br>
             <input id="store" placeholder="Store Name">
             <br>
         </div>
         <br>
-        <br>
+        <div id="item_added_successfully" style="visibility: hidden;">Item successfully added!</div>
         <button id="submit_item" onclick="addItem()">Submit Item</button>
 
 
