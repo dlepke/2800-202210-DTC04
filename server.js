@@ -376,7 +376,7 @@ app.post("/create_account_in_db",
         req.session.loggedIn = true;
         req.session.username = res.locals.username;
 
-        res.redirect('/');
+        res.redirect('/search');
         res.send();
     }
 );
@@ -415,6 +415,7 @@ app.post('/authenticate_admin',
     },
     (req, res) => {
         req.session.admin = res.locals.admin;
+        req.session.loggedIn = true;
         res.redirect('/admin_dashboard');
         res.send();
     }
