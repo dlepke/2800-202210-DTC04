@@ -1,3 +1,9 @@
+*{
+    box-sizing: border-box;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 15px;
+}
+
 h1 {
     text-align: center;
 }
@@ -22,7 +28,7 @@ main {
 .admin_menu_buttons {
     border-radius: 10px;
     text-decoration: none;
-    background-color: rgb(61, 108, 54);
+    background-color:rgb(116, 173, 122);
     border: none;
     color: white;
     padding: 10px;
