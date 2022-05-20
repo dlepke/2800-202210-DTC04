@@ -1,3 +1,8 @@
+function capitalize(word) {
+    return word.charAt(0).toUpperCase() + word.slice(1);
+}
+
+
 function populateWatchlist() {
     $.get('/watchlist_items', (result) => {
         console.log(result);
@@ -8,12 +13,14 @@ function populateWatchlist() {
             let itemCard = `<div class="product shadow">
             <div class="productimg shadow-sm">
                 <a href="/product/1">
-                    <img src="${item.img}" width="100%">
+                    <div class="product_img"> 
+                        <img src="${item.img}" width="100%">
+                    </div>
                 </a>
             </div>
             <div class="product_textbox">
                 <h3 class="product_title">
-                    ${item.itemName}
+                    ${capitalize(item.itemName)}
                 </h3>
                 <div class="product_description">
                     ${item.brand}
