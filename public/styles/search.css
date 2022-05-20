@@ -32,10 +32,15 @@ p{
     color: rgb(48, 48, 48)
 }
 
+/* body{
+    background-image: '../images/banana-background.jpeg';
+} */
+
 #search_input{
     width: 70%;
     border-radius: 0.5rem;
-    border: 0.01px solid rgb(48, 48, 48);
+    /* border: 0.01px solid rgb(48, 48, 48); */
+    border: none;
     padding-left: 10px;
 }
 
@@ -66,19 +71,20 @@ main div{
     width: 100%;
 }
 
-/* body{
+body{
     position: relative;
-    background-color: rgb(241, 241, 241)
-} */
+    background-color: rgb(252, 247, 236);
+    
+}
 
 button{
     border: none;
-    background-color: transparent;
-    color: rgb(48, 48, 48);
+    background-color: rgb(116, 173, 122);
+    color: white;
 }
 
 #watchlist_direct, #add_items{
-    border: 0.01px solid rgb(48, 48, 48);
+    /* border: 0.01px solid rgb(48, 48, 48); */
     border-radius: 0.5rem;
     width: 50%;
     margin: 10px 10px 0px 0px;
