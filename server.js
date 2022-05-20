@@ -159,6 +159,7 @@ function resetUserDatabaseTable() {
     connection.query("SELECT * FROM users", (err, rows, fields) => {
         // console.log(rows);
         connection.end();
+        resetItemDatabaseTable();
     });
 }
 
@@ -195,6 +196,7 @@ function resetItemDatabaseTable() {
     connection.query("SELECT * FROM items", (err, rows, fields) => {
         // console.log(rows);
         connection.end();
+        resetWatchlistDatabaseTable();
     });
 }
 
