@@ -28,7 +28,7 @@ function check_keyword() {
 
 function get_items_by_name(keyword) {
     $.ajax({
-        url: `https://dtc04-foodbuddy.herokuapp.com/search_item_by_name`,
+        url: `http://localhost:5050/search_item_by_name`,
         type: "post",
         data: {
             name: keyword
@@ -40,7 +40,7 @@ function get_items_by_name(keyword) {
 
 function get_items_by_category(keyword) {
     $.ajax({
-        url: `https://dtc04-foodbuddy.herokuapp.com/search_item_by_category`,
+        url: `http://localhost:5050/search_item_by_category`,
         type: "post",
         data: {
             category: keyword
@@ -68,10 +68,11 @@ function process_items(items) {
 
 function search_item() {
     //keyword = $("#search_text").val();
+    $("#error_message").remove();
+    reset_filter();
     if ($("#search_text").val() == "") {
         $("#search_bar").append("<p id='error_message'><i>Enter search keyword to proceed</i></p>")
     } else {
-        $("#error_message").remove();
         localStorage.setItem("keyword", $("#search_text").val());
         keyword = localStorage.getItem("keyword");
         //console.log($("#search_text").val());
@@ -100,7 +101,7 @@ function apply_sort() {
     //console.log(testing);
     //console.log(sort);
     $.ajax({
-        url: `https://dtc04-foodbuddy.herokuapp.com/apply_sort_${search_by}`,
+        url: `http://localhost:5050/apply_sort_${search_by}`,
         type: "post",
         data: {
             key: keyword,
@@ -172,5 +173,5 @@ function setup() {
 
 $(document).ready(setup);
 
-//https://dtc04-foodbuddy.herokuapp.com/ 
-//https://dtc04-foodbuddy.herokuapp.com/
+//http://localhost:5050/ 
+//http://localhost:5050/
