@@ -28,7 +28,7 @@ function check_keyword() {
 
 function get_items_by_name(keyword) {
     $.ajax({
-        url: `http://localhost:5050/search_item_by_name`,
+        url: `https://dtc04-foodbuddy.herokuapp.com/search_item_by_name`,
         type: "post",
         data: {
             name: keyword
@@ -40,7 +40,7 @@ function get_items_by_name(keyword) {
 
 function get_items_by_category(keyword) {
     $.ajax({
-        url: `http://localhost:5050/search_item_by_category`,
+        url: `https://dtc04-foodbuddy.herokuapp.com/search_item_by_category`,
         type: "post",
         data: {
             category: keyword
@@ -101,7 +101,7 @@ function apply_sort() {
     //console.log(testing);
     //console.log(sort);
     $.ajax({
-        url: `http://localhost:5050/apply_sort_${search_by}`,
+        url: `https://dtc04-foodbuddy.herokuapp.com/apply_sort_${search_by}`,
         type: "post",
         data: {
             key: keyword,
@@ -173,5 +173,5 @@ function setup() {
 
 $(document).ready(setup);
 
-//http://localhost:5050/ 
-//http://localhost:5050/
+//https://dtc04-foodbuddy.herokuapp.com/ 
+//https://dtc04-foodbuddy.herokuapp.com/
