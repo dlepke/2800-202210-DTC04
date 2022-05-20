@@ -5,7 +5,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="../styles/create_account_style.css">
+    <link rel="stylesheet" href="../styles/easter_egg.css">
+
     <title>Login</title>
 </head>
 
@@ -13,9 +16,10 @@
     <div id="wrapper">
         <main>
             <a href="/admin">Admin Login</a>
+
             <div id="logo">
-                <img src="../images/foodbuddy-logo-icononly.png" id="logo_icon">
-                <p id="logo_text">FoodBuddy</p>
+                <img src="../images/foodbuddy-logo-icononly.png" id="logo_icon" class="animation animate">
+                <p id="logo_text" class="animation animate2">FoodBuddy</p>
             </div>
             <p>Sign in to your account</p>
             <div id="signup_direct">
@@ -32,7 +36,8 @@
             </div>
         </main>
     </div>
-
+    
+    <script src="../scripts/easter_egg.js"></script>
     <script>
         // console.log("current location: ", document.location.href);
 
