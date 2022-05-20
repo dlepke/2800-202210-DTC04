@@ -1,0 +1,15 @@
+#logo_icon{
+    width: 30%;
+    position: relative;
+}
+
+#logo_text{
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    font-size: 2rem;
+    line-height: 110%;
+    margin-top: 5px;
+    color: rgb(61, 108, 54);
+}
+

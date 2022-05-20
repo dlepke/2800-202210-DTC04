@@ -8,7 +8,7 @@ function populateWatchlist() {
             let itemCard = `<div class="product shadow">
             <div class="productimg shadow-sm">
                 <a href="/product/1">
-                    <img src="../images/${item.img}" width="100%">
+                    <img src="${item.img}" width="100%">
                 </a>
             </div>
             <div class="product_textbox">
@@ -16,7 +16,8 @@ function populateWatchlist() {
                     ${item.itemName}
                 </h3>
                 <div class="product_description">
-                    Current Cheapest Location: 
+                    ${item.brand}
+
                 </div>
             </div>
         </div>`
