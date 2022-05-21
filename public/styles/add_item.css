@@ -1,0 +1,41 @@
+main {
+    display: grid;
+    justify-content: center;
+    width: 60%;
+    margin-left: 20%;
+}
+
+input {
+    border-radius: 0.5rem;
+    border: none;
+
+}
+
+#submit_item:hover {
+    background-color: blue;
+    color: white;
+}
+
+#submit_item:active {
+    background-color: rgb(116, 173, 122);
+}
+
+#item_info {
+    color: black !important;
+}
+
+#item_added_successfully {
+    color: green !important;
+}
+
+div {
+    color: red;
+}
+
+button {
+    border: none;
+    background-color: rgb(116, 173, 122);
+    color: white;
+    border-radius: 0.5rem;
+}
+

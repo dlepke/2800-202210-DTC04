@@ -1,0 +1,38 @@
+*{
+    box-sizing: border-box;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 15px;
+}
+
+#account_list {
+    width: 100%;
+}
+
+.title {
+    display: flex;
+
+}
+h1{
+    margin-left: 17%;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 10%;
+    background-color: rgb(116, 173, 122);
+    color: white;
+
+
+}
+
+td, th {
+    border-bottom: 1px solid black;
+    padding: 5px;
+    text-align: center;
+
+}
+
+#items_list {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
