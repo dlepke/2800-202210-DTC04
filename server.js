@@ -658,14 +658,16 @@ app.post('/add_to_watchlist', (req, res) => {
 
         // connection.connect();
 
-        connection.query(`INSERT INTO useritems (userid, itemid) VALUES (${userid}, ${itemid});`);
+        connection.query(`INSERT INTO useritems (userid, itemid) VALUES (${userid}, ${itemid});`, () => {
 
-        connection.query(`SELECT * FROM useritems WHERE userid = ${userid}`, ((err, rows, fields) => {
-            console.log("result: ", rows);
+            connection.query(`SELECT * FROM useritems WHERE userid = ${userid}`, ((err, rows, fields) => {
+                console.log("result: ", rows);
+    
+                connection.end();
+                res.send(true);
+            }))
+        });
 
-            connection.end();
-            res.send(true);
-        }))
     } else {
         res.send({
             userLoggedIn: false
