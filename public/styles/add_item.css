@@ -5,13 +5,19 @@ main {
     margin-left: 20%;
 }
 
+input {
+    border-radius: 0.5rem;
+    border: none;
+
+}
+
 #submit_item:hover {
     background-color: blue;
     color: white;
 }
 
 #submit_item:active {
-    background-color: green;
+    background-color: rgb(116, 173, 122);
 }
 
 #item_info {
@@ -25,3 +31,11 @@ main {
 div {
     color: red;
 }
+
+button {
+    border: none;
+    background-color: rgb(116, 173, 122);
+    color: white;
+    border-radius: 0.5rem;
+}
+

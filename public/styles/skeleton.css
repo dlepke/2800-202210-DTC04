@@ -94,6 +94,11 @@ body {
 header {
     height: 15%;
 }
+body{
+    position: relative;
+    background-color: rgb(252, 247, 236);
+    
+}
 
   /* The side navigation menu */
 .sidenav {
