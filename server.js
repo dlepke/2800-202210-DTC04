@@ -221,17 +221,17 @@ function resetWatchlistDatabaseTable() {
     
             console.log(err);
     
-            connection.query("INSERT INTO UserItems (userid, itemid) VALUES (1, 1);");
-            connection.query("INSERT INTO UserItems (userid, itemid) VALUES (1, 2);");
-            connection.query("INSERT INTO UserItems (userid, itemid) VALUES (1, 3);");
-            connection.query("INSERT INTO UserItems (userid, itemid) VALUES (1, 4);");
-            connection.query("INSERT INTO UserItems (userid, itemid) VALUES (1, 5);");
+            // connection.query("INSERT INTO UserItems (userid, itemid) VALUES (1, 1);");
+            // connection.query("INSERT INTO UserItems (userid, itemid) VALUES (1, 2);");
+            // connection.query("INSERT INTO UserItems (userid, itemid) VALUES (1, 3);");
+            // connection.query("INSERT INTO UserItems (userid, itemid) VALUES (1, 4);");
+            // connection.query("INSERT INTO UserItems (userid, itemid) VALUES (1, 5);");
         
-            connection.query("INSERT INTO UserItems (userid, itemid) VALUES (2, 6);");
-            connection.query("INSERT INTO UserItems (userid, itemid) VALUES (2, 7);");
-            connection.query("INSERT INTO UserItems (userid, itemid) VALUES (2, 8);");
-            connection.query("INSERT INTO UserItems (userid, itemid) VALUES (2, 9);");
-            connection.query("INSERT INTO UserItems (userid, itemid) VALUES (2, 10);");
+            // connection.query("INSERT INTO UserItems (userid, itemid) VALUES (2, 6);");
+            // connection.query("INSERT INTO UserItems (userid, itemid) VALUES (2, 7);");
+            // connection.query("INSERT INTO UserItems (userid, itemid) VALUES (2, 8);");
+            // connection.query("INSERT INTO UserItems (userid, itemid) VALUES (2, 9);");
+            // connection.query("INSERT INTO UserItems (userid, itemid) VALUES (2, 10);");
     
             connection.query("SELECT * FROM useritems", (err, rows, fields) => {
                 // console.log(rows);
