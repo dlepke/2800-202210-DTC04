@@ -76,7 +76,7 @@ app.get("/profile", function (req, res, next) {
 function getUserFullName(userid, handleResult) {
     const connection = createConnection();
 
-    connection.connect()
+    // connection.connect()
 
     let firstName = "false";
     let lastName = "false";
@@ -138,65 +138,74 @@ function createConnection() {
     let config = parseUrl(DB_URL);
 
 
-    return mysql.createConnection(config);
+    return mysql.createPool(config);
 }
 
 function resetUserDatabaseTable() {
     const connection = createConnection();
 
-    connection.connect();
+    // connection.connect();
 
-    connection.query('DROP TABLE IF EXISTS Users;');
+    connection.query('DROP TABLE IF EXISTS UserItems;', () => {
 
-    connection.query('CREATE TABLE IF NOT EXISTS Users ( userid int NOT NULL AUTO_INCREMENT PRIMARY KEY, email varchar(50), password varchar(50), firstName varchar(50), lastName varchar(50), address varchar(100));');
+        connection.query('DROP TABLE IF EXISTS Users;', () => {
 
-    connection.query('INSERT INTO Users (email, password, firstName, lastName, address) VALUES ("user1@email.com", "pass1", "amy", "adams", "1 first ave, firstland");');
-    connection.query("INSERT INTO Users (email, password, firstName, lastName, address) VALUES ('user2@email.com', 'pass2', 'bob', 'burns', '2 second ave, secondland');");
-    connection.query("INSERT INTO Users (email, password, firstName, lastName, address) VALUES ('user3@email.com', 'pass3', 'carrie', 'carlson', '3 third ave, thirdland');");
-    connection.query("INSERT INTO Users (email, password, firstName, lastName, address) VALUES ('user4@email.com', 'pass4', 'diane', 'davidson', '4 fourth ave, fourthland');");
-    connection.query("INSERT INTO Users (email, password, firstName, lastName, address) VALUES ('user5@email.com', 'pass5', 'earl', 'ericson', '5 fifth ave, fifthland');");
-
-    connection.query("SELECT * FROM users", (err, rows, fields) => {
-        // console.log(rows);
-        connection.end();
-        resetItemDatabaseTable();
+            connection.query('CREATE TABLE IF NOT EXISTS Users ( userid int NOT NULL AUTO_INCREMENT PRIMARY KEY, email varchar(50), password varchar(50), firstName varchar(50), lastName varchar(50), address varchar(100));', (err, rows, fields) => {
+        
+                connection.query('INSERT INTO Users (email, password, firstName, lastName, address) VALUES ("user1@email.com", "pass1", "amy", "adams", "1 first ave, firstland");');
+                connection.query("INSERT INTO Users (email, password, firstName, lastName, address) VALUES ('user2@email.com', 'pass2', 'bob', 'burns', '2 second ave, secondland');");
+                connection.query("INSERT INTO Users (email, password, firstName, lastName, address) VALUES ('user3@email.com', 'pass3', 'carrie', 'carlson', '3 third ave, thirdland');");
+                connection.query("INSERT INTO Users (email, password, firstName, lastName, address) VALUES ('user4@email.com', 'pass4', 'diane', 'davidson', '4 fourth ave, fourthland');");
+                connection.query("INSERT INTO Users (email, password, firstName, lastName, address) VALUES ('user5@email.com', 'pass5', 'earl', 'ericson', '5 fifth ave, fifthland');");
+        
+                connection.query("SELECT * FROM users", (err, rows, fields) => {
+                    // console.log(rows);
+                    connection.end();
+                    resetItemDatabaseTable();
+                });
+            });
+        });
+    
     });
+
+
+
 }
 
 function resetItemDatabaseTable() {
     const connection = createConnection();
 
-    connection.connect();
+    // connection.connect();
 
-    connection.query('DROP TABLE IF EXISTS Items;');
-
-    connection.query("CREATE TABLE IF NOT EXISTS Items ( itemid int NOT NULL AUTO_INCREMENT PRIMARY KEY, itemName varchar(50), price varchar(50), img varchar(1000), brand varchar(50), itemAvailability varchar(50), storeAddress varchar(100), category varchar(50))")
-
-    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress, category ) VALUES ('bananas', '$1', 'https://images.costcobusinessdelivery.com/ImageDelivery/imageService?profileId=12027981&itemId=30669&recipeName=680', 'Walmart', '1', 'available', '9251 Alderbridge Way, Richmond, BC V6X 0N1', 'produce');")
-    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress, category ) VALUES ('bananas', '$2', 'https://i5.walmartimages.com/asr/41305aa3-3de8-4bab-80e9-484cf63cadc5_1.e46fb74bc2e4fa0751ad18233d4d4854.jpeg?odnHeight=450&odnWidth=450&odnBg=ffffff', 'Superstore', '2', 'unavailable', '4651 No. 3 Rd, Richmond, BC V6X 2C4', 'produce');")
-    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress, category ) VALUES ('bananas', '$0.90', 'https://i0.wp.com/superstore.mangopoint.in/wp-content/uploads/2019/10/banana-karpuravalli-500x500.jpg?fit=330%2C330&ssl=1', 'Costco', '3', 'available', '9151 Bridgeport Rd, Richmond, BC V6X 3L9', 'produce');")
-    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress, category ) VALUES ('eggs', '$5', 'https://www.verywellhealth.com/thmb/kXxeAfjFaNtlyEYmCRtKxoLbtCY=/2880x1920/filters:no_upscale():max_bytes(150000):strip_icc()/uncover-hidden-egg-ingredients-1324275-primary-recirc-3cf777cca7044ee1992cc0a27d6449fa.jpg', 'Superstore', '4', 'unavailable', '4651 No. 3 Rd, Richmond, BC V6X 2C4', 'protein');")
-    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress, category ) VALUES ('eggs', '$6', 'https://www.unlockfood.ca/EatRightOntario/media/Website-images-resized/All-About-Eggs-resized.jpg', 'Walmart', '5', 'available', '9251 Alderbridge Way, Richmond, BC V6X 0N1', 'protein');")
-    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress, category ) VALUES ('chocolate', '$4', 'https://perfectdailygrind.com/wp-content/uploads/2020/04/Hs_5Ce8ecmXodh-AdEVHyT07irPaZ-zAAhYkKYRJgS5CVzHKs0cAAdyeAF9TIgyh4KI5gqYmyuIDwJnf2f9wCdNvJ5WbQOlSoRr5zmmzMalyR1-RQxvlOtTZkJq9G_GPUiVZ6_WX-1-1.jpeg', 'Superstore', '6', 'available', '3185 Grandview Hwy, Vancouver, BC V5M 2E9', 'snack');")
-    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress, category ) VALUES ('chocolate', '$5', 'https://www.heart.org/-/media/Images/News/2019/February-2019/0212Chocolate_SC.png', 'Superstore', '7', 'unavailable', '3185 Grandview Hwy, Vancouver, BC V5M 2E9', 'snack');")
-    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress, category ) VALUES ('toilet paper', '$8', 'https://www.mayrand.ca/globalassets/mayrand/catalog-mayrand/entretien/40414-papier-hygienique-mega-264-feuilles-x12-charmin.png', 'Walmart', '8', 'available', '9251 Alderbridge Way, Richmond, BC V6X 0N1', 'household');")
-    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress, category ) VALUES ('toilet paper', '$7.90', 'https://images.heb.com/is/image/HEBGrocery/000912650', 'Costco', '9', 'unavailable', '9151 Bridgeport Rd, Richmond, BC V6X 3L9', 'household');")
-    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress, category ) VALUES ('chicken', '$18.99', 'https://i.pinimg.com/550x/ec/30/7b/ec307bfa3ded904a6eda6e0d668531b3.jpg', 'Safeway', '10', 'unavailable', '8671 No 1 Rd, Richmond, BC V7C 1V2', 'meat');")
-    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress, category ) VALUES ('beef', '$33.72', 'https://hips.hearstapps.com/hmg-prod/images/delish-roast-beef-horizontal-1540505165.jpg', 'Walmart', '11', 'available', '9251 Alderbridge Way, Richmond, BC V6X 0N1', 'meat');")
-    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress, category ) VALUES ('salmon', '$32.59', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQME7frMp2eIbAaNGoi23UfaF4-Bi0wZ__C1w&usqp=CAU', 'Superstore', '12', 'unavailable', '4651 No. 3 Rd, Richmond, BC V6X 2C4', 'seafood');")
-    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress, category ) VALUES ('mussel', '$15.99', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1ivU4IWGsFjfG4PlMzcLiTgUDbajkvDuFjw&usqp=CAU', 'Costco', '13', 'available', '9151 Bridgeport Rd, Richmond, BC V6X 3L9', 'seafood');")
-    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress, category ) VALUES ('milk', '$4.99', 'https://i5.walmartimages.ca/images/Enlarge/611/022/6000204611022.jpg', 'Superstore', '14', 'unavailable', '4651 No. 3 Rd, Richmond, BC V6X 2C4', 'dairy');")
-    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress, category ) VALUES ('milk', '$5.42', 'https://www.lactaid.com/sites/lactaid_us/files/styles/jjbos_adaptive_images_generic-desktop/public/product-images/whole_milk.jpg', 'Walmart', '15', 'available', '9251 Alderbridge Way, Richmond, BC V6X 0N1', 'dairy');")
-    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress, category ) VALUES ('cheese', '$6.99', 'https://myculturedpalate.com/wp-content/uploads/2010/01/Homemade-Mozzarella-Cheese-sliced-500x375.jpg', 'Superstore', '16', 'available', '3185 Grandview Hwy, Vancouver, BC V5M 2E9', 'dairy');")
-    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress, category ) VALUES ('reese', '$2', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSjeIWAefE1s00F2Gk6aEeDHpJNY4wADWhVdYUkhR99ZRQd_ghf4CuImowuGXe_9sVIsqo&usqp=CAU', 'Superstore', '17', 'unavailable', '3185 Grandview Hwy, Vancouver, BC V5M 2E9', 'snack');")
-    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress, category ) VALUES ('bread', '$5.99', 'https://www.kingarthurbaking.com/sites/default/files/2020-02/the-easiest-loaf-of-bread-youll-ever-bake.jpg', 'Walmart', '18', 'available', '9251 Alderbridge Way, Richmond, BC V6X 0N1', 'bakery');")
-    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress, category ) VALUES ('croissant', '$7.90', 'https://www.theflavorbender.com/wp-content/uploads/2020/05/French-Croissants-SM-2363.jpg', 'Costco', '19', 'unavailable', '9151 Bridgeport Rd, Richmond, BC V6X 3L9', 'bakery');")
-    connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress, category ) VALUES ('prawns', '$17.99', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAAz3M_kM0x6dte8xiwD8li8YAuUOcazfUUw&usqp=CAU', 'Safeway', '20', 'unavailable', '8671 No 1 Rd, Richmond, BC V7C 1V2', 'seafood');")
-
-    connection.query("SELECT * FROM items", (err, rows, fields) => {
-        // console.log(rows);
-        connection.end();
-        resetWatchlistDatabaseTable();
+    connection.query('DROP TABLE IF EXISTS Items;', () => {
+        connection.query("CREATE TABLE IF NOT EXISTS Items ( itemid int NOT NULL AUTO_INCREMENT PRIMARY KEY, itemName varchar(50), price varchar(50), img varchar(1000), brand varchar(50), itemAvailability varchar(50), storeAddress varchar(100), category varchar(50))", (err, rows, fields) => {
+            connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress, category ) VALUES ('bananas', '$1', 'https://images.costcobusinessdelivery.com/ImageDelivery/imageService?profileId=12027981&itemId=30669&recipeName=680', 'Walmart', '1', 'available', '9251 Alderbridge Way, Richmond, BC V6X 0N1', 'produce');")
+            connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress, category ) VALUES ('bananas', '$2', 'https://i5.walmartimages.com/asr/41305aa3-3de8-4bab-80e9-484cf63cadc5_1.e46fb74bc2e4fa0751ad18233d4d4854.jpeg?odnHeight=450&odnWidth=450&odnBg=ffffff', 'Superstore', '2', 'unavailable', '4651 No. 3 Rd, Richmond, BC V6X 2C4', 'produce');")
+            connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress, category ) VALUES ('bananas', '$0.90', 'https://i0.wp.com/superstore.mangopoint.in/wp-content/uploads/2019/10/banana-karpuravalli-500x500.jpg?fit=330%2C330&ssl=1', 'Costco', '3', 'available', '9151 Bridgeport Rd, Richmond, BC V6X 3L9', 'produce');")
+            connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress, category ) VALUES ('eggs', '$5', 'https://www.verywellhealth.com/thmb/kXxeAfjFaNtlyEYmCRtKxoLbtCY=/2880x1920/filters:no_upscale():max_bytes(150000):strip_icc()/uncover-hidden-egg-ingredients-1324275-primary-recirc-3cf777cca7044ee1992cc0a27d6449fa.jpg', 'Superstore', '4', 'unavailable', '4651 No. 3 Rd, Richmond, BC V6X 2C4', 'protein');")
+            connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress, category ) VALUES ('eggs', '$6', 'https://www.unlockfood.ca/EatRightOntario/media/Website-images-resized/All-About-Eggs-resized.jpg', 'Walmart', '5', 'available', '9251 Alderbridge Way, Richmond, BC V6X 0N1', 'protein');")
+            connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress, category ) VALUES ('chocolate', '$4', 'https://perfectdailygrind.com/wp-content/uploads/2020/04/Hs_5Ce8ecmXodh-AdEVHyT07irPaZ-zAAhYkKYRJgS5CVzHKs0cAAdyeAF9TIgyh4KI5gqYmyuIDwJnf2f9wCdNvJ5WbQOlSoRr5zmmzMalyR1-RQxvlOtTZkJq9G_GPUiVZ6_WX-1-1.jpeg', 'Superstore', '6', 'available', '3185 Grandview Hwy, Vancouver, BC V5M 2E9', 'snack');")
+            connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress, category ) VALUES ('chocolate', '$5', 'https://www.heart.org/-/media/Images/News/2019/February-2019/0212Chocolate_SC.png', 'Superstore', '7', 'unavailable', '3185 Grandview Hwy, Vancouver, BC V5M 2E9', 'snack');")
+            connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress, category ) VALUES ('toilet paper', '$8', 'https://www.mayrand.ca/globalassets/mayrand/catalog-mayrand/entretien/40414-papier-hygienique-mega-264-feuilles-x12-charmin.png', 'Walmart', '8', 'available', '9251 Alderbridge Way, Richmond, BC V6X 0N1', 'household');")
+            connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress, category ) VALUES ('toilet paper', '$7.90', 'https://images.heb.com/is/image/HEBGrocery/000912650', 'Costco', '9', 'unavailable', '9151 Bridgeport Rd, Richmond, BC V6X 3L9', 'household');")
+            connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress, category ) VALUES ('chicken', '$18.99', 'https://i.pinimg.com/550x/ec/30/7b/ec307bfa3ded904a6eda6e0d668531b3.jpg', 'Safeway', '10', 'unavailable', '8671 No 1 Rd, Richmond, BC V7C 1V2', 'meat');")
+            connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress, category ) VALUES ('beef', '$33.72', 'https://hips.hearstapps.com/hmg-prod/images/delish-roast-beef-horizontal-1540505165.jpg', 'Walmart', '11', 'available', '9251 Alderbridge Way, Richmond, BC V6X 0N1', 'meat');")
+            connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress, category ) VALUES ('salmon', '$32.59', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQME7frMp2eIbAaNGoi23UfaF4-Bi0wZ__C1w&usqp=CAU', 'Superstore', '12', 'unavailable', '4651 No. 3 Rd, Richmond, BC V6X 2C4', 'seafood');")
+            connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress, category ) VALUES ('mussel', '$15.99', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1ivU4IWGsFjfG4PlMzcLiTgUDbajkvDuFjw&usqp=CAU', 'Costco', '13', 'available', '9151 Bridgeport Rd, Richmond, BC V6X 3L9', 'seafood');")
+            connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress, category ) VALUES ('milk', '$4.99', 'https://i5.walmartimages.ca/images/Enlarge/611/022/6000204611022.jpg', 'Superstore', '14', 'unavailable', '4651 No. 3 Rd, Richmond, BC V6X 2C4', 'dairy');")
+            connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress, category ) VALUES ('milk', '$5.42', 'https://www.lactaid.com/sites/lactaid_us/files/styles/jjbos_adaptive_images_generic-desktop/public/product-images/whole_milk.jpg', 'Walmart', '15', 'available', '9251 Alderbridge Way, Richmond, BC V6X 0N1', 'dairy');")
+            connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress, category ) VALUES ('cheese', '$6.99', 'https://myculturedpalate.com/wp-content/uploads/2010/01/Homemade-Mozzarella-Cheese-sliced-500x375.jpg', 'Superstore', '16', 'available', '3185 Grandview Hwy, Vancouver, BC V5M 2E9', 'dairy');")
+            connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress, category ) VALUES ('reese', '$2', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSjeIWAefE1s00F2Gk6aEeDHpJNY4wADWhVdYUkhR99ZRQd_ghf4CuImowuGXe_9sVIsqo&usqp=CAU', 'Superstore', '17', 'unavailable', '3185 Grandview Hwy, Vancouver, BC V5M 2E9', 'snack');")
+            connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress, category ) VALUES ('bread', '$5.99', 'https://www.kingarthurbaking.com/sites/default/files/2020-02/the-easiest-loaf-of-bread-youll-ever-bake.jpg', 'Walmart', '18', 'available', '9251 Alderbridge Way, Richmond, BC V6X 0N1', 'bakery');")
+            connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress, category ) VALUES ('croissant', '$7.90', 'https://www.theflavorbender.com/wp-content/uploads/2020/05/French-Croissants-SM-2363.jpg', 'Costco', '19', 'unavailable', '9151 Bridgeport Rd, Richmond, BC V6X 3L9', 'bakery');")
+            connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress, category ) VALUES ('prawns', '$17.99', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAAz3M_kM0x6dte8xiwD8li8YAuUOcazfUUw&usqp=CAU', 'Safeway', '20', 'unavailable', '8671 No 1 Rd, Richmond, BC V7C 1V2', 'seafood');")
+    
+            connection.query("SELECT * FROM items", (err, rows, fields) => {
+                // console.log(rows);
+                connection.end();
+                resetWatchlistDatabaseTable();
+            });
+        })
     });
 }
 
@@ -204,28 +213,33 @@ function resetItemDatabaseTable() {
 function resetWatchlistDatabaseTable() {
     const connection = createConnection();
 
-    connection.connect();
+    // connection.connect();
 
-    connection.query('DROP TABLE IF EXISTS UserItems;');
+    connection.query('DROP TABLE IF EXISTS UserItems;', () => {
 
-    connection.query("CREATE TABLE IF NOT EXISTS UserItems (userid int NOT NULL, itemid int NOT NULL, listid int NOT NULL AUTO_INCREMENT PRIMARY KEY, FOREIGN KEY (userid) REFERENCES Users(userid) ON DELETE CASCADE, FOREIGN KEY (itemid) REFERENCES Items(itemid) ON DELETE CASCADE);");
-
-    connection.query("INSERT INTO UserItems (userid, itemid) VALUES (1, 1);");
-    connection.query("INSERT INTO UserItems (userid, itemid) VALUES (1, 2);");
-    connection.query("INSERT INTO UserItems (userid, itemid) VALUES (1, 3);");
-    connection.query("INSERT INTO UserItems (userid, itemid) VALUES (1, 4);");
-    connection.query("INSERT INTO UserItems (userid, itemid) VALUES (1, 5);");
-
-    connection.query("INSERT INTO UserItems (userid, itemid) VALUES (2, 6);");
-    connection.query("INSERT INTO UserItems (userid, itemid) VALUES (2, 7);");
-    connection.query("INSERT INTO UserItems (userid, itemid) VALUES (2, 8);");
-    connection.query("INSERT INTO UserItems (userid, itemid) VALUES (2, 9);");
-    connection.query("INSERT INTO UserItems (userid, itemid) VALUES (2, 10);");
-
-    connection.query("SELECT * FROM useritems", (err, rows, fields) => {
-        // console.log(rows);
-        connection.end();
+        connection.query("CREATE TABLE IF NOT EXISTS UserItems (userid int NOT NULL, itemid int NOT NULL, listid int NOT NULL AUTO_INCREMENT PRIMARY KEY, FOREIGN KEY (userid) REFERENCES Users(userid) ON DELETE CASCADE, FOREIGN KEY (itemid) REFERENCES Items(itemid) ON DELETE CASCADE);", (err, rows, fields) => {
+    
+            console.log(err);
+    
+            connection.query("INSERT INTO UserItems (userid, itemid) VALUES (1, 1);");
+            connection.query("INSERT INTO UserItems (userid, itemid) VALUES (1, 2);");
+            connection.query("INSERT INTO UserItems (userid, itemid) VALUES (1, 3);");
+            connection.query("INSERT INTO UserItems (userid, itemid) VALUES (1, 4);");
+            connection.query("INSERT INTO UserItems (userid, itemid) VALUES (1, 5);");
+        
+            connection.query("INSERT INTO UserItems (userid, itemid) VALUES (2, 6);");
+            connection.query("INSERT INTO UserItems (userid, itemid) VALUES (2, 7);");
+            connection.query("INSERT INTO UserItems (userid, itemid) VALUES (2, 8);");
+            connection.query("INSERT INTO UserItems (userid, itemid) VALUES (2, 9);");
+            connection.query("INSERT INTO UserItems (userid, itemid) VALUES (2, 10);");
+    
+            connection.query("SELECT * FROM useritems", (err, rows, fields) => {
+                // console.log(rows);
+                connection.end();
+            });
+        });
     });
+
 }
 
 // uncomment this function call if you want to ENTIRELY RESET the User table in the database
@@ -235,13 +249,13 @@ function resetWatchlistDatabaseTable() {
 // resetItemDatabaseTable();
 
 // uncomment this function call if you want to ENTIRELY RESET the UserItem table in the database - NOT CURRENTLY WORKING
-resetWatchlistDatabaseTable();
+// resetWatchlistDatabaseTable();
 
 function checkUsernamePasswordCombo(email, password, handleResult) {
     const connection = createConnection();
 
 
-    connection.connect()
+    // connection.connect()
 
     let userID = -1;
 
@@ -301,7 +315,7 @@ app.get("/create_account", (req, res) => {
 function createNewAccount(email, password, firstName, lastName, handleResult) {
     const connection = createConnection();
 
-    connection.connect()
+    // connection.connect()
 
     // console.log("inserting new user into db");
     // console.log(username, password, firstName, lastName)
@@ -326,7 +340,7 @@ account creation to streamline the signup process. */
 function checkIfEmailExists(emailToCheck, resultHandler) {
     let connection = createConnection();
 
-    connection.connect();
+    // connection.connect();
 
     connection.query(`SELECT * FROM Users WHERE email = "${emailToCheck}";`, (err, rows, fields) => {
         if (err) {
@@ -426,7 +440,7 @@ app.post('/authenticate_admin',
 function fetchAccounts(handleResult) {
     const connection = createConnection();
 
-    connection.connect()
+    // connection.connect()
 
     let result = false;
 
@@ -463,7 +477,7 @@ app.get('/account_list', (req, res) => {
 function fetchItems_by_name(name, handleResult) {
     const connection = createConnection();
 
-    connection.connect()
+    // connection.connect()
 
     let result = false;
 
@@ -482,7 +496,7 @@ function fetchItems_by_name(name, handleResult) {
 function fetchItems_by_category(category, handleResult) {
     const connection = createConnection();
 
-    connection.connect()
+    // connection.connect()
 
     let result = false;
 
@@ -501,7 +515,7 @@ function fetchItems_by_category(category, handleResult) {
 function fetchItems(handleResult) {
     const connection = createConnection();
 
-    connection.connect()
+    // connection.connect()
 
     let result = false;
 
@@ -541,7 +555,7 @@ app.get('/product/:id', function (req, res, handleResult) {
 
     //create connection
     const connection = createConnection();
-    connection.connect()
+    // connection.connect()
 
 
     //Query the database by ID
@@ -572,7 +586,7 @@ app.get('/getallproducts/:name', function (req, res, handleResult){
     let productName = req.params.name
     // console.log(productName)
     const connection = createConnection();
-    connection.connect()
+    // connection.connect()
 
     connection.query(`SELECT * FROM items where itemName = "${productName}";`, (err, rows, fields) => {
         if (err) {
@@ -601,7 +615,7 @@ app.get('/watchlist_items', (req, res) => {
 
     let connection = createConnection();
 
-    connection.connect();
+    // connection.connect();
 
     connection.query(`SELECT * FROM items WHERE itemid IN (SELECT itemid FROM useritems WHERE userid = ${req.session.userid})`, (err, rows, fields) => {
         console.log(rows);
@@ -615,7 +629,7 @@ app.get('/watchlist_items', (req, res) => {
 function isItemOnWatchlist(itemid, userid, handleResult) {
     let connection = createConnection();
 
-    connection.connect();
+    // connection.connect();
 
     connection.query(`SELECT * FROM useritems WHERE userid = ${userid} AND itemid = ${itemid}`, ((err, rows, fields) => {
         // console.log("result: ", rows);
@@ -642,7 +656,7 @@ app.post('/add_to_watchlist', (req, res) => {
 
         let connection = createConnection();
 
-        connection.connect();
+        // connection.connect();
 
         connection.query(`INSERT INTO useritems (userid, itemid) VALUES (${userid}, ${itemid});`);
 
@@ -669,7 +683,7 @@ app.post('/remove_from_watchlist', (req, res) => {
 
         let connection = createConnection();
 
-        connection.connect();
+        // connection.connect();
 
         connection.query(`DELETE FROM useritems WHERE userid = ${userid} AND itemid = ${itemid};`);
 
@@ -748,7 +762,7 @@ app.post('/search_item_by_category', (req, res) => {
 function fetchItems_name_with_filter(name, sort, handleResult) {
     const connection = createConnection();
 
-    connection.connect()
+    // connection.connect()
 
     let result = false;
 
@@ -766,7 +780,7 @@ function fetchItems_name_with_filter(name, sort, handleResult) {
 function fetchItems_category_with_filter(category, sort, handleResult) {
     const connection = createConnection();
 
-    connection.connect()
+    // connection.connect()
 
     let result = false;
 
@@ -814,7 +828,7 @@ app.get('/change_password', (req, res) => {
 app.post('/edit_email', (req, res) => {
     let connection = createConnection();
 
-    connection.connect();
+    // connection.connect();
 
     // console.log(req.session.userid);
 
@@ -825,7 +839,7 @@ app.post('/edit_email', (req, res) => {
 app.post('/edit_first_name', (req, res) => {
     let connection = createConnection();
 
-    connection.connect();
+    // connection.connect();
 
     connection.query(`UPDATE users SET firstName = '${req.body.newFirstName}' WHERE userid = '${req.session.userid}';`);
 })
@@ -833,7 +847,7 @@ app.post('/edit_first_name', (req, res) => {
 app.post('/edit_last_name', (req, res) => {
     let connection = createConnection();
 
-    connection.connect();
+    // connection.connect();
 
     connection.query(`UPDATE users SET lastName = '${req.body.newLastName}' WHERE userid = '${req.session.userid}';`);
 })
@@ -841,7 +855,7 @@ app.post('/edit_last_name', (req, res) => {
 app.post('/edit_address', (req, res) => {
     let connection = createConnection();
 
-    connection.connect();
+    // connection.connect();
 
     connection.query(`UPDATE users SET address = '${req.body.newAddress}' WHERE userid = '${req.session.userid}';`);
 })
@@ -849,7 +863,7 @@ app.post('/edit_address', (req, res) => {
 app.post('/change_password', (req, res) => {
     let connection = createConnection();
 
-    connection.connect();
+    // connection.connect();
 
     connection.query(`UPDATE users SET password = '${req.body.newPassword}' WHERE userid = '${req.session.userid}';`);
 })
@@ -857,7 +871,7 @@ app.post('/change_password', (req, res) => {
 app.post('/add_item', (req, res) => {
     let connection = createConnection();
 
-    connection.connect();
+    // connection.connect();
 
     connection.query(`INSERT INTO items (itemName, price, img, brand, itemAvailability) VALUES ('${req.body.newItem}', '${req.body.newItemPrice}', 'Null', '${req.body.newItemStore}', 'available');`);
 })
@@ -873,7 +887,7 @@ app.get('/update_item', (req, res) => {
 app.post('/update_item', (req, res) => {
     let connection = createConnection();
 
-    connection.connect();
+    // connection.connect();
 
     connection.query(`UPDATE items SET price = '${req.body.newPrice}' WHERE itemName = '${req.body.itemName}' AND brand = '${req.body.itemStore}';`);
 })
