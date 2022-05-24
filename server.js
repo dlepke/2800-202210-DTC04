@@ -650,6 +650,7 @@ app.post('/add_to_watchlist', (req, res) => {
             console.log("result: ", rows);
 
             connection.end();
+            res.send(true);
         }))
     } else {
         res.send({
