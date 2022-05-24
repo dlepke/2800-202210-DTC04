@@ -12,7 +12,7 @@ function populateWatchlist() {
 
             let itemCard = `<div class="product shadow">
             <div class="productimg shadow-sm">
-                <a href="/product/1">
+                <a href="/product/${item.itemid}">
                     <div class="product_img"> 
                         <img src="${item.img}" width="100%">
                     </div>
