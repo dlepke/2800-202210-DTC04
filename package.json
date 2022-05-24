@@ -10,7 +10,7 @@
     "mysql2": "^2.3.3"
   },
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "node server.js"
   },
   "name": "2800-202210-dtc04",
   "description": "FoodBuddy is an app created by DTC-04.",
