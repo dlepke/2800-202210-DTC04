@@ -5,7 +5,7 @@
 * [Project Description](#project-description)
 * [Technologies Used](#technologies-used)
 * [Project Contents](#project-contents)
-* [How to Run This Project](#how-to-run)
+* [How to Run This Project](#how-to-run-this-project)
     * [Preparation](#preparation)
     * [Setup](#setup)
 * [The Product](#the-product)
@@ -164,11 +164,11 @@ With FoodBuddy, you can:
 
 To build our side navigation menu, we used [this example](https://www.w3schools.com/howto/howto_js_sidenav.asp)
 
-Our logo was designed by the wonderful Kim Chung!
+Our logo was designed by our wonderful teammate, Kim Chung!
 
 We also received troubleshooting advice from our friend, Liam Gray!
 
-## Our Team {#our-team}
+## Our Team
 
 Members of our group:
 * Deanna Lepke 
