@@ -12,10 +12,10 @@
 * [Credits](#credits)
 * [Our Team](#our-team)
 
-## Project Description {#project-description}
+## Project Description
 Our team DTC-04 developed FoodBuddy to help low-income people to save money by providing easy access to (user-updated) grocery price information, and providing the ability to compare prices for items across stores.
 
-## Technologies Used {#technologies-used}
+## Technologies Used
 
 To build FoodBuddy, we used:
 * Visual Studio Code IDE
@@ -32,7 +32,7 @@ To build FoodBuddy, we used:
 * MySQL (with ClearDB to integrate with Heroku)
 * Heroku
 
-## Project Contents {#project-contents}
+## Project Contents
 
 <pre>
 ├── package-lock.json
@@ -107,11 +107,11 @@ To build FoodBuddy, we used:
 </pre>
 
 
-## How to Run This Project {#how-to-run}
+## How to Run This Project
 
 To get this project running on your local device, do the following:
 
-### Preparation {#preparation}
+### Preparation
 
 Ensure you have the following installed on your device:
 
@@ -121,7 +121,7 @@ Ensure you have the following installed on your device:
 * MySQL (if you are using a Mac, you can install this through Homebrew)
     * Ensure you have your MySQL server running, too; you can do this on Mac by entering ```mysql.server start``` into your Terminal
 
-### Setup {#setup}
+### Setup
 
 Once your setup is ready, follow these steps to get the project running locally:
 
@@ -147,7 +147,7 @@ Once your setup is ready, follow these steps to get the project running locally:
 9. Open the following link in your browser: [localhost:5050](localhost:5050)
 10. Try out the website!
 
-## The Product {#the-product}
+## The Product
 
 With FoodBuddy, you can:
 * Search for grocery items
@@ -160,7 +160,7 @@ With FoodBuddy, you can:
 * Add new items
 
 
-## Credits {#credits}
+## Credits
 
 To build our side navigation menu, we used [this example](https://www.w3schools.com/howto/howto_js_sidenav.asp)
 
