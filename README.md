@@ -142,10 +142,11 @@ Once your setup is ready, follow these steps to get the project running locally:
         * DB_PORT=3306
     * The database URL will be used in your local environment, and is in the format:
      (database type)://(database username):(database password)@(host url)/(database name)
-7. Run the command: ```npm install```
-8. Run the command: ```nodemon start```
-9. Open the following link in your browser: [localhost:5050](localhost:5050)
-10. Try out the website!
+7. Ensure you uncomment line 246 in server.js - this will call a string of functions to create the sample database tables for users, items, and the (empty) user watchlists
+8. Run the command: ```npm install```
+9. Run the command: ```nodemon start```
+10. Open the following link in your browser: [localhost:5050](localhost:5050)
+11. Try out the website!
 
 ## The Product
 
@@ -179,7 +180,7 @@ Members of our group:
     * [LinkedIn]()
 * Matthew Puyat
     * [GitHub](https://github.com/matirix)
-    * [LinkedIn]()
+    * [LinkedIn](https://www.linkedin.com/in/matthew-puyat-112318195/)
 * Kim Chung
     * [GitHub](https://github.com/kimmm-c)
-    * [LinkedIn]()
+    * [LinkedIn](https://www.linkedin.com/in/kim-chung-874917110/)
