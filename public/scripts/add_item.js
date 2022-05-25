@@ -1,3 +1,7 @@
+/**
+ * Validate user input and add item to the database.
+ */
+
 function addItem() {
     itemName = document.getElementById("item_name").value
     itemPrice = document.getElementById("price").value

@@ -1,15 +1,22 @@
+/**
+ * Capitalize a word.
+ * @param {string} word - Any word.
+ * @returns {string} The capitalized word.
+ */
+
 function capitalize(word) {
     return word.charAt(0).toUpperCase() + word.slice(1);
 }
 
+/**
+ * Retrieve item from watchlist table and display on watchlist page.
+ */
 
 function populateWatchlist() {
     $.get('/watchlist_items', (result) => {
         console.log(result);
-
         result.forEach((item) => {
             console.log(item.img);
-
             let itemCard = `<div class="product shadow">
             <div class="productimg shadow-sm">
                 <a href="/product/1">
@@ -28,8 +35,7 @@ function populateWatchlist() {
                 </div>
             </div>
         </div>`
-
-        $("#items").append(itemCard);
+            $("#items").append(itemCard);
         })
     })
 }
