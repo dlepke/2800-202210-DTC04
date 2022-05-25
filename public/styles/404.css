@@ -7,6 +7,8 @@ body {
     align-content: center;
     height: 90vh;
     background-image: url('../images/shopping_cart_woods.png');
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 #error-message {
