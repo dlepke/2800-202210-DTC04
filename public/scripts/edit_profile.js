@@ -1,3 +1,7 @@
+/**
+ * Update user's email in the database.
+ */
+
 function editEmail() {
     email = document.getElementById('new_email').value;
 
@@ -7,6 +11,11 @@ function editEmail() {
 
 }
 
+/**
+ * Update user's first name in the database.
+ */
+
+
 function editFirstName() {
     firstName = document.getElementById('first_name').value;
 
@@ -15,6 +24,10 @@ function editFirstName() {
     });
 }
 
+/**
+ * Update user's last name in the database.
+ */
+
 function editLastName() {
     lastName = document.getElementById('last_name').value;
 
@@ -22,6 +35,11 @@ function editLastName() {
         newLastName: lastName
     });
 }
+
+/**
+ * Update user's address in the database.
+ */
+
 
 function editAddress() {
     address = document.getElementById('new_address').value;
