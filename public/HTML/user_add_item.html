@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>My BCIT Project</title>
+    <title>Add item</title>
 
     <!------------------------>
     <!-- Required meta tags -->
@@ -52,18 +52,19 @@
             <input id="item_name" placeholder="Item Name">
             <br>
             <br>
-            <div id="price_required" style="visibility: hidden;">You must enter an item price!</div>
-            Price (Dollars): <br>
-            <input id="price" placeholder="Price in Dollars">
-            <div id="number_required" style="visibility: hidden;">Item price must be a number!</div>
-            <div id="store_required" style="visibility: hidden;">You must enter a store name!</div>
+            <div id="store_required" style="visibility: hidden;">You must enter a store!</div>
             Store Name: <br>
             <input id="store" placeholder="Store Name">
+            <div id="price_required" style="visibility: hidden;">You must enter a price!</div>
+            <br>
+            Price (Dollars): 
+            <input id="price" placeholder="$0.00" style="text-align:right;">
+            <div id="number_required" style="visibility: hidden;">Invalid number!</div>
             <br>
         </div>
-        <br>
-        <div id="item_added_successfully" style="visibility: hidden;">Item successfully added!</div>
         <button id="submit_item" onclick="addItem()">Submit Item</button>
+        <div id="item_added_successfully" style="visibility: hidden;">Item successfully added!</div>
+
 
 
     </main>
