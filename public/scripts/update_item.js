@@ -35,7 +35,7 @@ function updateItem() {
     }else {
         $.post('/update_item', {
             itemName: itemName,
-            newPrice: itemPrice,
+            newPrice: '$' + itemPrice,
             itemStore: storeName
         });
         name_required.style.visibility = "hidden";
