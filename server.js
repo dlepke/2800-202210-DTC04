@@ -20,7 +20,6 @@ const DB_URL = process.env.CLEARDB_DATABASE_URL;
 
 const PORT = process.env.PORT;
 
-
 // var publicPath = path.join(__dirname, 'public');
 var htmlPath = path.join(__dirname, 'public/HTML');
 
@@ -893,3 +892,15 @@ app.post('/update_item', (req, res) => {
 
     connection.query(`UPDATE items SET price = '${req.body.newPrice}' WHERE itemName = '${req.body.itemName}' AND brand = '${req.body.itemStore}';`);
 })
+
+app.use((req, res, next) => {
+    res.status(404);
+
+    res.sendFile(path.join(htmlPath + '/404.html'));
+})
+
+app.use(function(err, req, res, next) {
+    res.status(err.status || 500);
+    console.log(err);
+    res.sendFile(path.join(htmlPath + '/500.html'));
+});
