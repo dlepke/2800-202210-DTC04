@@ -1,3 +1,7 @@
+/**
+ * Validate the user input and update password in database.
+ */
+
 function changePassword() {
     password = document.getElementById('new_password').value;
     confirm_password = document.getElementById('confirm_password').value;

@@ -1,3 +1,7 @@
+/**
+ * Validate user input and update the item information in the database.
+ */
+
 function updateItem() {
     itemName = document.getElementById("item_name").value
     itemPrice = document.getElementById("price").value
@@ -14,7 +18,7 @@ function updateItem() {
         store_required.style.visibility = "hidden";
         item_updated_successfully.style.visibility = "hidden";
         name_required.style.visibility = "visible";
-    }  else if (storeName.trim().length === 0) {
+    } else if (storeName.trim().length === 0) {
         name_required.style.visibility = "hidden";
         number_required.style.visibility = "hidden";
         price_required.style.visibility = "hidden";
@@ -32,7 +36,7 @@ function updateItem() {
         price_required.style.visibility = "hidden";
         item_updated_successfully.style.visibility = "hidden";
         number_required.style.visibility = "visible";
-    }else {
+    } else {
         $.post('/update_item', {
             itemName: itemName,
             newPrice: itemPrice,
