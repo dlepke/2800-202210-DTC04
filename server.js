@@ -569,6 +569,7 @@ app.get('/product/:id', function (req, res, handleResult) {
         connection.end();
         //place on page
         res.render("productview.ejs", {
+            "productid": req.params.id,
             "id": details.itemId,
             "name": details.itemName,
             "img": details.img,
