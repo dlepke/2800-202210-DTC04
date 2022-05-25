@@ -177,7 +177,7 @@ Members of our group:
     * [LinkedIn](https://www.linkedin.com/in/deanna-lepke-26317222b/)
 * Ray Zhang
     * [GitHub](https://github.com/rzhangbcit)
-    * [LinkedIn]()
+    * [LinkedIn](https://www.linkedin.com/in/ray-zhang-922938145/)
 * Matthew Puyat
     * [GitHub](https://github.com/matirix)
     * [LinkedIn](https://www.linkedin.com/in/matthew-puyat-112318195/)
