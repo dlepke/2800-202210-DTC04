@@ -26,7 +26,7 @@ function updateItem() {
         number_required.style.visibility = "hidden";
         item_updated_successfully.style.visibility = "hidden";
         price_required.style.visibility = "visible";
-    } else if (isNaN(itemPrice)) {
+    } else if (isNaN(itemPrice) || itemPrice <= 0) {
         name_required.style.visibility = "hidden";
         store_required.style.visibility = "hidden";
         price_required.style.visibility = "hidden";

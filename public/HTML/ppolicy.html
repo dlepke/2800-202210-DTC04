@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <title>Add item</title>
-
+    
+    <head>
+    <title>FoodBuddy</title>
+    <!-- Taken from 1537 Template  -->
     <!------------------------>
     <!-- Required meta tags -->
     <!------------------------>
@@ -23,14 +23,13 @@
     <!--Libraries related CSS, JS, JQuery go here -->
     <!-------------------------------------------------------->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="../scripts/add_item.js"></script>
-    <link rel="stylesheet" href="../styles/add_item.css">
 
 
     <!-------------------------------------------->
     <!-- Other libraries and styles of your own -->
     <!-------------------------------------------->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="../styles/ppolicy.css" rel="stylesheet">
 
 
 </head>
@@ -43,41 +42,30 @@
     <!-- our own navbar goes here -->
     <nav id="navbarPlaceholder"></nav>
 
-
+    <!-- the body of your page goes here -->
     <main>
-
-        <div id="item_info">
-            <div id="name_required" style="visibility: hidden;">You must enter an item name!</div>
-            Item Name: <br>
-            <input id="item_name" placeholder="Item Name">
-            <br>
-            <br>
-            <br>
-            Store Name: <br>
-            <input id="store" placeholder="Store Name">
-            <br>
-            <br>
-            <div id="price_required" style="visibility: hidden;">You must enter an item price!</div>
-            Price (Dollars): 
-            <input id="price" placeholder="Price in Dollars">
-            <div id="number_required" style="visibility: hidden;">Item price must be a number!</div>
+        <h3>Privacy Policy</h3>
+        <div id="img_container">
+            <img src="../images/foodbuddy-logo-icononly.png">
         </div>
-        <div id="item_added_successfully" style="visibility: hidden;">Item successfully added!</div>
-        <button id="submit_item" onclick="addItem()">Submit Item</button>
+        <article>
+            At Foodbuddy, we take privacy very seriously. We believe in transparency and so the information that we collect
+            is the very bare minimum that allows our application to maintain its quality of service. Your name is only being
+            used to create the personable browsing experience and your email to verify that a person is using it. We do not share
+            this data with anyone else. 
 
+        </article>
 
+        <article>
+            <em> -Foodbuddy</em>
+        </article>
     </main>
-
-
     <!-- our own footer goes here-->
     <nav id="footerPlaceholder"></nav>
-
     <!---------------------------------------------->
     <!-- Your own JavaScript functions go here    -->
     <!---------------------------------------------->
-
     <script src="../scripts/skeleton.js"></script>
-    <!-- <script src="./scripts/script.js"></script> -->
 
 </body>
 
