@@ -33,7 +33,7 @@ function updateItem() {
         item_updated_successfully.style.visibility = "hidden";
         price_required.style.visibility = "visible";
         $("#price").css({ "border": '#FF0000 1px solid'});
-    } else if (isNaN(itemPrice) || itemPrice <= 0) {
+    } else if (isNaN(itemPrice) || itemPrice < 0.05 || itemPrice > 9999) {
         name_required.style.visibility = "hidden";
         store_required.style.visibility = "hidden";
         price_required.style.visibility = "hidden";
