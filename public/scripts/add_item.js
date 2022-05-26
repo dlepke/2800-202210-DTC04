@@ -19,24 +19,29 @@ function addItem() {
         store_required.style.visibility = "hidden";
         item_added_successfully.style.visibility = "hidden";
         name_required.style.visibility = "visible";
-    } else if (itemPrice.trim().length === 0) {
-        name_required.style.visibility = "hidden";
-        store_required.style.visibility = "hidden";
-        number_required.style.visibility = "hidden";
-        item_added_successfully.style.visibility = "hidden";
-        price_required.style.visibility = "visible";
-    } else if (isNaN(itemPrice)) {
-        name_required.style.visibility = "hidden";
-        store_required.style.visibility = "hidden";
-        price_required.style.visibility = "hidden";
-        item_added_successfully.style.visibility = "hidden";
-        number_required.style.visibility = "visible";
+        $("#item_name").css({ "border": '#FF0000 1px solid'});
     } else if (storeName.trim().length === 0) {
         name_required.style.visibility = "hidden";
         number_required.style.visibility = "hidden";
         price_required.style.visibility = "hidden";
         item_added_successfully.style.visibility = "hidden";
         store_required.style.visibility = "visible";
+        $("#store").css({ "border": '#FF0000 1px solid'});
+    } else if (itemPrice.trim().length === 0) {
+        name_required.style.visibility = "hidden";
+        store_required.style.visibility = "hidden";
+        number_required.style.visibility = "hidden";
+        item_added_successfully.style.visibility = "hidden";
+        price_required.style.visibility = "visible";
+        $("#price").css({ "border": '#FF0000 1px solid'});
+    } else if (isNaN(itemPrice) || itemPrice < 0.05 || itemPrice > 9999) {
+        name_required.style.visibility = "hidden";
+        store_required.style.visibility = "hidden";
+        price_required.style.visibility = "hidden";
+        item_added_successfully.style.visibility = "hidden";
+        number_required.style.visibility = "visible";
+        $("#price").css({ "border": '#FF0000 1px solid'});
+
     } else {
         $.post('/add_item', {
             newItem: itemName,

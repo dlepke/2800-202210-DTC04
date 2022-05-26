@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <title>Items list</title>
+    
+    <head>
+    <title>Privacy Policy</title>
     <!-- Taken from 1537 Template  -->
+    <!------------------------>
+    <!-- Required meta tags -->
+    <!------------------------>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -26,37 +29,44 @@
     <!-- Other libraries and styles of your own -->
     <!-------------------------------------------->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="../styles/admin_acc_items.css" rel="stylesheet">
+    <link href="../styles/ppolicy.css" rel="stylesheet">
 
 
 </head>
 
 <body class="container">
+    <!------------------------------>
+    <!-- Your HTML Layout go here -->
+    <!------------------------------>
 
+    <!-- our own navbar goes here -->
     <nav id="navbarPlaceholder"></nav>
 
+    <!-- the body of your page goes here -->
     <main>
-        <div class="title">
-            <a href="/admin_dashboard">
-                <i class="material-icons md-48 nav_elements icons" style="float: left">arrow_back</i>
-            </a>
-            <h1>Items list</h1>
+        <h3>Privacy Policy</h3>
+        <div id="img_container">
+            <img src="../images/foodbuddy-logo-icononly.png">
         </div>
+        <article>
+            At Foodbuddy, we take privacy very seriously. We believe in transparency and so the information that we collect
+            is the very bare minimum that allows our application to maintain its quality of service. Your name is only being
+            used to create the personable browsing experience and your email to verify that a person is using it. We do not share
+            this data with anyone else. 
 
-        <table id="items_list">
-            <tr>
-                <th>name</th>
-                <th>price</th>
-                <th>store</th>
-                <th>id</th>
-            </tr>
-        </table>
+        </article>
+
+        <article>
+            <em> -Foodbuddy</em>
+        </article>
     </main>
-
+    <!-- our own footer goes here-->
     <nav id="footerPlaceholder"></nav>
-
+    <!---------------------------------------------->
+    <!-- Your own JavaScript functions go here    -->
+    <!---------------------------------------------->
     <script src="../scripts/skeleton.js"></script>
-    <script src="../scripts/itemlist.js"></script>
+
 </body>
 
 </html>

@@ -1,3 +1,10 @@
+*{
+    box-sizing: border-box;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 15px;
+
+
+}
 main {
     display: grid;
     justify-content: center;
@@ -12,7 +19,7 @@ input {
 }
 
 #submit_item:hover {
-    background-color: blue;
+    background-color: green;
     color: white;
 }
 
