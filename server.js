@@ -1,7 +1,5 @@
 require('dotenv').config();
 
-const connectionString = require('connection-string');
-
 const express = require('express');
 const app = express();
 const path = require('path');
@@ -9,12 +7,8 @@ const cookieParser = require("cookie-parser");
 var session = require('express-session');
 var mysql = require('mysql2');
 const bodyParser = require('body-parser');
-const { receiveMessageOnPort } = require('worker_threads');
 
 const DB_PORT = process.env.DB_PORT;
-const HOST = process.env.DB_HOST;
-const USER = process.env.DB_USER;
-const PASSWORD = process.env.DB_PASSWORD;
 
 const DB_URL = process.env.CLEARDB_DATABASE_URL;
 
@@ -55,7 +49,7 @@ app.get('/isLoggedIn', (req, res) => {
     }
 })
 
-app.get('/', function (req, res, next) {
+app.get('/', function (req, res) {
     if (req.session.loggedIn) {
         res.redirect('/profile');
         res.send();
@@ -64,7 +58,7 @@ app.get('/', function (req, res, next) {
     }
 });
 
-app.get("/profile", function (req, res, next) {
+app.get("/profile", function (req, res) {
     if (req.session.loggedIn) {
         res.sendFile(path.join(htmlPath + '/user_profile.html'));
     } else {
@@ -82,7 +76,7 @@ function getUserFullName(userid, handleResult) {
 
     console.log("getting name for user ", userid);
 
-    connection.query(`SELECT * FROM users WHERE userid = ${userid};`, (err, rows, fields) => {
+    connection.query(`SELECT * FROM users WHERE userid = ${userid};`, (err, rows) => {
         if (err) {
             throw err;
         }
@@ -149,7 +143,7 @@ function resetUserDatabaseTable() {
 
         connection.query('DROP TABLE IF EXISTS Users;', () => {
 
-            connection.query('CREATE TABLE IF NOT EXISTS Users ( userid int NOT NULL AUTO_INCREMENT PRIMARY KEY, email varchar(50), password varchar(50), firstName varchar(50), lastName varchar(50), address varchar(100));', (err, rows, fields) => {
+            connection.query('CREATE TABLE IF NOT EXISTS Users ( userid int NOT NULL AUTO_INCREMENT PRIMARY KEY, email varchar(50), password varchar(50), firstName varchar(50), lastName varchar(50), address varchar(100));', () => {
         
                 connection.query('INSERT INTO Users (email, password, firstName, lastName, address) VALUES ("user1@email.com", "pass1", "amy", "adams", "1 first ave, firstland");');
                 connection.query("INSERT INTO Users (email, password, firstName, lastName, address) VALUES ('user2@email.com', 'pass2', 'bob', 'burns', '2 second ave, secondland');");
@@ -157,7 +151,7 @@ function resetUserDatabaseTable() {
                 connection.query("INSERT INTO Users (email, password, firstName, lastName, address) VALUES ('user4@email.com', 'pass4', 'diane', 'davidson', '4 fourth ave, fourthland');");
                 connection.query("INSERT INTO Users (email, password, firstName, lastName, address) VALUES ('user5@email.com', 'pass5', 'earl', 'ericson', '5 fifth ave, fifthland');");
         
-                connection.query("SELECT * FROM users", (err, rows, fields) => {
+                connection.query("SELECT * FROM users", () => {
                     // console.log(rows);
                     connection.end();
                     resetItemDatabaseTable();
@@ -177,7 +171,7 @@ function resetItemDatabaseTable() {
     // connection.connect();
 
     connection.query('DROP TABLE IF EXISTS Items;', () => {
-        connection.query("CREATE TABLE IF NOT EXISTS Items ( itemid int NOT NULL AUTO_INCREMENT PRIMARY KEY, itemName varchar(50), price varchar(50), img varchar(1000), brand varchar(50), itemAvailability varchar(50), storeAddress varchar(100), category varchar(50))", (err, rows, fields) => {
+        connection.query("CREATE TABLE IF NOT EXISTS Items ( itemid int NOT NULL AUTO_INCREMENT PRIMARY KEY, itemName varchar(50), price varchar(50), img varchar(1000), brand varchar(50), itemAvailability varchar(50), storeAddress varchar(100), category varchar(50))", () => {
             connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress, category ) VALUES ('bananas', '$1', 'https://images.costcobusinessdelivery.com/ImageDelivery/imageService?profileId=12027981&itemId=30669&recipeName=680', 'Walmart', '1', 'available', '9251 Alderbridge Way, Richmond, BC V6X 0N1', 'produce');")
             connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress, category ) VALUES ('bananas', '$2', 'https://i5.walmartimages.com/asr/41305aa3-3de8-4bab-80e9-484cf63cadc5_1.e46fb74bc2e4fa0751ad18233d4d4854.jpeg?odnHeight=450&odnWidth=450&odnBg=ffffff', 'Superstore', '2', 'unavailable', '4651 No. 3 Rd, Richmond, BC V6X 2C4', 'produce');")
             connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress, category ) VALUES ('bananas', '$0.90', 'https://i0.wp.com/superstore.mangopoint.in/wp-content/uploads/2019/10/banana-karpuravalli-500x500.jpg?fit=330%2C330&ssl=1', 'Costco', '3', 'available', '9151 Bridgeport Rd, Richmond, BC V6X 3L9', 'produce');")
@@ -199,7 +193,7 @@ function resetItemDatabaseTable() {
             connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress, category ) VALUES ('croissant', '$7.90', 'https://www.theflavorbender.com/wp-content/uploads/2020/05/French-Croissants-SM-2363.jpg', 'Costco', '19', 'unavailable', '9151 Bridgeport Rd, Richmond, BC V6X 3L9', 'bakery');")
             connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress, category ) VALUES ('prawns', '$17.99', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAAz3M_kM0x6dte8xiwD8li8YAuUOcazfUUw&usqp=CAU', 'Safeway', '20', 'unavailable', '8671 No 1 Rd, Richmond, BC V7C 1V2', 'seafood');")
     
-            connection.query("SELECT * FROM items", (err, rows, fields) => {
+            connection.query("SELECT * FROM items", () => {
                 // console.log(rows);
                 connection.end();
                 resetWatchlistDatabaseTable();
@@ -216,23 +210,9 @@ function resetWatchlistDatabaseTable() {
 
     connection.query('DROP TABLE IF EXISTS UserItems;', () => {
 
-        connection.query("CREATE TABLE IF NOT EXISTS UserItems (userid int NOT NULL, itemid int NOT NULL, listid int NOT NULL AUTO_INCREMENT PRIMARY KEY, FOREIGN KEY (userid) REFERENCES Users(userid) ON DELETE CASCADE, FOREIGN KEY (itemid) REFERENCES Items(itemid) ON DELETE CASCADE);", (err, rows, fields) => {
-    
+        connection.query("CREATE TABLE IF NOT EXISTS UserItems (userid int NOT NULL, itemid int NOT NULL, listid int NOT NULL AUTO_INCREMENT PRIMARY KEY, FOREIGN KEY (userid) REFERENCES Users(userid) ON DELETE CASCADE, FOREIGN KEY (itemid) REFERENCES Items(itemid) ON DELETE CASCADE);", (err) => {
             console.log(err);
-    
-            // connection.query("INSERT INTO UserItems (userid, itemid) VALUES (1, 1);");
-            // connection.query("INSERT INTO UserItems (userid, itemid) VALUES (1, 2);");
-            // connection.query("INSERT INTO UserItems (userid, itemid) VALUES (1, 3);");
-            // connection.query("INSERT INTO UserItems (userid, itemid) VALUES (1, 4);");
-            // connection.query("INSERT INTO UserItems (userid, itemid) VALUES (1, 5);");
-        
-            // connection.query("INSERT INTO UserItems (userid, itemid) VALUES (2, 6);");
-            // connection.query("INSERT INTO UserItems (userid, itemid) VALUES (2, 7);");
-            // connection.query("INSERT INTO UserItems (userid, itemid) VALUES (2, 8);");
-            // connection.query("INSERT INTO UserItems (userid, itemid) VALUES (2, 9);");
-            // connection.query("INSERT INTO UserItems (userid, itemid) VALUES (2, 10);");
-    
-            connection.query("SELECT * FROM useritems", (err, rows, fields) => {
+            connection.query("SELECT * FROM useritems", () => {
                 // console.log(rows);
                 connection.end();
             });
@@ -242,7 +222,7 @@ function resetWatchlistDatabaseTable() {
 }
 
 // uncomment this function call if you want to ENTIRELY RESET the User table in the database
-// resetUserDatabaseTable();
+resetUserDatabaseTable();
 
 // uncomment this function call if you want to ENTIRELY RESET the Item table in the database
 // resetItemDatabaseTable();
@@ -258,7 +238,7 @@ function checkUsernamePasswordCombo(email, password, handleResult) {
 
     let userID = -1;
 
-    connection.query(`SELECT * FROM users WHERE email = '${email}' AND password = '${password}';`, (err, rows, fields) => {
+    connection.query(`SELECT * FROM users WHERE email = '${email}' AND password = '${password}';`, (err, rows) => {
         if (err) {
             throw err;
         } else if (rows.length > 0) {
@@ -341,7 +321,7 @@ function checkIfEmailExists(emailToCheck, resultHandler) {
 
     // connection.connect();
 
-    connection.query(`SELECT * FROM Users WHERE email = "${emailToCheck}";`, (err, rows, fields) => {
+    connection.query(`SELECT * FROM Users WHERE email = "${emailToCheck}";`, (err, rows) => {
         if (err) {
             throw err;
         } else if (rows.length > 0) {
@@ -443,7 +423,7 @@ function fetchAccounts(handleResult) {
 
     let result = false;
 
-    connection.query(`SELECT * FROM users;`, (err, rows, fields) => {
+    connection.query(`SELECT * FROM users;`, (err, rows) => {
         if (err) {
             throw err;
         }
@@ -463,7 +443,7 @@ app.get('/account_list_data', (req, res) => {
 
 app.get('/account_list', (req, res) => {
     if (req.session.admin) {
-        fetchAccounts((result) => {
+        fetchAccounts(() => {
             res.sendFile(path.join(htmlPath + '/account_list.html'));
         });
     } else {
@@ -480,7 +460,7 @@ function fetchItems_by_name(name, handleResult) {
 
     let result = false;
 
-    connection.query(`SELECT * FROM items WHERE itemName = '${name}';`, (err, rows, fields) => {
+    connection.query(`SELECT * FROM items WHERE itemName = '${name}';`, (err, rows) => {
         if (err) {
             throw err;
         }
@@ -499,7 +479,7 @@ function fetchItems_by_category(category, handleResult) {
 
     let result = false;
 
-    connection.query(`SELECT * FROM items WHERE category = '${category}';`, (err, rows, fields) => {
+    connection.query(`SELECT * FROM items WHERE category = '${category}';`, (err, rows) => {
         if (err) {
             throw err;
         }
@@ -518,7 +498,7 @@ function fetchItems(handleResult) {
 
     let result = false;
 
-    connection.query(`SELECT * FROM items;`, (err, rows, fields) => {
+    connection.query(`SELECT * FROM items;`, (err, rows) => {
         if (err) {
             throw err;
         }
@@ -543,14 +523,13 @@ app.get('/items_list', (req, res) => {
     } else {
         res.sendFile(path.join(htmlPath + '/admin_login.html'));
     }
-   
 })
 
 
 //Product.ejs
-app.get('/product/:id', function (req, res, handleResult) {
+app.get('/product/:id', function (req, res) {
     console.log("req.params.id: ", req.params.id)
-    productid = req.params.id
+    let productid = req.params.id
 
     //create connection
     const connection = createConnection();
@@ -558,12 +537,12 @@ app.get('/product/:id', function (req, res, handleResult) {
 
 
     //Query the database by ID
-    connection.query(`SELECT * FROM items where itemId = ${productid};`, (err, rows, fields) => {
+    connection.query(`SELECT * FROM items where itemId = ${productid};`, (err, rows) => {
         if (err) {
             throw err;
         }
 
-        details = rows[0]
+        let details = rows[0]
         console.log("details: ", details);
         connection.end();
         //place on page
@@ -581,14 +560,14 @@ app.get('/product/:id', function (req, res, handleResult) {
 });
 
 
-app.get('/getallproducts/:name', function (req, res, handleResult){
+app.get('/getallproducts/:name', function (req, res){
     //Change itemname
     let productName = req.params.name
     // console.log(productName)
     const connection = createConnection();
     // connection.connect()
 
-    connection.query(`SELECT * FROM items where itemName = "${productName}";`, (err, rows, fields) => {
+    connection.query(`SELECT * FROM items where itemName = "${productName}";`, (err, rows) => {
         if (err) {
             throw err;
         }
@@ -618,7 +597,7 @@ app.get('/watchlist_items', (req, res) => {
 
     // connection.connect();
 
-    connection.query(`SELECT * FROM items WHERE itemid IN (SELECT itemid FROM useritems WHERE userid = ${req.session.userid})`, (err, rows, fields) => {
+    connection.query(`SELECT * FROM items WHERE itemid IN (SELECT itemid FROM useritems WHERE userid = ${req.session.userid})`, (err, rows) => {
         console.log(rows);
 
         res.send(rows);
@@ -632,7 +611,7 @@ function isItemOnWatchlist(itemid, userid, handleResult) {
 
     // connection.connect();
 
-    connection.query(`SELECT * FROM useritems WHERE userid = ${userid} AND itemid = ${itemid}`, ((err, rows, fields) => {
+    connection.query(`SELECT * FROM useritems WHERE userid = ${userid} AND itemid = ${itemid}`, ((err, rows) => {
         // console.log("result: ", rows);
 
         connection.end();
@@ -661,7 +640,7 @@ app.post('/add_to_watchlist', (req, res) => {
 
         connection.query(`INSERT INTO useritems (userid, itemid) VALUES (${userid}, ${itemid});`, () => {
 
-            connection.query(`SELECT * FROM useritems WHERE userid = ${userid}`, ((err, rows, fields) => {
+            connection.query(`SELECT * FROM useritems WHERE userid = ${userid}`, ((err, rows) => {
                 console.log("result: ", rows);
     
                 connection.end();
@@ -690,7 +669,7 @@ app.post('/remove_from_watchlist', (req, res) => {
 
         connection.query(`DELETE FROM useritems WHERE userid = ${userid} AND itemid = ${itemid};`);
 
-        connection.query(`SELECT * FROM useritems WHERE userid = ${userid}`, ((err, rows, fields) => {
+        connection.query(`SELECT * FROM useritems WHERE userid = ${userid}`, ((err, rows) => {
             console.log("result: ", rows);
 
             connection.end();
@@ -769,7 +748,7 @@ function fetchItems_name_with_filter(name, sort, handleResult) {
 
     let result = false;
 
-    connection.query(`SELECT * FROM items WHERE itemName='${name}' ORDER BY ${sort} ASC;`, (err, rows, fields) => {
+    connection.query(`SELECT * FROM items WHERE itemName='${name}' ORDER BY ${sort} ASC;`, (err, rows) => {
         if (err) {
             throw err;
         }
@@ -787,7 +766,7 @@ function fetchItems_category_with_filter(category, sort, handleResult) {
 
     let result = false;
 
-    connection.query(`SELECT * FROM items WHERE category='${category}' ORDER BY ${sort} ASC;`, (err, rows, fields) => {
+    connection.query(`SELECT * FROM items WHERE category='${category}' ORDER BY ${sort} ASC;`, (err, rows) => {
         if (err) {
             throw err;
         }
@@ -798,22 +777,22 @@ function fetchItems_category_with_filter(category, sort, handleResult) {
     })
 }
 
-app.post('/apply_sort_name', 
+app.post('/apply_sort_name',
 bodyParser.urlencoded({
     extended: true
 }),
-(req, res, next) => {
+(req, res) => {
     // console.log(`${req.body.name}, ${req.body.sort}`);
     fetchItems_name_with_filter(req.body.key, req.body.sort, (result) => {
         res.send(result);
     });
 });
 
-app.post('/apply_sort_category', 
+app.post('/apply_sort_category',
 bodyParser.urlencoded({
     extended: true
 }),
-(req, res, next) => {
+(req, res) => {
     // console.log(`${req.body.name}, ${req.body.sort}`);
     fetchItems_category_with_filter(req.body.key, req.body.sort, (result) => {
         res.send(result);
@@ -836,12 +815,12 @@ app.post('/edit_email', (req, res) => {
     // console.log(req.session.userid);
 
     // console.log(req.body);
-    connection.query(`UPDATE users SET email = '${req.body.newEmail}' WHERE userid = '${req.session.userid}';`,
-    (err, rows, fields) => {
+    connection.query(`UPDATE users SET email = '${req.body.newEmail}' WHERE userid = '${req.session.userid}';`, (err) => {
         if (err) {
             throw err;
         }
         connection.end();
+        res.send(true);
     });
 })
 
@@ -850,12 +829,12 @@ app.post('/edit_first_name', (req, res) => {
 
     // connection.connect();
 
-    connection.query(`UPDATE users SET firstName = '${req.body.newFirstName}' WHERE userid = '${req.session.userid}';`,
-    (err, rows, fields) => {
+    connection.query(`UPDATE users SET firstName = '${req.body.newFirstName}' WHERE userid = '${req.session.userid}';`, (err) => {
         if (err) {
             throw err;
         }
         connection.end();
+        res.send(true);
     });
 })
 
@@ -865,11 +844,12 @@ app.post('/edit_last_name', (req, res) => {
     // connection.connect();
 
     connection.query(`UPDATE users SET lastName = '${req.body.newLastName}' WHERE userid = '${req.session.userid}';`,
-    (err, rows, fields) => {
+    (err) => {
         if (err) {
             throw err;
         }
         connection.end();
+        res.send(true);
     });
 })
 
@@ -878,12 +858,12 @@ app.post('/edit_address', (req, res) => {
 
     // connection.connect();
 
-    connection.query(`UPDATE users SET address = '${req.body.newAddress}' WHERE userid = '${req.session.userid}';`,
-    (err, rows, fields) => {
+    connection.query(`UPDATE users SET address = '${req.body.newAddress}' WHERE userid = '${req.session.userid}';`, (err) => {
         if (err) {
             throw err;
         }
         connection.end();
+        res.send(true);
     });
 })
 
@@ -892,12 +872,12 @@ app.post('/change_password', (req, res) => {
 
     // connection.connect();
 
-    connection.query(`UPDATE users SET password = '${req.body.newPassword}' WHERE userid = '${req.session.userid}';`,
-    (err, rows, fields) => {
+    connection.query(`UPDATE users SET password = '${req.body.newPassword}' WHERE userid = '${req.session.userid}';`, (err) => {
         if (err) {
             throw err;
         }
         connection.end();
+        res.send(true);
     });
 })
 
@@ -907,12 +887,12 @@ app.post('/add_item', (req, res) => {
 
     // connection.connect();
 
-    connection.query(`INSERT INTO items (itemName, price, img, brand, itemAvailability) VALUES ('${req.body.newItem}', '${req.body.newItemPrice}', 'Null', '${req.body.newItemStore}', 'available');`,
-    (err, rows, fields) => {
+    connection.query(`INSERT INTO items (itemName, price, img, brand, itemAvailability) VALUES ('${req.body.newItem}', '${req.body.newItemPrice}', 'Null', '${req.body.newItemStore}', 'available');`, (err) => {
         if (err) {
             throw err;
         }
         connection.end();
+        res.send(true);
     });
 })
 
@@ -930,23 +910,23 @@ app.post('/update_item', (req, res) => {
 
     // connection.connect();
 
-    connection.query(`UPDATE items SET price = '${req.body.newPrice}' WHERE itemName = '${req.body.itemName}' AND brand = '${req.body.itemStore}';`,
-    (err, rows, fields) => {
+    connection.query(`UPDATE items SET price = '${req.body.newPrice}' WHERE itemName = '${req.body.itemName}' AND brand = '${req.body.itemStore}';`, (err) => {
         if (err) {
             throw err;
         }
         connection.end();
+        res.send(true);
     });
 })
 
 
-app.use((req, res, next) => {
+app.use((req, res) => {
     res.status(404);
 
     res.sendFile(path.join(htmlPath + '/404.html'));
 })
 
-app.use(function(err, req, res, next) {
+app.use(function(err, req, res) {
     res.status(err.status || 500);
     console.log(err);
     res.sendFile(path.join(htmlPath + '/500.html'));
