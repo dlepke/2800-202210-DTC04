@@ -72,6 +72,11 @@ app.get("/profile", function (req, res, next) {
     }
 });
 
+/**
+ * Gets the first and last name of the user and passes it to the callback function.
+ * @param {String} userid the ID of the user in the database
+ * @callback handleResult callback function
+ */
 function getUserFullName(userid, handleResult) {
     const connection = createConnection();
 
@@ -104,6 +109,11 @@ app.get("/getUserFullName", (req, res) => {
     })
 })
 
+/**
+ * Gets the port, username, password, database and host from url.
+ * @param {String} url url link that's being parsed
+ * @returns the port, username and password of the user, the database, and the hosts that were obtained from the url
+ */
 function parseUrl(url) {
     let username = url.split(':')[1].slice(2);
 
@@ -128,6 +138,10 @@ function parseUrl(url) {
     }
 }
 
+/**
+ * Creates a pool of stored connections and returns them.
+ * @returns a pool of stored connections.
+ */
 function createConnection() {
     // console.log(DB_PORT, HOST, USER, PASSWORD);
 
@@ -140,6 +154,9 @@ function createConnection() {
     return mysql.createPool(config);
 }
 
+/**
+ * Resets the User databases to empty then creates five new users and adds them to the datase "Users".
+ */
 function resetUserDatabaseTable() {
     const connection = createConnection();
 
@@ -150,13 +167,13 @@ function resetUserDatabaseTable() {
         connection.query('DROP TABLE IF EXISTS Users;', () => {
 
             connection.query('CREATE TABLE IF NOT EXISTS Users ( userid int NOT NULL AUTO_INCREMENT PRIMARY KEY, email varchar(50), password varchar(50), firstName varchar(50), lastName varchar(50), address varchar(100));', (err, rows, fields) => {
-        
+
                 connection.query('INSERT INTO Users (email, password, firstName, lastName, address) VALUES ("user1@email.com", "pass1", "amy", "adams", "1 first ave, firstland");');
                 connection.query("INSERT INTO Users (email, password, firstName, lastName, address) VALUES ('user2@email.com', 'pass2', 'bob', 'burns', '2 second ave, secondland');");
                 connection.query("INSERT INTO Users (email, password, firstName, lastName, address) VALUES ('user3@email.com', 'pass3', 'carrie', 'carlson', '3 third ave, thirdland');");
                 connection.query("INSERT INTO Users (email, password, firstName, lastName, address) VALUES ('user4@email.com', 'pass4', 'diane', 'davidson', '4 fourth ave, fourthland');");
                 connection.query("INSERT INTO Users (email, password, firstName, lastName, address) VALUES ('user5@email.com', 'pass5', 'earl', 'ericson', '5 fifth ave, fifthland');");
-        
+
                 connection.query("SELECT * FROM users", (err, rows, fields) => {
                     // console.log(rows);
                     connection.end();
@@ -164,13 +181,16 @@ function resetUserDatabaseTable() {
                 });
             });
         });
-    
+
     });
 
 
 
 }
 
+/**
+ * Resets the Items database by dropping it and recreating it, then populating it with grocery items.
+ */
 function resetItemDatabaseTable() {
     const connection = createConnection();
 
@@ -198,7 +218,7 @@ function resetItemDatabaseTable() {
             connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress, category ) VALUES ('bread', '$5.99', 'https://www.kingarthurbaking.com/sites/default/files/2020-02/the-easiest-loaf-of-bread-youll-ever-bake.jpg', 'Walmart', '18', 'available', '9251 Alderbridge Way, Richmond, BC V6X 0N1', 'bakery');")
             connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress, category ) VALUES ('croissant', '$7.90', 'https://www.theflavorbender.com/wp-content/uploads/2020/05/French-Croissants-SM-2363.jpg', 'Costco', '19', 'unavailable', '9151 Bridgeport Rd, Richmond, BC V6X 3L9', 'bakery');")
             connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress, category ) VALUES ('prawns', '$17.99', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAAz3M_kM0x6dte8xiwD8li8YAuUOcazfUUw&usqp=CAU', 'Safeway', '20', 'unavailable', '8671 No 1 Rd, Richmond, BC V7C 1V2', 'seafood');")
-    
+
             connection.query("SELECT * FROM items", (err, rows, fields) => {
                 // console.log(rows);
                 connection.end();
@@ -217,21 +237,21 @@ function resetWatchlistDatabaseTable() {
     connection.query('DROP TABLE IF EXISTS UserItems;', () => {
 
         connection.query("CREATE TABLE IF NOT EXISTS UserItems (userid int NOT NULL, itemid int NOT NULL, listid int NOT NULL AUTO_INCREMENT PRIMARY KEY, FOREIGN KEY (userid) REFERENCES Users(userid) ON DELETE CASCADE, FOREIGN KEY (itemid) REFERENCES Items(itemid) ON DELETE CASCADE);", (err, rows, fields) => {
-    
+
             console.log(err);
-    
+
             // connection.query("INSERT INTO UserItems (userid, itemid) VALUES (1, 1);");
             // connection.query("INSERT INTO UserItems (userid, itemid) VALUES (1, 2);");
             // connection.query("INSERT INTO UserItems (userid, itemid) VALUES (1, 3);");
             // connection.query("INSERT INTO UserItems (userid, itemid) VALUES (1, 4);");
             // connection.query("INSERT INTO UserItems (userid, itemid) VALUES (1, 5);");
-        
+
             // connection.query("INSERT INTO UserItems (userid, itemid) VALUES (2, 6);");
             // connection.query("INSERT INTO UserItems (userid, itemid) VALUES (2, 7);");
             // connection.query("INSERT INTO UserItems (userid, itemid) VALUES (2, 8);");
             // connection.query("INSERT INTO UserItems (userid, itemid) VALUES (2, 9);");
             // connection.query("INSERT INTO UserItems (userid, itemid) VALUES (2, 10);");
-    
+
             connection.query("SELECT * FROM useritems", (err, rows, fields) => {
                 // console.log(rows);
                 connection.end();
@@ -250,6 +270,12 @@ function resetWatchlistDatabaseTable() {
 // uncomment this function call if you want to ENTIRELY RESET the UserItem table in the database - NOT CURRENTLY WORKING
 // resetWatchlistDatabaseTable();
 
+/**
+ * Checks the entered password and email combo to see if they are in the database.
+ * @param {String} email email entered by user
+ * @param {String} password password entered by user
+ * @callback handleResult callback function
+ */
 function checkUsernamePasswordCombo(email, password, handleResult) {
     const connection = createConnection();
 
@@ -311,6 +337,14 @@ app.get("/create_account", (req, res) => {
     res.sendFile(path.join(htmlPath + '/create_account.html'));
 });
 
+/**
+ * Creates a new User in the "Users" database and inserts the email, password, first and last name.
+ * @param {String} email email entered by user to be stored in database
+ * @param {String} password password entered to be stored
+ * @param {String} firstName user's first name
+ * @param {String} lastName user's last name
+ * @callback handleResult callback function
+ */
 function createNewAccount(email, password, firstName, lastName, handleResult) {
     const connection = createConnection();
 
@@ -336,6 +370,11 @@ account creation to streamline the signup process. */
     })
 }
 
+/**
+ * Checks if the entered email is in the "Users" database.
+ * @param {String} emailToCheck email entered by user to be checked
+ * @callback resultHandler callback function
+ */
 function checkIfEmailExists(emailToCheck, resultHandler) {
     let connection = createConnection();
 
@@ -436,6 +475,10 @@ app.post('/authenticate_admin',
     }
 );
 
+/**
+ *Gets all users from "users" database.
+ * @callback handleResult callback function
+ */
 function fetchAccounts(handleResult) {
     const connection = createConnection();
 
@@ -472,7 +515,11 @@ app.get('/account_list', (req, res) => {
 })
 
 
-//Fetch Item
+/**
+ * Gets all items from "items" database with name matching input.
+ * @param {String} name String representing the name of the item
+ * @callback handleResult callback function
+ */
 function fetchItems_by_name(name, handleResult) {
     const connection = createConnection();
 
@@ -492,6 +539,11 @@ function fetchItems_by_name(name, handleResult) {
     })
 }
 
+/**
+ * Get all items that belong to the input category.
+ * @param {String} category Item category to search for
+ * @callback handleResult callback function
+ */
 function fetchItems_by_category(category, handleResult) {
     const connection = createConnection();
 
@@ -511,6 +563,10 @@ function fetchItems_by_category(category, handleResult) {
     })
 }
 
+/**
+ * Gets all items from the database.
+ * @callback handleResult callback function
+ */
 function fetchItems(handleResult) {
     const connection = createConnection();
 
@@ -627,6 +683,12 @@ app.get('/watchlist_items', (req, res) => {
     });
 })
 
+/**
+ * Checks if an item is in a user's watchlist.
+ * @param {number} itemid auto-generated integer representing item id
+ * @param {number} userid auto-generated integer representing user id
+ * @callback handleResult callback function
+ */
 function isItemOnWatchlist(itemid, userid, handleResult) {
     let connection = createConnection();
 
@@ -663,7 +725,7 @@ app.post('/add_to_watchlist', (req, res) => {
 
             connection.query(`SELECT * FROM useritems WHERE userid = ${userid}`, ((err, rows, fields) => {
                 console.log("result: ", rows);
-    
+
                 connection.end();
                 res.send(true);
             }))
@@ -762,6 +824,12 @@ app.post('/search_item_by_category', (req, res) => {
     });
 })
 
+/**
+ * Gets items from the database matching the name and sorts them in order.
+ * @param {String} name the name of the item to be fetched from the database
+ * @param {String} sort the parameter by which to sort the items
+ * @callback handleResult callback function
+ */
 function fetchItems_name_with_filter(name, sort, handleResult) {
     const connection = createConnection();
 
@@ -780,6 +848,12 @@ function fetchItems_name_with_filter(name, sort, handleResult) {
     })
 }
 
+/**
+ * Displays all items from a certain category and sorts them accordingly.
+ * @param {String} category the category of items the user wants to see
+ * @param {String} sort the condition that the items are to be sorted by
+ * @callback handleResult callback function
+ */
 function fetchItems_category_with_filter(category, sort, handleResult) {
     const connection = createConnection();
 
