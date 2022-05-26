@@ -19,7 +19,7 @@ input {
 }
 
 #submit_item:hover {
-    background-color: blue;
+    background-color: green;
     color: white;
 }
 

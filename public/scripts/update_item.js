@@ -18,24 +18,29 @@ function updateItem() {
         store_required.style.visibility = "hidden";
         item_updated_successfully.style.visibility = "hidden";
         name_required.style.visibility = "visible";
+        $("#item_name").css({ "border": '#FF0000 1px solid'});
     } else if (storeName.trim().length === 0) {
         name_required.style.visibility = "hidden";
         number_required.style.visibility = "hidden";
         price_required.style.visibility = "hidden";
         item_updated_successfully.style.visibility = "hidden";
         store_required.style.visibility = "visible";
+        $("#store").css({ "border": '#FF0000 1px solid'});
     } else if (itemPrice.trim().length === 0) {
         name_required.style.visibility = "hidden";
         store_required.style.visibility = "hidden";
         number_required.style.visibility = "hidden";
         item_updated_successfully.style.visibility = "hidden";
         price_required.style.visibility = "visible";
+        $("#price").css({ "border": '#FF0000 1px solid'});
     } else if (isNaN(itemPrice) || itemPrice <= 0) {
         name_required.style.visibility = "hidden";
         store_required.style.visibility = "hidden";
         price_required.style.visibility = "hidden";
         item_updated_successfully.style.visibility = "hidden";
         number_required.style.visibility = "visible";
+        $("#price").css({ "border": '#FF0000 1px solid'});
+
     } else {
         $.post('/update_item', {
             itemName: itemName,
