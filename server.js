@@ -568,6 +568,7 @@ app.get('/product/:id', function (req, res, handleResult) {
         connection.end();
         //place on page
         res.render("productview.ejs", {
+            "productid": req.params.id,
             "id": details.itemId,
             "name": details.itemName,
             "img": details.img,
@@ -594,6 +595,7 @@ app.get('/getallproducts/:name', function (req, res, handleResult){
         else {
             res.send(rows)
         }
+        connection.end();
     })
 })
 
@@ -834,7 +836,13 @@ app.post('/edit_email', (req, res) => {
     // console.log(req.session.userid);
 
     // console.log(req.body);
-    connection.query(`UPDATE users SET email = '${req.body.newEmail}' WHERE userid = '${req.session.userid}';`);
+    connection.query(`UPDATE users SET email = '${req.body.newEmail}' WHERE userid = '${req.session.userid}';`,
+    (err, rows, fields) => {
+        if (err) {
+            throw err;
+        }
+        connection.end();
+    });
 })
 
 app.post('/edit_first_name', (req, res) => {
@@ -842,7 +850,13 @@ app.post('/edit_first_name', (req, res) => {
 
     // connection.connect();
 
-    connection.query(`UPDATE users SET firstName = '${req.body.newFirstName}' WHERE userid = '${req.session.userid}';`);
+    connection.query(`UPDATE users SET firstName = '${req.body.newFirstName}' WHERE userid = '${req.session.userid}';`,
+    (err, rows, fields) => {
+        if (err) {
+            throw err;
+        }
+        connection.end();
+    });
 })
 
 app.post('/edit_last_name', (req, res) => {
@@ -850,7 +864,13 @@ app.post('/edit_last_name', (req, res) => {
 
     // connection.connect();
 
-    connection.query(`UPDATE users SET lastName = '${req.body.newLastName}' WHERE userid = '${req.session.userid}';`);
+    connection.query(`UPDATE users SET lastName = '${req.body.newLastName}' WHERE userid = '${req.session.userid}';`,
+    (err, rows, fields) => {
+        if (err) {
+            throw err;
+        }
+        connection.end();
+    });
 })
 
 app.post('/edit_address', (req, res) => {
@@ -858,7 +878,13 @@ app.post('/edit_address', (req, res) => {
 
     // connection.connect();
 
-    connection.query(`UPDATE users SET address = '${req.body.newAddress}' WHERE userid = '${req.session.userid}';`);
+    connection.query(`UPDATE users SET address = '${req.body.newAddress}' WHERE userid = '${req.session.userid}';`,
+    (err, rows, fields) => {
+        if (err) {
+            throw err;
+        }
+        connection.end();
+    });
 })
 
 app.post('/change_password', (req, res) => {
@@ -866,16 +892,30 @@ app.post('/change_password', (req, res) => {
 
     // connection.connect();
 
-    connection.query(`UPDATE users SET password = '${req.body.newPassword}' WHERE userid = '${req.session.userid}';`);
+    connection.query(`UPDATE users SET password = '${req.body.newPassword}' WHERE userid = '${req.session.userid}';`,
+    (err, rows, fields) => {
+        if (err) {
+            throw err;
+        }
+        connection.end();
+    });
 })
+
 
 app.post('/add_item', (req, res) => {
     let connection = createConnection();
 
     // connection.connect();
 
-    connection.query(`INSERT INTO items (itemName, price, img, brand, itemAvailability) VALUES ('${req.body.newItem}', '${req.body.newItemPrice}', 'Null', '${req.body.newItemStore}', 'available');`);
+    connection.query(`INSERT INTO items (itemName, price, img, brand, itemAvailability) VALUES ('${req.body.newItem}', '${req.body.newItemPrice}', 'Null', '${req.body.newItemStore}', 'available');`,
+    (err, rows, fields) => {
+        if (err) {
+            throw err;
+        }
+        connection.end();
+    });
 })
+
 
 app.get('/add_item', (req, res) => {
     res.sendFile(path.join(htmlPath + "/user_add_item.html"))
@@ -890,8 +930,15 @@ app.post('/update_item', (req, res) => {
 
     // connection.connect();
 
-    connection.query(`UPDATE items SET price = '${req.body.newPrice}' WHERE itemName = '${req.body.itemName}' AND brand = '${req.body.itemStore}';`);
+    connection.query(`UPDATE items SET price = '${req.body.newPrice}' WHERE itemName = '${req.body.itemName}' AND brand = '${req.body.itemStore}';`,
+    (err, rows, fields) => {
+        if (err) {
+            throw err;
+        }
+        connection.end();
+    });
 })
+
 
 app.use((req, res, next) => {
     res.status(404);
