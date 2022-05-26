@@ -477,7 +477,7 @@ app.post('/authenticate_admin',
 
 /**
  *Gets all users from "users" database.
- * @callback handleResult
+ * @callback handleResult callback function
  */
 function fetchAccounts(handleResult) {
     const connection = createConnection();
@@ -515,7 +515,11 @@ app.get('/account_list', (req, res) => {
 })
 
 
-//Fetch Item
+/**
+ * Gets all items from "items" database with name matching input.
+ * @param {String} name String representing the name of the item
+ * @callback handleResult callback function
+ */
 function fetchItems_by_name(name, handleResult) {
     const connection = createConnection();
 
@@ -535,6 +539,11 @@ function fetchItems_by_name(name, handleResult) {
     })
 }
 
+/**
+ * Get all items that belong to the input category.
+ * @param {String} category Item category to search for
+ * @callback handleResult callback function
+ */
 function fetchItems_by_category(category, handleResult) {
     const connection = createConnection();
 
@@ -554,6 +563,10 @@ function fetchItems_by_category(category, handleResult) {
     })
 }
 
+/**
+ * Gets all items from the database.
+ * @callback handleResult callback function
+ */
 function fetchItems(handleResult) {
     const connection = createConnection();
 
@@ -669,6 +682,12 @@ app.get('/watchlist_items', (req, res) => {
     });
 })
 
+/**
+ * Checks if an item is in a user's watchlist.
+ * @param {number} itemid auto-generated integer representing item id
+ * @param {number} userid auto-generated integer representing user id
+ * @callback handleResult callback function
+ */
 function isItemOnWatchlist(itemid, userid, handleResult) {
     let connection = createConnection();
 
@@ -804,6 +823,12 @@ app.post('/search_item_by_category', (req, res) => {
     });
 })
 
+/**
+ * Gets items from the database matching the name and sorts them in order.
+ * @param {String} name the name of the item to be fetched from the database
+ * @param {String} sort the parameter by which to sort the items
+ * @callback handleResult callback function
+ */
 function fetchItems_name_with_filter(name, sort, handleResult) {
     const connection = createConnection();
 
@@ -822,6 +847,12 @@ function fetchItems_name_with_filter(name, sort, handleResult) {
     })
 }
 
+/**
+ * Displays all items from a certain category and sorts them accordingly.
+ * @param {String} category the category of items the user wants to see
+ * @param {String} sort the condition that the items are to be sorted by
+ * @callback handleResult callback function
+ */
 function fetchItems_category_with_filter(category, sort, handleResult) {
     const connection = createConnection();
 
