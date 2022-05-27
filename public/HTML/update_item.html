@@ -41,8 +41,17 @@
             <input id="price" placeholder="$0.00" style="text-align:right;">
             <div id="number_required" style="visibility: hidden;">Item price must be a valid number!</div>
         </div>
+        <div id="confirm_box" style="color:black; margin: 5px; padding: 5px;">
+            <p>Are all fields correct?</p>
+            <label for="confirm_yes">Yes</label>
+            <input name="confirm_option" type="radio" id="confirm_yes" value="yes">
+            <labl for="confirm_no">No</labl>
+            <input name="confirm_option"type="radio" id="confirm_no" value="no" checked="checked">
+        </div>
         <button id="update_item" onclick="updateItem()">Update Item</button>
         <div id="item_updated_successfully" style="visibility: hidden;">Item successfully updated!</div>
+        <div id="confirmation_unsucessful" style="visibility: hidden;">You need to confirm the fields are correct!</div>
+
     </main>
 
     <nav id="footerPlaceholder"></nav>
