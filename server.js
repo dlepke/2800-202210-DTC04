@@ -49,12 +49,7 @@ app.get('/isLoggedIn', (req, res) => {
 })
 
 app.get('/', function (req, res) {
-    if (req.session.loggedIn) {
-        res.redirect('/profile');
-        res.send();
-    } else {
-        res.sendFile(path.join(htmlPath + '/sign_in.html'));
-    }
+    res.sendFile(path.join(htmlPath + '/search.html'));
 });
 
 app.get("/profile", function (req, res) {
