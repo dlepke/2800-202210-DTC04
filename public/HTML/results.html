@@ -31,44 +31,41 @@
         </div>
         <button id="toggle_filter">Filter</button>
         <div id="filter_form" style="display: none;">
-            <label for="filter_sort">
                 <b>
                         Filter By:
                 </b>
-            
-            </label>
 
             <form id="filter_sort">
                 <div id="filter">
-                    <label for="availability">Product Availability</label>
+                    <div>Product Availability</div>
                     <div id="availability">
                         <div>
-                            <input type="radio" name="product_available" value="available" class="radio_buttons">
+                            <input id="available" type="radio" name="product_available" value="available" class="radio_buttons">
                             <label for="available">Available</label>
                         </div>
                     </div>
 
-                    <label for="store_options">Store</label>
+                    <div>Store</div>
                     <div id="store_options">
                         <div>
-                            <input type="radio" name="store" value="costco" class="radio_buttons">
-                            <label for="store">Costco</label>
+                            <input id="costco" type="radio" name="store" value="costco" class="radio_buttons">
+                            <label for="costco">Costco</label>
                         </div>
                         <div>
-                            <input type="radio" name="store" value="walmart" class="radio_buttons">
-                            <label for="store">Walmart</label>
+                            <input id="Walmart" type="radio" name="store" value="walmart" class="radio_buttons">
+                            <label for="Walmart">Walmart</label>
                         </div>
                         <div>
-                            <input type="radio" name="store" value="tnt" class="radio_buttons">
-                            <label for="store">T&T</label>
+                            <input id="TnT" type="radio" name="store" value="tnt" class="radio_buttons">
+                            <label for="TnT">T&T</label>
                         </div>
                         <div>
-                            <input type="radio" name="store" value="safeway" class="radio_buttons">
-                            <label for="store">Safeway</label>
+                            <input id="safeway" type="radio" name="store" value="safeway" class="radio_buttons">
+                            <label for="safeway">Safeway</label>
                         </div>
                         <div>
-                            <input type="radio" name="store" value="superstore" class="radio_buttons">
-                            <label for="store">Superstore</label>
+                            <input id="superstore" type="radio" name="store" value="superstore" class="radio_buttons">
+                            <label for="superstore">Superstore</label>
                         </div>
                     </div>
                 </div>
@@ -76,12 +73,10 @@
                 <br>
 
                 <div id="sort">
-                    <label for="sort_options">
                             <b>
                                 Sort By:
                             </b>
 
-                    </label>
                     <select name="sort_options" id="sort_options">
                         <option value="price">Price</option>
                     </select>
