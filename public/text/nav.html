@@ -1,7 +1,6 @@
 <link rel="stylesheet" href="../styles/skeleton.css">
 
 <nav class="navbar navbar-dark fixed-top">
-  <!-- <nav id="nav-top"> -->
   <div class="container" style="white-space: nowrap;">
 
     <a class="icon" id="hamburger-menu" onclick="openSideMenu()"><i class="material-icons md-48">menu</i></a>
@@ -15,39 +14,28 @@
       <a href="/privacy_policy">Privacy Policy</a>
     </div>
 
-    <a class="icon" href="/">
+    <a class="icon nav-logo-link" href="/">
       <img id="logo" src="../images/foodbuddy-logo-textonly.png">
     </a>
 
     <a class="icon profile-icon" href="/profile"><i class="material-icons md-48 nav_elements icons"
-        style="float: right; display: none">account_circle</i>
+        style="float: right;">account_circle</i>
     </a>
 
-    <a href="/" id="sign-in-link" style="display: none">Sign In</a>
+    <a href="/" id="sign-in-link" style="text-align: end">Sign In</a>
 
   </div>
   <script>
     $.get('/isLoggedIn', (response) => {
       if (response) {
-        $("#profile-icon").css("display", "block");
+        $(".profile-icon").css("display", "block");
+        $("#sign-in-link").css("display", "none");
       } else {
         $("#sign-in-link").css("display", "inline-block");
-        $("#sign-in-link").css("align-text", "end");
+        $("#sign-in-link").css("text-align", "end");
+        $(".profile-icon").css("display", "none");
       }
     })
-
-    // function displayUserMenu() {
-    //   document.getElementById("userDropdownMenu").classList.toggle("show");
-    // }
-
-    // window.onclick = function(e) {
-    //   if (!e.target.matches('.dropbtn')) {
-    //   var myDropdown = document.getElementById("userDropdownMenu");
-    //     if (myDropdown.classList.contains('show')) {
-    //       myDropdown.classList.remove('show');
-    //     }
-    //   }
-    // }
 
     function openSideMenu() {
       let hamburgerIcon = document.getElementById("hamburger-menu");
