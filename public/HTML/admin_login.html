@@ -27,7 +27,8 @@
             <form id="signin_form" action="/authenticate_admin" method="post">
                 <input type="text" placeholder="Email" id="email" name="username">
                 <input type="password" placeholder="Password" id="password" name="password">
-                <button id="admin_submit" href="/authenticate_admin">Sign in</button>
+                <button id="admin_submit" onclick="window.location.href='/authenticate_admin'">Sign in</button>
+
             </form>
 
             <div id="login-unsuccessful-warning"
