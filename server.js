@@ -14,7 +14,6 @@ const DB_URL = process.env.CLEARDB_DATABASE_URL;
 
 const PORT = process.env.PORT;
 
-// var publicPath = path.join(__dirname, 'public');
 var htmlPath = path.join(__dirname, 'public/HTML');
 
 app.use(express.static('public'));
@@ -74,8 +73,6 @@ app.get("/profile", function (req, res) {
 function getUserFullName(userid, handleResult) {
     const connection = createConnection();
 
-    // connection.connect()
-
     let firstName = "false";
     let lastName = "false";
 
@@ -117,12 +114,6 @@ function parseUrl(url) {
 
     let database = url.split('/')[3].split('?')[0];
 
-    // console.log("user: ", username);
-    // console.log("password: ", password);
-    // console.log("host: ", host);
-    // console.log("database: ", database);
-    // console.log("port: ", DB_PORT);
-
     return {
         port: DB_PORT,
         user: username,
@@ -137,11 +128,6 @@ function parseUrl(url) {
  * @returns a pool of stored connections.
  */
 function createConnection() {
-    // console.log(DB_PORT, HOST, USER, PASSWORD);
-
-    // const dbConnectionString = new connectionString.ConnectionString(DB_URL);
-    // console.log(dbConnectionString);
-    // console.log(DB_URL);
     let config = parseUrl(DB_URL);
 
 
@@ -153,8 +139,6 @@ function createConnection() {
  */
 function resetUserDatabaseTable() {
     const connection = createConnection();
-
-    // connection.connect();
 
     connection.query('DROP TABLE IF EXISTS UserItems;', () => {
 
@@ -188,8 +172,6 @@ function resetUserDatabaseTable() {
 function resetItemDatabaseTable() {
     const connection = createConnection();
 
-    // connection.connect();
-
     connection.query('DROP TABLE IF EXISTS Items;', () => {
         connection.query("CREATE TABLE IF NOT EXISTS Items ( itemid int NOT NULL AUTO_INCREMENT PRIMARY KEY, itemName varchar(50), price varchar(50), img varchar(1000), brand varchar(50), itemAvailability varchar(50), storeAddress varchar(100), category varchar(50))", () => {
             connection.query("INSERT INTO Items (itemName, price, img, brand, itemId, itemAvailability, storeAddress, category ) VALUES ('bananas', '$1', 'https://images.costcobusinessdelivery.com/ImageDelivery/imageService?profileId=12027981&itemId=30669&recipeName=680', 'Walmart', '1', 'available', '9251 Alderbridge Way, Richmond, BC V6X 0N1', 'produce');")
@@ -222,11 +204,8 @@ function resetItemDatabaseTable() {
     });
 }
 
-/* this function is not working yet, do not use */
 function resetWatchlistDatabaseTable() {
     const connection = createConnection();
-
-    // connection.connect();
 
     connection.query('DROP TABLE IF EXISTS UserItems;', () => {
 
@@ -241,14 +220,8 @@ function resetWatchlistDatabaseTable() {
 
 }
 
-// uncomment this function call if you want to ENTIRELY RESET the User table in the database
+// uncomment this function call if you want to ENTIRELY RESET all tables in the database with dummy values
 resetUserDatabaseTable();
-
-// uncomment this function call if you want to ENTIRELY RESET the Item table in the database
-// resetItemDatabaseTable();
-
-// uncomment this function call if you want to ENTIRELY RESET the UserItem table in the database - NOT CURRENTLY WORKING
-// resetWatchlistDatabaseTable();
 
 /**
  * Checks the entered password and email combo to see if they are in the database.
@@ -259,19 +232,14 @@ resetUserDatabaseTable();
 function checkUsernamePasswordCombo(email, password, handleResult) {
     const connection = createConnection();
 
-
-    // connection.connect()
-
     let userID = -1;
 
     connection.query(`SELECT * FROM users WHERE email = '${email}' AND password = '${password}';`, (err, rows) => {
         if (err) {
             throw err;
         } else if (rows.length > 0) {
-            // console.log(rows, rows.length);
             userID = rows[0].userid;
         }
-        // console.log("Check", username, password, rows)
 
         connection.end();
         handleResult(userID);
@@ -283,7 +251,6 @@ app.post('/authenticate',
         extended: true
     }),
     (req, res, next) => {
-        // console.log(`${req.body.username} + ${req.body.password}`);
         checkUsernamePasswordCombo(req.body.username, req.body.password, (result) => {
             if (result > 0) {
                 console.log(result);
@@ -291,8 +258,6 @@ app.post('/authenticate',
                 console.log("correct username/pw");
                 next();
             } else {
-                // console.log(`${req.body.username} + ${req.body.password}`)
-                // console.log("incorrect username/pw");
                 res.redirect('/?loginfailed=true');
             }
         });
@@ -300,8 +265,6 @@ app.post('/authenticate',
     (req, res) => {
 
         req.session.loggedIn = true;
-        // console.log(res.locals.userid);
-        // req.session.userid = res.locals.userid;
 
         res.redirect('/search');
         res.send();
@@ -328,15 +291,9 @@ app.get("/create_account", (req, res) => {
 function createNewAccount(email, password, firstName, lastName, handleResult) {
     const connection = createConnection();
 
-    // connection.connect()
-
-    // console.log("inserting new user into db");
-    // console.log(username, password, firstName, lastName)
-
-
-/* Note: The account creation form does NOT require the user to enter their address.
-They can add their address through the profile page, but we chose to omit this from
-account creation to streamline the signup process. */
+    /* Note: The account creation form does NOT require the user to enter their address.
+    They can add their address through the profile page, but we chose to omit this from
+    account creation to streamline the signup process. */
     connection.query(
         `INSERT INTO Users (email, password, firstName, lastName) VALUES ('${email}', '${password}', '${firstName}', '${lastName}');`,
         (err, res) => {
@@ -357,8 +314,6 @@ account creation to streamline the signup process. */
  */
 function checkIfEmailExists(emailToCheck, resultHandler) {
     let connection = createConnection();
-
-    // connection.connect();
 
     connection.query(`SELECT * FROM Users WHERE email = "${emailToCheck}";`, (err, rows) => {
         if (err) {
@@ -395,7 +350,6 @@ app.post("/create_account_in_db",
                     console.log("fields left empty");
                     res.redirect('/create_account?emptyFields=true')
                 } else {
-                    // req.session.userid = req.body.userid;
                     console.log("valid/new username/pw");
                     createNewAccount(req.body.email, req.body.password, req.body.firstName, req.body.lastName, (generatedUserid) => {
                         req.session.userid = generatedUserid;
@@ -437,7 +391,6 @@ app.post('/authenticate_admin',
         extended: true
     }),
     (req, res, next) => {
-        // console.log(`${req.body.username} + ${req.body.password}`);
 
         if (req.body.username == "admin" && req.body.password == "admin") {
             res.locals.username = req.body.username;
@@ -461,8 +414,6 @@ app.post('/authenticate_admin',
  */
 function fetchAccounts(handleResult) {
     const connection = createConnection();
-
-    // connection.connect()
 
     let result = false;
 
@@ -503,8 +454,6 @@ app.get('/account_list', (req, res) => {
 function fetchItems_by_name(name, handleResult) {
     const connection = createConnection();
 
-    // connection.connect()
-
     let result = false;
 
     connection.query(`SELECT * FROM items WHERE itemName = '${name}';`, (err, rows) => {
@@ -527,8 +476,6 @@ function fetchItems_by_name(name, handleResult) {
 function fetchItems_by_category(category, handleResult) {
     const connection = createConnection();
 
-    // connection.connect()
-
     let result = false;
 
     connection.query(`SELECT * FROM items WHERE category = '${category}';`, (err, rows) => {
@@ -549,8 +496,6 @@ function fetchItems_by_category(category, handleResult) {
  */
 function fetchItems(handleResult) {
     const connection = createConnection();
-
-    // connection.connect()
 
     let result = false;
 
@@ -589,7 +534,6 @@ app.get('/product/:id', function (req, res) {
 
     //create connection
     const connection = createConnection();
-    // connection.connect()
 
 
     //Query the database by ID
@@ -619,9 +563,8 @@ app.get('/product/:id', function (req, res) {
 app.get('/getallproducts/:name', function (req, res){
     //Change itemname
     let productName = req.params.name
-    // console.log(productName)
+
     const connection = createConnection();
-    // connection.connect()
 
     connection.query(`SELECT * FROM items where itemName = "${productName}";`, (err, rows) => {
         if (err) {
@@ -656,8 +599,6 @@ app.get('/watchlist_items', (req, res) => {
 
     let connection = createConnection();
 
-    // connection.connect();
-
     connection.query(`SELECT * FROM items WHERE itemid IN (SELECT itemid FROM useritems WHERE userid = ${req.session.userid})`, (err, rows) => {
         console.log(rows);
 
@@ -676,10 +617,7 @@ app.get('/watchlist_items', (req, res) => {
 function isItemOnWatchlist(itemid, userid, handleResult) {
     let connection = createConnection();
 
-    // connection.connect();
-
     connection.query(`SELECT * FROM useritems WHERE userid = ${userid} AND itemid = ${itemid}`, ((err, rows) => {
-        // console.log("result: ", rows);
 
         connection.end();
 
@@ -692,18 +630,13 @@ function isItemOnWatchlist(itemid, userid, handleResult) {
 }
 
 app.post('/add_to_watchlist', (req, res) => {
-    // console.log(req.body);
 
     if (req.session.userid) {
 
         let itemid = req.body.itemid;
         let userid = req.session.userid;
 
-        // console.log("itemid: ", itemid, " userid: ", userid);
-
         let connection = createConnection();
-
-        // connection.connect();
 
         connection.query(`INSERT INTO useritems (userid, itemid) VALUES (${userid}, ${itemid});`, () => {
 
@@ -728,11 +661,7 @@ app.post('/remove_from_watchlist', (req, res) => {
         let itemid = req.body.itemid;
         let userid = req.session.userid;
 
-        // console.log("itemid: ", itemid, " userid: ", userid);
-
         let connection = createConnection();
-
-        // connection.connect();
 
         connection.query(`DELETE FROM useritems WHERE userid = ${userid} AND itemid = ${itemid};`);
 
@@ -769,16 +698,6 @@ app.get('/is_on_watchlist/:itemid', (req, res) => {
     }
 })
 
-//This is for accessing watchlist as you need to be a required user
-// app.get('/all_items_list', (req, res) => {
-//     if (req.session.userid) {
-//         fetchItems((result) => {
-//             res.sendFile(path.join(htmlPath + '/itemslist.html'));
-//         });
-//     } else {
-//         res.redirect('/user');
-//     }
-// })
 app.get("/search", (req, res) => {
     res.sendFile(path.join(htmlPath + '/search.html'));
 });
@@ -793,13 +712,6 @@ app.post('/search_item_by_name', (req, res) => {
         res.send(result);
     });
 })
-
-// app.get('/search_item_by_name/:name', (req, res) => {
-//     console.log("testing")
-//     fetchItems_by_name(req.params.name, (result) => {
-//         res.send(result);
-//     });
-// })
 
 app.post('/search_item_by_category', (req, res) => {
 
@@ -816,8 +728,6 @@ app.post('/search_item_by_category', (req, res) => {
  */
 function fetchItems_name_with_filter(name, sort, handleResult) {
     const connection = createConnection();
-
-    // connection.connect()
 
     let result = false;
 
@@ -841,8 +751,6 @@ function fetchItems_name_with_filter(name, sort, handleResult) {
 function fetchItems_category_with_filter(category, sort, handleResult) {
     const connection = createConnection();
 
-    // connection.connect()
-
     let result = false;
 
     connection.query(`SELECT * FROM items WHERE category='${category}' ORDER BY ${sort} ASC;`, (err, rows) => {
@@ -857,26 +765,26 @@ function fetchItems_category_with_filter(category, sort, handleResult) {
 }
 
 app.post('/apply_sort_name',
-bodyParser.urlencoded({
-    extended: true
-}),
-(req, res) => {
-    // console.log(`${req.body.name}, ${req.body.sort}`);
-    fetchItems_name_with_filter(req.body.key, req.body.sort, (result) => {
-        res.send(result);
-    });
-});
+    bodyParser.urlencoded({
+        extended: true
+    }),
+    (req, res) => {
+        fetchItems_name_with_filter(req.body.key, req.body.sort, (result) => {
+            res.send(result);
+        });
+    }
+);
 
 app.post('/apply_sort_category',
-bodyParser.urlencoded({
-    extended: true
-}),
-(req, res) => {
-    // console.log(`${req.body.name}, ${req.body.sort}`);
-    fetchItems_category_with_filter(req.body.key, req.body.sort, (result) => {
-        res.send(result);
-    });
-});
+    bodyParser.urlencoded({
+        extended: true
+    }),
+    (req, res) => {
+        fetchItems_category_with_filter(req.body.key, req.body.sort, (result) => {
+            res.send(result);
+        });
+    }
+);
 
 app.get('/edit_profile', (req, res) => {
     res.sendFile(path.join(htmlPath + "/edit_profile.html"))
@@ -889,11 +797,6 @@ app.get('/change_password', (req, res) => {
 app.post('/edit_email', (req, res) => {
     let connection = createConnection();
 
-    // connection.connect();
-
-    // console.log(req.session.userid);
-
-    // console.log(req.body);
     connection.query(`UPDATE users SET email = '${req.body.newEmail}' WHERE userid = '${req.session.userid}';`, (err) => {
         if (err) {
             throw err;
@@ -906,8 +809,6 @@ app.post('/edit_email', (req, res) => {
 app.post('/edit_first_name', (req, res) => {
     let connection = createConnection();
 
-    // connection.connect();
-
     connection.query(`UPDATE users SET firstName = '${req.body.newFirstName}' WHERE userid = '${req.session.userid}';`, (err) => {
         if (err) {
             throw err;
@@ -919,8 +820,6 @@ app.post('/edit_first_name', (req, res) => {
 
 app.post('/edit_last_name', (req, res) => {
     let connection = createConnection();
-
-    // connection.connect();
 
     connection.query(`UPDATE users SET lastName = '${req.body.newLastName}' WHERE userid = '${req.session.userid}';`,
     (err) => {
@@ -935,8 +834,6 @@ app.post('/edit_last_name', (req, res) => {
 app.post('/edit_address', (req, res) => {
     let connection = createConnection();
 
-    // connection.connect();
-
     connection.query(`UPDATE users SET address = '${req.body.newAddress}' WHERE userid = '${req.session.userid}';`, (err) => {
         if (err) {
             throw err;
@@ -948,8 +845,6 @@ app.post('/edit_address', (req, res) => {
 
 app.post('/change_password', (req, res) => {
     let connection = createConnection();
-
-    // connection.connect();
 
     connection.query(`UPDATE users SET password = '${req.body.newPassword}' WHERE userid = '${req.session.userid}';`, (err) => {
         if (err) {
@@ -963,8 +858,6 @@ app.post('/change_password', (req, res) => {
 
 app.post('/add_item', (req, res) => {
     let connection = createConnection();
-
-    // connection.connect();
 
     connection.query(`INSERT INTO items (itemName, price, img, brand, itemAvailability) VALUES ('${req.body.newItem}', '${req.body.newItemPrice}', 'Null', '${req.body.newItemStore}', 'available');`, (err) => {
         if (err) {
@@ -986,8 +879,6 @@ app.get('/update_item', (req, res) => {
 
 app.post('/update_item', (req, res) => {
     let connection = createConnection();
-
-    // connection.connect();
 
     connection.query(`UPDATE items SET price = '${req.body.newPrice}' WHERE itemName = '${req.body.itemName}' AND brand = '${req.body.itemStore}';`, (err) => {
         if (err) {
