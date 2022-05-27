@@ -3,19 +3,19 @@
 ## Table of Contents
 
 * [Project Description](#project-description)
-* [Technologies Used](#technologies-used)
-* [Project Contents](#project-contents)
-* [How to Run This Project](#how-to-run-this-project)
+* [Technologies](#technologies)
+* [Files](#files)
+* [Installation](#installation)
     * [Preparation](#preparation)
     * [Setup](#setup)
-* [The Product](#the-product)
+* [Features](#features)
 * [Credits](#credits)
 * [Our Team](#our-team)
 
 ## Project Description
-Our team DTC-04 developed FoodBuddy to help low-income people to save money by providing easy access to (user-updated) grocery price information, and providing the ability to compare prices for items across stores.
+Our team DTC-04 developed FoodBuddy to help low-income people save money by providing easy access to (user-updated) grocery price information, and providing the ability to compare prices for items across stores.
 
-## Technologies Used
+## Technologies
 
 To build FoodBuddy, we used:
 * Visual Studio Code IDE
@@ -32,13 +32,16 @@ To build FoodBuddy, we used:
 * MySQL (with ClearDB to integrate with Heroku)
 * Heroku
 
-## Project Contents
+## Files
 
 <pre>
+├── node_modules
 ├── package-lock.json
 ├── package.json
 ├── public
 │   ├── HTML
+│   │   ├── 404.html
+│   │   ├── 500.html
 │   │   ├── Watchlist.html
 │   │   ├── account_list.html
 │   │   ├── admin_dashboard.html
@@ -47,6 +50,7 @@ To build FoodBuddy, we used:
 │   │   ├── create_account.html
 │   │   ├── edit_profile.html
 │   │   ├── itemslist.html
+│   │   ├── ppolicy.html
 │   │   ├── results.html
 │   │   ├── search.html
 │   │   ├── sign_in.html
@@ -69,6 +73,7 @@ To build FoodBuddy, we used:
 │   │   ├── meat.png
 │   │   ├── produce.jpeg
 │   │   ├── seafood.jpeg
+│   │   ├── shopping_cart_woods.png
 │   │   └── snack.jpeg
 │   ├── scripts
 │   │   ├── account_list.js
@@ -84,12 +89,14 @@ To build FoodBuddy, we used:
 │   │   ├── update_item.js
 │   │   └── watchlist.js
 │   ├── styles
+│   │   ├── 404.css
 │   │   ├── add_item.css
 │   │   ├── admin_acc_items.css
 │   │   ├── admin_dash.css
 │   │   ├── create_account_style.css
 │   │   ├── easter_egg.css
 │   │   ├── edit_profile.css
+│   │   ├── ppolicy.css
 │   │   ├── productview.css
 │   │   ├── results.css
 │   │   ├── search.css
@@ -101,13 +108,12 @@ To build FoodBuddy, we used:
 │       ├── footer.html
 │       └── nav.html
 ├── server.js
-├── users.sql
 └── views
     └── productview.ejs
 </pre>
 
 
-## How to Run This Project
+## Installation
 
 To get this project running on your local device, do the following:
 
@@ -148,7 +154,7 @@ Once your setup is ready, follow these steps to get the project running locally:
 10. Open the following link in your browser: [localhost:5050](localhost:5050)
 11. Try out the website!
 
-## The Product
+## Features
 
 With FoodBuddy, you can:
 * Search for grocery items
@@ -172,7 +178,7 @@ We also received troubleshooting advice from our friend, Liam Gray!
 ## Our Team
 
 Members of our group:
-* Deanna Lepke 
+* Deanna Lepke
     * [GitHub](https://github.com/dlepke)
     * [LinkedIn](https://www.linkedin.com/in/deanna-lepke-26317222b/)
 * Ray Zhang
