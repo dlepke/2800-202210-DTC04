@@ -21,6 +21,7 @@ To build FoodBuddy, we used:
 * Visual Studio Code IDE
 * HTML
 * CSS
+* Bootstrap
 * JavaScript
 * JQuery
 * Node
@@ -170,6 +171,8 @@ With FoodBuddy, you can:
 ## Credits
 
 To build our side navigation menu, we used [this example](https://www.w3schools.com/howto/howto_js_sidenav.asp)
+
+To build the html, we used the template provided in our 1537 class!
 
 Our logo was designed by our wonderful teammate, Kim Chung!
 
