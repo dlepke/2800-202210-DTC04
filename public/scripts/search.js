@@ -23,7 +23,7 @@ function search_by_category() {
 
 function setup() {
     $("#search_button").click(search_item);
-    $("body").on("click", ".icon", search_by_category);
+    $("body").on("click", ".search-icon", search_by_category);
 }
 
 $(document).ready(setup);
