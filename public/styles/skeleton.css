@@ -73,10 +73,11 @@ body {
 }
 
 #logo {
-    /* width: 90px; */
-    /* align-self: center; */
+    width: 90px;
+    align-self: center;
     position: relative;
     /* left: 50%; */
+    /* height: 100%; */
     border-radius:0em !important;
     box-shadow: none;
 }
