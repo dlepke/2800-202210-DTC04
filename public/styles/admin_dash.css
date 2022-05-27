@@ -13,11 +13,8 @@ main {
 }
 #buttons_list {
     display: flex;
-    flex-flow: column wrap;
     justify-content: center;
-    /* align-items: center; */
-    padding: 10px;
-    margin: 10px;
+    flex-flow: column;
 }
 
 
@@ -26,13 +23,13 @@ main {
 }
 
 .admin_menu_buttons {
-    border-radius: 10px;
-    text-decoration: none;
     background-color:rgb(116, 173, 122);
     border: none;
     color: white;
     padding: 10px;
     text-align: center;
     width: 100%;
+    border-radius: 0.5rem;
+    margin: 10px 10px 0px 0px;
 
 }
