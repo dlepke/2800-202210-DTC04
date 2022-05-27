@@ -634,6 +634,11 @@ app.get('/getallproducts/:name', function (req, res){
     })
 })
 
+app.get('/privacy_policy', (req, res) => {
+    res.sendFile(path.join(htmlPath + "/ppolicy.html"))
+})
+
+
 app.get('/watchlist', (req, res) => {
     if (req.session.loggedIn) {
         res.sendFile(path.join(htmlPath + "/Watchlist.html"))

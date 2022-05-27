@@ -15,6 +15,7 @@ function capitalize(word) {
 function populateWatchlist() {
     $.get('/watchlist_items', (result) => {
         console.log(result);
+        if (result.length === 0) {$("#noItems").css("visibility", "visible")}
         result.forEach((item) => {
             console.log(item);
 
