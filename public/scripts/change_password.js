@@ -3,10 +3,10 @@
  */
 
 function changePassword() {
-    password = document.getElementById('new_password').value;
-    confirm_password = document.getElementById('confirm_password').value;
-    change_successful = document.getElementById('change_successful');
-    missmatch_warning = document.getElementById('missmatch');
+    let password = document.getElementById('new_password').value;
+    let confirm_password = document.getElementById('confirm_password').value;
+    let change_successful = document.getElementById('change_successful');
+    let missmatch_warning = document.getElementById('missmatch');
 
     if (password === confirm_password) {
         $.post('/change_password', {

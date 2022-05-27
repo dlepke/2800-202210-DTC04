@@ -3,15 +3,14 @@
  */
 
 function addItem() {
-    itemName = document.getElementById("item_name").value
-    itemPrice = document.getElementById("price").value
-    storeName = document.getElementById("store").value
-    avail = "available"
-    name_required = document.getElementById("name_required")
-    price_required = document.getElementById("price_required")
-    store_required = document.getElementById("store_required")
-    number_required = document.getElementById("number_required")
-    item_added_successfully = document.getElementById("item_added_successfully")
+    let itemName = document.getElementById("item_name").value
+    let itemPrice = document.getElementById("price").value
+    let storeName = document.getElementById("store").value
+    let name_required = document.getElementById("name_required")
+    let price_required = document.getElementById("price_required")
+    let store_required = document.getElementById("store_required")
+    let number_required = document.getElementById("number_required")
+    let item_added_successfully = document.getElementById("item_added_successfully")
 
     if (itemName.trim().length === 0) {
         price_required.style.visibility = "hidden";
