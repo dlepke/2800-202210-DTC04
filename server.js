@@ -220,7 +220,7 @@ function resetWatchlistDatabaseTable() {
 }
 
 // uncomment this function call if you want to ENTIRELY RESET all tables in the database with dummy values
-resetUserDatabaseTable();
+// resetUserDatabaseTable();
 
 /**
  * Checks the entered password and email combo to see if they are in the database.
