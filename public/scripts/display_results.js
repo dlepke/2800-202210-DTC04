@@ -1,6 +1,10 @@
-keyword = localStorage.getItem("keyword");
+let keyword = localStorage.getItem("keyword");
 console.log(keyword);
-search_by = null
+let search_by = null
+
+/**
+ * Check the keyword to know if the user search for items by name or category.
+ */
 
 function check_keyword() {
     if (keyword == "produce" || keyword == "dairy" || keyword == "meat" || keyword == "seafood" || keyword == "snack" || keyword == "bakery") {
@@ -12,19 +16,10 @@ function check_keyword() {
     }
 }
 
-// function fetch_item() {
-//     fetch('/search_item')
-//         .then(response => response.json())
-//         .then(data => {
-//             //console.log(data)
-//             data.forEach((item) => {
-//                 //console.log(item.price);
-//                 if (item.itemName == keyword.toLowerCase()) {
-//                     display_item(item);
-//                 }
-//             })
-//         });
-// }
+/**
+ * Fetch the items by name from the database.
+ * @param {string} keyword - A string reresenting the item name.
+ */
 
 function get_items_by_name(keyword) {
     $.ajax({
@@ -35,8 +30,12 @@ function get_items_by_name(keyword) {
         },
         success: process_items
     })
-    //$.get(`/search_item_by_name/${keyword}`, process_items(items))
 }
+
+/**
+ * Fetch the items by category from the database.
+ * @param {string} keyword - A string reresenting the items category.
+ */
 
 function get_items_by_category(keyword) {
     $.ajax({
@@ -47,27 +46,29 @@ function get_items_by_category(keyword) {
         },
         success: process_items
     })
-    // $.post('/search_item_by_category',
-    //     {
-    //         category: keyword
-    //     },
-    //     process_items(items))
 }
+
+/**
+ * Determine what to display on the webstie depent on the number of items retrieved from the database.
+ * @param {Object[]} items - The items fetched from the database.
+ */
 
 function process_items(items) {
     if (items.length == 0) {
         $("#results_display").append("<p id='no_product'><i>No product found</i></p>")
     } else {
-        //console.log(items);
         $("#results_display").empty();
-        for (count = 0; count < items.length; count++) {
+        for (let count = 0; count < items.length; count++) {
             display_item(items[count]);
         }
     }
 }
 
+/**
+ * Validate user input and search for items by name.
+ */
+
 function search_item() {
-    //keyword = $("#search_text").val();
     $("#error_message").remove();
     reset_filter();
     if ($("#search_text").val() == "") {
@@ -75,17 +76,18 @@ function search_item() {
     } else {
         localStorage.setItem("keyword", $("#search_text").val());
         keyword = localStorage.getItem("keyword");
-        //console.log($("#search_text").val());
         $("#results_display").empty();
-        //fetch_item();
         get_items_by_name(keyword);
         search_by = 'name'
     }
 }
 
+/**
+ * Display every item on the website.
+ * @param {Object} item - An object representing an item with details like name/price/location.
+ */
+
 function display_item(item) {
-    // console.log(item)
-    // console.log(item.itemid)
     $("#results_display").append(`<a href="/product/${item.itemid}"><div id=${item.itemid} class=items> 
     <div class="item_img"><img class ="pic" src="${item.img}"></div>
     <div class="item_info"><span>${capitalize(item.itemName)}</span><br>
@@ -94,12 +96,13 @@ function display_item(item) {
     </a><hr>`)
 }
 
+/**
+ * Fetch the items from database ascendingly by price.
+ */
+
 function apply_sort() {
-    select = document.getElementById("sort_options");
-    sort = select.options[select.selectedIndex].value;
-    //checkedValue = testing.filter(":checked").val();
-    //console.log(testing);
-    //console.log(sort);
+    let select = document.getElementById("sort_options");
+    let sort = select.options[select.selectedIndex].value;
     $.ajax({
         url: `https://dtc04-foodbuddy.herokuapp.com/apply_sort_${search_by}`,
         type: "post",
@@ -111,39 +114,42 @@ function apply_sort() {
     }).then(() => {
         $("#filter_form").css("display", "none");
     })
-    // $.post(`/apply_sort_${search_by}`,
-    //     {
-    //         key: keyword,
-    //         sort: sort
-    //     },
-    //     apply_filter(items)).then(()=>{
-    //         $("#filter_form").css("display", "none");
-    //     })
 }
+
+/**
+ * Filter the items by store or availability.
+ * @param {Object[]} data - The items fetched from the database.
+ */
 
 function apply_filter(data) {
     console.log(data);
     $("#results_display").empty();
-    availability = $("input[name=product_available]").filter(":checked").val();
-    store = $("input[name=store]").filter(":checked").val();
+    let availability = $("input[name=product_available]").filter(":checked").val();
+    let store = $("input[name=store]").filter(":checked").val();
     console.log(availability);
-    //console.log(availability == undefined);
-    for (count = 0; count < data.length; count++) {
+    for (let count = 0; count < data.length; count++) {
         if ((availability == data[count].itemAvailability || availability === undefined) && (store == data[count].brand.toLowerCase() || store == undefined)) {
             display_item(data[count]);
-            //console.log(data[count].itemAvailability == availability)
-            //console.log(availability === undefined)
         }
     }
 
 }
 
+/**
+ * Capitalize a word.
+ * @param {string} word - Any word.
+ * @returns {string} The capitalized word.
+ */
+
 function capitalize(word) {
     return word.charAt(0).toUpperCase() + word.slice(1);
 }
 
+/**
+ * Toggle the filter on and off when filter button is clicked.
+ */
+
 function toggle_filter() {
-    //console.log($("#filter_form").css("display"));
     if ($("#filter_form").css("display") == "none") {
         $("#filter_form").css("display", "");
     } else {
@@ -151,27 +157,20 @@ function toggle_filter() {
     }
 }
 
+/**
+ * Reset the filter form, clear out the checked radio buttons.
+ */
+
 function reset_filter() {
     $(".radio_buttons").prop("checked", false);
 }
-
-// function change_icon_color() {
-//     $("#search").css("color", "rgb(116, 173, 122)")
-//     $("#home").css("color", "rgb(129, 129, 129)")
-//     $("#watchlist").css("color", "rgb(129, 129, 129)")
-// }
 
 function setup() {
     $("#apply_filter").click(apply_sort);
     $("#toggle_filter").click(toggle_filter);
     $("#reset").click(reset_filter);
     $("#search_submit").click(search_item);
-    //fetch_item();
-    //change_icon_color();
     check_keyword();
 }
 
 $(document).ready(setup);
-
-//https://dtc04-foodbuddy.herokuapp.com/ 
-//https://dtc04-foodbuddy.herokuapp.com/

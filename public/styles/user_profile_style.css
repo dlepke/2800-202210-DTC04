@@ -42,7 +42,6 @@ main{
     border-radius: 50%;
     width: 100px;
     height: 100px;
-    /* background-color: lightgrey; */
     font-size: 100px;
 }
 
@@ -53,5 +52,11 @@ main{
 button{
     border: none;
     background-color: transparent;
+}
+
+.edit_profile {
+    color: black;
+    text-decoration: none;
+
 }
 

@@ -7,24 +7,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!------------------------------------------>
-    <!-- Bootstrap Library CSS JS CDN go here -->
-    <!------------------------------------------>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
         </script>
 
-    <!-------------------------------------------------------->
-    <!--Libraries related CSS, JS, JQuery go here -->
-    <!-------------------------------------------------------->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-
-    <!-------------------------------------------->
-    <!-- Other libraries and styles of your own -->
-    <!-------------------------------------------->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="../styles/results.css">
 
@@ -41,44 +31,41 @@
         </div>
         <button id="toggle_filter">Filter</button>
         <div id="filter_form" style="display: none;">
-            <label for="filter_sort">
-                <p><b>
-                    Filter By:
-                    </b>
-                </p>
-            </label>
+                <b>
+                        Filter By:
+                </b>
 
             <form id="filter_sort">
                 <div id="filter">
-                    <label for="availability">Product Availability</label>
+                    <div>Product Availability</div>
                     <div id="availability">
                         <div>
-                            <input type="radio" name="product_available" value="available" class="radio_buttons">
+                            <input id="available" type="radio" name="product_available" value="available" class="radio_buttons">
                             <label for="available">Available</label>
                         </div>
                     </div>
 
-                    <label for="store_options">Store</label>
+                    <div>Store</div>
                     <div id="store_options">
                         <div>
-                            <input type="radio" name="store" value="costco" class="radio_buttons">
-                            <label for="store">Costco</label>
+                            <input id="costco" type="radio" name="store" value="costco" class="radio_buttons">
+                            <label for="costco">Costco</label>
                         </div>
                         <div>
-                            <input type="radio" name="store" value="walmart" class="radio_buttons">
-                            <label for="store">Walmart</label>
+                            <input id="Walmart" type="radio" name="store" value="walmart" class="radio_buttons">
+                            <label for="Walmart">Walmart</label>
                         </div>
                         <div>
-                            <input type="radio" name="store" value="tnt" class="radio_buttons">
-                            <label for="store">T&T</label>
+                            <input id="TnT" type="radio" name="store" value="tnt" class="radio_buttons">
+                            <label for="TnT">T&T</label>
                         </div>
                         <div>
-                            <input type="radio" name="store" value="safeway" class="radio_buttons">
-                            <label for="store">Safeway</label>
+                            <input id="safeway" type="radio" name="store" value="safeway" class="radio_buttons">
+                            <label for="safeway">Safeway</label>
                         </div>
                         <div>
-                            <input type="radio" name="store" value="superstore" class="radio_buttons">
-                            <label for="store">Superstore</label>
+                            <input id="superstore" type="radio" name="store" value="superstore" class="radio_buttons">
+                            <label for="superstore">Superstore</label>
                         </div>
                     </div>
                 </div>
@@ -86,12 +73,10 @@
                 <br>
 
                 <div id="sort">
-                    <label for="sort_options">
-                        <p><b>
+                            <b>
                                 Sort By:
                             </b>
-                        </p>
-                    </label>
+
                     <select name="sort_options" id="sort_options">
                         <option value="price">Price</option>
                     </select>
@@ -106,21 +91,20 @@
             </form>
 
             <br>
-
-            
         </div>
-        <h5 id="result_text"><b>Results</b></h5><hr>
+
+        <h5 id="result_text"><b>Results</b></h5>
+        <hr>
         <div id="results_display">
 
         </div>
-        <div id="padding-footer"></div>
+        <div class="padding-footer"></div>
     </main>
     <nav id="footerPlaceholder"></nav>
-    <div id="padding-footer"></div>
+    <div class="padding-footer"></div>
 
     <script src="../scripts/skeleton.js"></script>
     <script src="../scripts/display_results.js"></script>
-
 </body>
 
 </html>

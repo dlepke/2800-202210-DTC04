@@ -1,40 +1,43 @@
-product = $("#name").text()
+let product = $("#name").text()
 console.log(product)
 
-function colorcode(availability){
-    if (availability == "available") {
-        $(".availability").css("color", "green")
-    } else if (availability == "unavailable") {
-        $(".availability").css("color", "red")
-    }
-}
+/**
+ * Capitalize a word.
+ * @param {string} word - Any word.
+ * @returns {string} The capitalized word.
+ */
+
 function capitalize(word) {
     return word.charAt(0).toUpperCase() + word.slice(1);
 }
 
-
+/**
+ * Fetch all the similar items from the database and display in 'Similar Product' section on the website.
+ */
 
 fetch(`/getallproducts/${product}`)
-.then(response => response.json())
-.then(data => {
-    console.log(data)
-    data.forEach((items) => {
-        $(document).ready(function() {
-            console.log(items.storeAddress)
-            
-            // colorcode(items.itemAvailability)
-            $("#others").append(
-            `
+    .then(response => response.json())
+    .then(data => {
+        console.log(data)
+        data.forEach((items) => {
+            $(document).ready(function () {
+                if (itemejsid != items.itemid) {
+                    $("#others").append(
+                        `
             <a class="links" href="/product/${items.itemid}">
                 <p style="margin-bottom: 0px"> <span class="availability"> ${items.itemAvailability} </span> for ${items.price} at ${items.brand} 
                 <i class="material-icons" style="float:right">navigate_next</i>
                 </p>
             </a>`)
-
-
+                }})
         })
-    })
-});
+    });
+
+/**
+ * Check if the item is on watchlist or not.
+ * @param {requestCallback} handleResult - The callback that return true if item is on watchlist and false the otherwise.
+ * @returns {boolean} Return true if item is on watchlist and false the otherwise.
+ */
 
 function isOnWatchlist(handleResult) {
     let itemid = document.location.href.split("product/")[1];
@@ -60,6 +63,10 @@ $(document).ready(() => {
     });
 })
 
+/**
+ * When button is clicked, add item to watchlist if item is not on watchlist, or remove item from watchlist if item is already on watchlist.
+ */
+
 function addOrRemoveFromWatchlist() {
     isOnWatchlist((isOnWatchlist) => {
         if (isOnWatchlist) {
@@ -70,9 +77,13 @@ function addOrRemoveFromWatchlist() {
     });
 }
 
+/**
+ * Add the item to watchlist in the database and change the icon to red indicating item is added.
+ */
+
 function addToWatchlist() {
     let itemid = document.location.href.split("product/")[1];
-    
+
     $.post('/add_to_watchlist', {
         itemid: itemid
     })
@@ -80,9 +91,13 @@ function addToWatchlist() {
     $("#favourite-button").css('color', 'red');
 }
 
+/**
+ * Remove the item from watchlist in database and change the icon color to grey indicating item is removed from watchlist.
+ */
+
 function removeFromWatchlist() {
     let itemid = document.location.href.split("product/")[1];
-    
+
     $.post('/remove_from_watchlist', {
         itemid: itemid
     })

@@ -2,33 +2,20 @@
 <html lang="en">
 
 <head>
-    <title>My BCIT Project</title>
+    <title>Update item</title>
 
-    <!------------------------>
-    <!-- Required meta tags -->
-    <!------------------------>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!------------------------------------------>
-    <!-- Bootstrap Library CSS JS CDN go here -->
-    <!------------------------------------------>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
         </script>
 
-    <!-------------------------------------------------------->
-    <!--Libraries related CSS, JS, JQuery go here -->
-    <!-------------------------------------------------------->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="../scripts/update_item.js"></script>
 
-
-    <!-------------------------------------------->
-    <!-- Other libraries and styles of your own -->
-    <!-------------------------------------------->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="../styles/update_item.css" rel="stylesheet">
 
@@ -36,48 +23,40 @@
 </head>
 
 <body class="container">
-    <!------------------------------>
-    <!-- Your HTML Layout go here -->
-    <!------------------------------>
 
-    <!-- our own navbar goes here -->
     <nav id="navbarPlaceholder"></nav>
 
-
     <main>
-
         <div id="item_info">
             <div id="name_required" style="visibility: hidden;">You must enter an item name!</div>
-            Item Name: <br>
+            *Item Name: <br>
             <input id="item_name" placeholder="Item Name">
-            <br>
-            <br>
+            
             <div id="store_required" style="visibility: hidden;">You must enter a store name!</div>
-            Store Name: <br>
+            *Store Name: <br>
             <input id="store" placeholder="Store Name">
-            <br>
-            <br>
+            
             <div id="new_price" style="visibility: hidden;">You must enter an item price!</div>
-            New Price (Dollars): <br>
-            <input id="price" placeholder="Price in Dollars">
-            <div id="number_required" style="visibility: hidden;">Item price must be a number!</div>
+            *New Price (Dollars): <br>
+            <input id="price" placeholder="$0.00" style="text-align:right;">
+            <div id="number_required" style="visibility: hidden;">Item price must be a valid number!</div>
         </div>
-        <div id="item_updated_successfully" style="visibility: hidden;">Item successfully updated!</div>
+        <div id="confirm_box" style="color:black; margin: 5px; padding: 5px;">
+            <p>Are all fields correct?</p>
+            <label for="confirm_yes">Yes</label>
+            <input name="confirm_option" type="radio" id="confirm_yes" value="yes">
+            <label for="confirm_no">No</label>
+            <input name="confirm_option" type="radio" id="confirm_no" value="no" checked="checked">
+        </div>
         <button id="update_item" onclick="updateItem()">Update Item</button>
-
+        <div id="item_updated_successfully" style="visibility: hidden;">Item successfully updated!</div>
+        <div id="confirmation_unsucessful" style="visibility: hidden;">You need to confirm the fields are correct!</div>
 
     </main>
 
-
-    <!-- our own footer goes here-->
     <nav id="footerPlaceholder"></nav>
 
-    <!---------------------------------------------->
-    <!-- Your own JavaScript functions go here    -->
-    <!---------------------------------------------->
-
     <script src="../scripts/skeleton.js"></script>
-    <!-- <script src="./scripts/script.js"></script> -->
 
 </body>
 

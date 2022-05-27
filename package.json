@@ -8,5 +8,26 @@
     "express-session": "^1.17.2",
     "mysql": "^2.18.1",
     "mysql2": "^2.3.3"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "lint": "eslint ."
+  },
+  "name": "2800-202210-dtc04",
+  "description": "FoodBuddy is an app created by DTC-04.",
+  "version": "1.0.0",
+  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dlepke/2800-202210-DTC04.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dlepke/2800-202210-DTC04/issues"
+  },
+  "homepage": "https://github.com/dlepke/2800-202210-DTC04#readme",
+  "devDependencies": {
+    "eslint": "^8.16.0"
   }
 }

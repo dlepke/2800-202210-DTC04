@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -16,7 +16,7 @@
         <main>
             <a href="/">User Login</a>
             <div id="logo">
-                <img src="../images/foodbuddy-logo-icononly.png" id="logo_icon">
+                <img src="../images/foodbuddy-logo-icononly.png" id="logo_icon" alt="FoodBuddy logo">
                 <p id="logo_text">FoodBuddy</p>
             </div>
             <p>Sign in to your admin account</p>
@@ -27,10 +27,12 @@
             <form id="signin_form" action="/authenticate_admin" method="post">
                 <input type="text" placeholder="Email" id="email" name="username">
                 <input type="password" placeholder="Password" id="password" name="password">
-                <button id="admin_submit" href="/authenticate_admin">Sign in</button>
+                <button id="admin_submit" onclick="window.location.href='/authenticate_admin'">Sign in</button>
+
             </form>
 
-            <div id="login-unsuccessful-warning" style="background-color: pink; border: solid 1px red; margin: 1%; padding: 1%;" hidden>
+            <div id="login-unsuccessful-warning"
+                style="background-color: pink; border: solid 1px red; margin: 1%; padding: 1%;" hidden>
                 Invalid username/password combination. Please try again.
             </div>
         </main>

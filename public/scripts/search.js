@@ -1,3 +1,7 @@
+/**
+ * Validate user input and display the items on the result page.
+ */
+
 function search_item() {
     $("#error_message").remove();
     if ($("#search_input").val() == "") {
@@ -8,22 +12,18 @@ function search_item() {
     }
 }
 
+/**
+ * When a category icon is clicked, display the items on the result page.
+ */
+
 function search_by_category() {
-    //console.log($(this).attr("id"));
     localStorage.setItem("keyword", $(this).attr("id"));
     window.location.href = "/results";
 }
 
-// function change_icon_color() {
-//     $("#home").css("color", "rgb(116, 173, 122)")
-//     $("#search").css("color", "rgb(129, 129, 129)")
-//     $("#watchlist").css("color", "rgb(129, 129, 129)")
-// }
-
 function setup() {
     $("#search_button").click(search_item);
-    $("body").on("click", ".icon", search_by_category);
-    //change_icon_color();
+    $("body").on("click", ".search-icon", search_by_category);
 }
 
 $(document).ready(setup);

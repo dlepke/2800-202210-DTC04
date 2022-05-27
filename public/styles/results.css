@@ -11,10 +11,8 @@ body{
 
 main{
     position: absolute;
-    /* top: 45px; */
     width: 90%;
     left: 5%;
-    
 }
 
 #search_text{
@@ -37,15 +35,11 @@ hr{
     margin: 10px;
 }
 
-/* #filter_form{
-    padding: 20px;
-} */
-
 #results_display a{
     text-decoration: none;
 }
 
-#padding-footer{
+.padding-footer{
     height: 50px;
 }
 
@@ -58,7 +52,6 @@ hr{
 input{
     border-radius: 0.5rem;
     border: none;
-
 }
 
 #toggle_filter, #reset{

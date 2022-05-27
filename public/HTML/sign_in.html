@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -18,7 +18,7 @@
             <a href="/admin">Admin Login</a>
 
             <div id="logo">
-                <img src="../images/foodbuddy-logo-icononly.png" id="logo_icon" class="animation animate">
+                <img src="../images/foodbuddy-logo-icononly.png" id="logo_icon" class="animation animate" alt="FoodBuddy logo">
                 <p id="logo_text" class="animation animate2">FoodBuddy</p>
             </div>
             <p>Sign in to your account</p>
@@ -27,26 +27,27 @@
                 <a href="/create_account">Sign up</a>
             </div>
             <form id="signin_form" action="/authenticate" method="post">
-                <input type="text" placeholder="Email" id="email" name="username">
+                <input type="email" placeholder="Email" id="email" name="username">
                 <input type="password" placeholder="Password" id="password" name="password">
                 <button id="signin_submit">Sign in</button>
             </form>
-            <div id="login-unsuccessful-warning" style="background-color: pink; border: solid 1px red; margin: 1%; padding: 1%;" hidden>
+            <div id="login-unsuccessful-warning"
+                style="background-color: pink; border: solid 1px red; margin: 1%; padding: 1%;" hidden>
                 Invalid username/password combination.
             </div>
         </main>
     </div>
-    
+
     <script src="../scripts/easter_egg.js"></script>
     <script>
-        // console.log("current location: ", document.location.href);
 
         let previouslyFailed = document.location.href.split("loginfailed=")[1];
 
-        // console.log("previously failed? ", previouslyFailed);
-
         if (previouslyFailed === "true") {
             document.getElementById("login-unsuccessful-warning").hidden = false;
+            $("#email").css({ "border": '#FF0000 1px solid'});
+            $("#password").css({ "border": '#FF0000 1px solid'});
+
         }
     </script>
 </body>

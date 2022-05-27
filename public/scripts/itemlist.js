@@ -1,3 +1,7 @@
+/**
+ * Fetch all the items from the database to display as list of items.
+ */
+
 fetch('/all_items')
 .then(response => response.json())
 .then(data => {
