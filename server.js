@@ -52,11 +52,15 @@ app.get('/', function (req, res) {
     res.sendFile(path.join(htmlPath + '/search.html'));
 });
 
+app.get("/login", (req, res) => {
+    res.sendFile(path.join(htmlPath + '/sign_in.html'));
+})
+
 app.get("/profile", function (req, res) {
     if (req.session.loggedIn) {
         res.sendFile(path.join(htmlPath + '/user_profile.html'));
     } else {
-        res.redirect('/');
+        res.redirect('/login');
     }
 });
 
@@ -272,7 +276,11 @@ app.get("/logout", (req, res) => {
 });
 
 app.get("/create_account", (req, res) => {
-    res.sendFile(path.join(htmlPath + '/create_account.html'));
+    if (req.session.loggedIn) {
+        res.redirect('/');
+    } else {
+        res.sendFile(path.join(htmlPath + '/create_account.html'));
+    }
 });
 
 /**
@@ -404,7 +412,7 @@ app.post('/authenticate_admin',
 );
 
 /**
- *Gets all users from "users" database.
+ * Gets all users from "users" database.
  * @callback handleResult callback function
  */
 function fetchAccounts(handleResult) {
@@ -581,7 +589,7 @@ app.get('/watchlist', (req, res) => {
     if (req.session.loggedIn) {
         res.sendFile(path.join(htmlPath + "/Watchlist.html"))
     } else {
-        res.redirect('/');
+        res.redirect('/login');
     }
 })
 
