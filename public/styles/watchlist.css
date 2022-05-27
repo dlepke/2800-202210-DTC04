@@ -10,11 +10,7 @@ h1 {
 
 #items {
     display: grid;
-    /* grid-template: auto / auto auto; */
     grid-template-columns: 50% 50%;
-    /* grid-template-rows: 50% 50%; */
-    
-
 }
 
 .product_img img {
