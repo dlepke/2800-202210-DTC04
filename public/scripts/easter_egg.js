@@ -43,6 +43,9 @@ function switchpics() {
     }
 }
 
+/**
+ * Sets up the Easter Egg to change to the next animation on click
+ */
 function setup() {
     $(".animation").click(function () {
         setTimeout(switchpics, 500)

@@ -8,6 +8,9 @@ function loadSkeleton(){
     $('#footerPlaceholder').load('../text/footer.html');
 }
 
+/**
+ * loads the navbar and footer skeletons.
+ */
 function setup(){
     loadSkeleton(); 
 }
