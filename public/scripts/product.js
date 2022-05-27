@@ -1,4 +1,4 @@
-product = $("#name").text()
+let product = $("#name").text()
 console.log(product)
 
 /**

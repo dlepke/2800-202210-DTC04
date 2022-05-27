@@ -42,18 +42,12 @@ body {
     clear: both;
  }
 
-/* ----------- */
-/* Footer */
-/* ----------- */
-
-/* Footer spacing */
 .flexfooter {
     display: flex;
     justify-content: space-evenly;
     padding: 3px;
 }
 
-/* Bottom icons text centering if bottom text to be implemented */
 .icon {
     display: flex;
     padding-top: 3px;
@@ -63,7 +57,7 @@ body {
     size: small;
     text-align: center;
     margin: auto;
-    color: rgb(129, 129, 129); 
+    color: rgb(129, 129, 129);
 }
 
 .navbar .container {
@@ -77,8 +71,6 @@ body {
     width: 90px;
     align-self: center;
     position: relative;
-    /* left: 50%; */
-    /* height: 100%; */
     border-radius:0em !important;
     box-shadow: none;
 }
@@ -96,71 +88,66 @@ body {
 header {
     height: 15%;
 }
+
 body{
     position: relative;
     background-color: rgb(252, 247, 236);
-    
 }
 
-  /* The side navigation menu */
+/* The following CSS was taken from the side navigation tutorial on W3Schools (linked in README) */
 .sidenav {
-    height: 100%; /* 100% Full-height */
-    width: 0; /* 0 width - change this with JavaScript */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Stay on top */
-    top: 0; /* Stay at the top */
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
     left: 0;
-    background-color: rgb(116, 173, 122); /* Black*/
-    overflow-x: hidden; /* Disable horizontal scroll */
-    padding-top: 60px; /* Place content 60px from the top */
-    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
-  }
-  
-  /* The navigation menu links */
-  .sidenav a {
+    background-color: rgb(116, 173, 122);
+    overflow-x: hidden;
+    padding-top: 60px;
+    transition: 0.5s;
+}
+
+.sidenav a {
     padding: 8px 8px 8px 32px;
     text-decoration: none;
     font-size: 25px;
     display: block;
     color: floralwhite;
     transition: 0.3s;
-  }
-  
-  /* When you mouse over the navigation links, change their color */
-  .sidenav a:hover {
+}
+
+.sidenav a:hover {
     color: #f1f1f1;
-  }
-  
-  /* Position and style the close button (top right corner) */
-  .sidenav .closebtn {
+}
+
+.sidenav .closebtn {
     position: absolute;
     top: 0;
     right: 25px;
     font-size: 36px;
     margin-left: 50px;
-  }
-  
-  /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
-  #main {
+}
+
+#main {
     transition: margin-left .5s;
     padding: 20px;
-  }
-  
-  #hamburger-menu{
-    margin: 0px;
-  }
+}
 
-  /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
-  @media screen and (max-height: 450px) {
+#hamburger-menu{
+    margin: 0px;
+}
+
+@media screen and (max-height: 450px) {
     .sidenav {padding-top: 15px;}
     .sidenav a {font-size: 18px;}
-  }
+}
 
-  #sign-in-link {
-      text-decoration: none;
-      color: black;
-      background-color:white;
-      border: 1px solid black;
-      padding: 0px 5px 0px 5px;
-      border-radius: 8px;
-  }
+#sign-in-link {
+    text-decoration: none;
+    color: black;
+    background-color:white;
+    border: 1px solid black;
+    padding: 0px 5px 0px 5px;
+    border-radius: 8px;
+}

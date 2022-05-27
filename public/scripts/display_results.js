@@ -1,6 +1,6 @@
-keyword = localStorage.getItem("keyword");
+let keyword = localStorage.getItem("keyword");
 console.log(keyword);
-search_by = null
+let search_by = null
 
 /**
  * Check the keyword to know if the user search for items by name or category.
@@ -58,7 +58,7 @@ function process_items(items) {
         $("#results_display").append("<p id='no_product'><i>No product found</i></p>")
     } else {
         $("#results_display").empty();
-        for (count = 0; count < items.length; count++) {
+        for (let count = 0; count < items.length; count++) {
             display_item(items[count]);
         }
     }
@@ -101,8 +101,8 @@ function display_item(item) {
  */
 
 function apply_sort() {
-    select = document.getElementById("sort_options");
-    sort = select.options[select.selectedIndex].value;
+    let select = document.getElementById("sort_options");
+    let sort = select.options[select.selectedIndex].value;
     $.ajax({
         url: `https://dtc04-foodbuddy.herokuapp.com/apply_sort_${search_by}`,
         type: "post",
@@ -124,10 +124,10 @@ function apply_sort() {
 function apply_filter(data) {
     console.log(data);
     $("#results_display").empty();
-    availability = $("input[name=product_available]").filter(":checked").val();
-    store = $("input[name=store]").filter(":checked").val();
+    let availability = $("input[name=product_available]").filter(":checked").val();
+    let store = $("input[name=store]").filter(":checked").val();
     console.log(availability);
-    for (count = 0; count < data.length; count++) {
+    for (let count = 0; count < data.length; count++) {
         if ((availability == data[count].itemAvailability || availability === undefined) && (store == data[count].brand.toLowerCase() || store == undefined)) {
             display_item(data[count]);
         }
